@@ -1,0 +1,174 @@
+/* app wide styles */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    font-family: 'Lato',sans-serif;
+}
+hr{
+    border-top: .2px solid #bbb;
+}
+
+.nwa-green-text {
+    color: #006837;
+}
+
+.nwa-box-wrapper {
+    position: relative;
+    padding: 5px;
+    border: 1pt solid #bbb;
+    box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
+}
+
+/* main wrapper styles ******************************************/
+.nwa-header-wrapper{
+    margin-bottom: 10px;
+}
+.nwa-header-wrapper h1{
+    margin: 5px 0px;
+}
+.nwa-header-wrapper div{
+    font-size: 16px;
+}
+
+.main-site-wrapper{
+    margin: auto;
+    width: 1000px;
+    padding: 10px;
+    position: relative;
+    margin: auto;
+}
+.nwa-intervention-cb-header-wrapper{
+    display: flex; align-items: center;
+}
+.nwa-intervention-info-icon{
+    margin-top: 7px; margin-left: 3px;
+}
+.nwa-intervention-info-icon:hover{
+    cursor: pointer;
+}
+.nwa-intervention-cb-header-wrapper h3{
+    margin: 3px;
+}
+.nwa-main-content-wrapper {
+    /* width: 1000px;
+    padding: 10px;
+    position: relative;
+    margin: auto; */
+    display: flex;
+    flex-direction: row-reverse;
+}
+.nwa-main-cb-wrapper {
+    width: 254px; 
+}
+.nwa-intervention-main-cb{
+    display: flex;
+}
+.nwa-intervention-main-2-cb{
+    border-left: .2px solid #bbb;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+
+
+/* map wrapper area ********************************************/
+
+.nwa-map-wrapper{
+    height: 435px;
+    width: 80%;
+    margin-left: 10px;
+}
+
+/* map styles */
+
+.nwa-countries{
+    fill: rgb(120, 198, 121);
+    stroke:#fff; 
+    stroke-linejoin: round;
+}
+.nwa-countries:hover{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* styleguide styles **********************************************/
+
+.form-component {
+    position: relative;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.form-component input[type=checkbox]:checked,
+.form-component input[type=radio]:checked {
+    display: none;
+}
+
+.form-component input[type=checkbox],
+.form-component input[type=radio] {
+    display: none;
+}
+.form-component input[type=checkbox]:checked~.check,
+.form-component input[type=radio]:checked~.check {
+    background: #31a354;
+    background: linear-gradient(180deg, hsla(0, 0%, 100%, .1), hsla(0, 0%, 100%, 0)) 0 no-repeat,
+    50% no-repeat #31a354;
+    border-color: rgba(16, 22, 26, .1) rgba(16, 22, 26, .1) rgba(16, 22, 26, .3);
+}
+
+.form-component input[type=checkbox]~.check,
+.form-component input[type=radio]~.check {
+    border-radius: 3px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(180deg, #fff, hsla(0, 0%, 100%, 0)) 0 no-repeat, 50% no-repeat #f5f8fa;
+    border: 1px solid;
+    border-color: rgba(16, 22, 26, .1) rgba(16, 22, 26, .1) rgba(16, 22, 26, .17);
+    box-shadow: 0 1px 1px rgba(16, 22, 26, .1);
+    cursor: pointer;
+    margin-right: 2px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+}
+.form-component .form-text {
+    cursor: pointer;
+}
+
+*,
+:after,
+:before {
+    box-sizing: inherit;
+}
+
+*,
+:after,
+:before {
+    box-sizing: inherit;
+}
+.form-component input[type=checkbox]:checked~.check:after,
+.form-component input[type=radio]:checked~.check:after {
+    display: inline-block;
+    width: 3px;
+    height:7px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+}

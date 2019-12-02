@@ -1,18 +1,4 @@
-app = {};
 
-// click events
-
-// info icon click
-$(".nwa-intervention-info-icon").on("click", evt => {
-  // toggle info icon based on element visibility
-  if ($($(".nwa-intervention-info-icon img")[0]).is(":hidden")) {
-    $($(".nwa-intervention-info-icon img")[0]).show();
-    $($(".nwa-intervention-info-icon img")[1]).hide();
-  } else {
-    $($(".nwa-intervention-info-icon img")[0]).hide();
-    $($(".nwa-intervention-info-icon img")[1]).show();
-  }
-});
 
 $(document).ready(function() {
   // National map setup
@@ -43,7 +29,7 @@ $(document).ready(function() {
     // .defer(d3.json, "data/world.geo.json") // Load world geojson
     .defer(d3.json, "data/world.topo.json") // Load world geojson
     // .defer(d3.json, "data/us.json") // Load world geojson
-    .defer(d3.csv, "data/ncs-world-atlas-data-3.csv") // Load world csv data
+    .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
   // Ready Function, handle data once loaded
@@ -61,6 +47,7 @@ $(document).ready(function() {
       ]);
 
     app.countryData = data;
+    console.log(app.countryData)
     // Check for error
     if (error) throw error;
 
@@ -113,11 +100,31 @@ $(document).ready(function() {
     d3.selectAll(".nwa-countries")
       .transition()
       .style("fill", function(d) {
-        console.log(d);
+        // console.log(d);
         if (d.properties.brk_a3 == "AUS") {
           console.log("look here");
           return stColor(1000);
         }
       });
+
+    function buildCountryCarbonObject(params) {}
+
+    // click events
+
+    $(".nwa-intervention-main-cb input").on("click", evt => {
+      console.log(evt);
+    });
+
+    // info icon click
+    $(".nwa-intervention-info-icon").on("click", evt => {
+      // toggle info icon based on element visibility
+      if ($($(".nwa-intervention-info-icon img")[0]).is(":hidden")) {
+        $($(".nwa-intervention-info-icon img")[0]).show();
+        $($(".nwa-intervention-info-icon img")[1]).hide();
+      } else {
+        $($(".nwa-intervention-info-icon img")[0]).hide();
+        $($(".nwa-intervention-info-icon img")[1]).show();
+      }
+    });
   }
 });

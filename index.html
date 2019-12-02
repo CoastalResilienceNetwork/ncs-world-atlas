@@ -11,6 +11,8 @@
     <script src="https://d3js.org/topojson.v2.min.js"></script>
     <script src="https://d3js.org/d3-queue.v2.min.js"></script>
     <script src="js/geostats.min.js"></script>
+    <script>app = {};</script>
+    <script src="js/variables.js"></script>
     <script src="js/main.js"></script>
 </head>
 
@@ -35,25 +37,25 @@
                 <div class="nwa-intervention-main-cb">
                     <div class="nwa-intervention-main-1-cb">
                         <label class="form-component" for="a-option">
-                            <input checked type="checkbox" id="a-option" name="food">
+                            <input checked type="checkbox" id="a-option" name="food" value="all-pathways">
                             <div class="check"></div>
                             <span class="form-text">All Pathways</span>
                         </label>
                         <hr style="width:85%">
                         <label class="form-component disabled" for="b-option">
-                            <input type="checkbox" id="b-option" name="food">
+                            <input type="checkbox" id="b-option" name="food" value="protect">
                             <div class="check"></div>
                             <span class="form-text">Protect</span>
                         </label>
                         <br>
                         <label class="form-component" for="c-option">
-                            <input type="checkbox" id="c-option" name="food">
+                            <input type="checkbox" id="c-option" name="food" value="manage">
                             <div class="check"></div>
                             <span class="form-text">Manage</span>
                         </label>
                         <br>
                         <label class="form-component" for="d-option">
-                            <input type="checkbox" id="d-option" name="food">
+                            <input type="checkbox" id="d-option" name="food" value="restore">
                             <div class="check"></div>
                             <span class="form-text">Restore</span>
                         </label>

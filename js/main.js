@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
   // National map setup
   // SVG width and height for national map
@@ -47,7 +45,7 @@ $(document).ready(function() {
       ]);
 
     app.countryData = data;
-    console.log(app.countryData)
+    console.log(app.countryData);
     // Check for error
     if (error) throw error;
 
@@ -55,17 +53,13 @@ $(document).ready(function() {
     function countryClick(evt) {
       //   console.log("click", evt);
     }
+
     function countryOver(evt) {
-      //   console.log(evt);
-      // var cs = this;
-      // $.each(app.countryData, function (i, v) {
-      //     if (evt.properties.iso_a3 == v.AlphaISO) {
-      //         d3.select(this).style("fill", "#88b8b8");
-      //     }
-      // })
+      app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
+      d3.select(this).style("fill", "#88b8b8");
     }
     function countryOut(evt) {
-      // console.log('out', evt)
+      d3.select(this).style("fill", app.hoverRGB);
     }
 
     // National map - append a group to SVG and bind TopoJSON data elements (states)
@@ -96,23 +90,14 @@ $(document).ready(function() {
     // call zoom on the world svg
     worldSvg.call(zoom);
 
-    // State map
-    d3.selectAll(".nwa-countries")
-      .transition()
-      .style("fill", function(d) {
-        // console.log(d);
-        if (d.properties.brk_a3 == "AUS") {
-          console.log("look here");
-          return stColor(1000);
-        }
-      });
-
-    function buildCountryCarbonObject(params) {}
-
     // click events
-
     $(".nwa-intervention-main-cb input").on("click", evt => {
       console.log(evt);
+    });
+
+    // on click/change of individual intervention check boxes
+    $(".nwa-intervention-sub-cb input").on("click", evt => {
+      createArrayOfFieldsFromCBs();
     });
 
     // info icon click
@@ -126,5 +111,58 @@ $(document).ready(function() {
         $($(".nwa-intervention-info-icon img")[1]).show();
       }
     });
+
+    // check to see what check boxes are checked and make an array of the column id's
+    function createArrayOfFieldsFromCBs() {
+      let columnArray = [];
+      $.each($(".nwa-intervention-sub-cb input"), (i, v) => {
+        if (v.checked) {
+          columnArray.push(parseInt(v.value));
+        }
+      });
+      buildCountryCarbonObject(columnArray);
+    }
+
+    // take the column id arrays and add all tons of carbon based on the column checked
+    // also add the country name and iso value to the object
+    function buildCountryCarbonObject(columnArray) {
+      app.countryValues = {};
+      $.each(app.countryData, (i, v) => {
+        app.countryValues[v.AlphaISO] = { value: 0, countryName: "" };
+      });
+
+      // for each item checked, loop through country data and add value to a master object
+      $.each(columnArray, (i, id) => {
+        id = app.countryData.columns[id];
+        $.each(app.countryData, (i, v) => {
+          let val = parseFloat(v[id]);
+          if (Number.isNaN(val)) {
+            val = 0;
+          }
+          app.countryValues[v.AlphaISO]["value"] += val;
+          app.countryValues[v.AlphaISO]["countryName"] = v.Country;
+        });
+      });
+
+      console.log(app.countryValues);
+      updateChloroplethMap(app.countryValues);
+    }
+
+    // chnage the color of each country based on total carbon value
+    function updateChloroplethMap(countryValues) {
+      d3.selectAll(".nwa-countries")
+        .transition()
+        .style("fill", function(d) {
+          if (app.countryValues[d.properties.brk_a3] == undefined) {
+            app.countryValues[d.properties.brk_a3] = 0;
+          }
+          if (app.countryValues[d.properties.brk_a3].value != 0) {
+            return stColor(app.countryValues[d.properties.brk_a3].value);
+          }
+        });
+    }
+
+    // call this function once to build the column array and populate the chloropleth map at the load of the site
+    createArrayOfFieldsFromCBs();
   }
 });

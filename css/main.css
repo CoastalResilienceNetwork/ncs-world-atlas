@@ -60,7 +60,7 @@ hr{
     flex-direction: row-reverse;
 }
 .nwa-main-cb-wrapper {
-    width: 254px; 
+    width: 275px; 
 }
 .nwa-intervention-main-cb{
     display: flex;
@@ -85,7 +85,7 @@ hr{
 /* map styles */
 
 .nwa-countries{
-    fill: rgb(120, 198, 121);
+    fill: rgb(161, 161, 161);
     stroke:#fff; 
     stroke-linejoin: round;
 }

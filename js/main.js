@@ -133,6 +133,9 @@ $(document).ready(function() {
 
       // for each item checked, loop through country data and add value to a master object
       $.each(columnArray, (i, id) => {
+        if (true) {
+          id = id + 1;
+        }
         id = app.countryData.columns[id];
         $.each(app.countryData, (i, v) => {
           let val = parseFloat(v[id]);
@@ -143,7 +146,6 @@ $(document).ready(function() {
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
         });
       });
-
       console.log(app.countryValues);
       updateChloroplethMap(app.countryValues);
     }
@@ -153,11 +155,11 @@ $(document).ready(function() {
       d3.selectAll(".nwa-countries")
         .transition()
         .style("fill", function(d) {
-          if (app.countryValues[d.properties.brk_a3] == undefined) {
-            app.countryValues[d.properties.brk_a3] = 0;
+          if (app.countryValues[d.properties.iso_a3] == undefined) {
+            app.countryValues[d.properties.iso_a3] = 0;
           }
-          if (app.countryValues[d.properties.brk_a3].value != 0) {
-            return stColor(app.countryValues[d.properties.brk_a3].value);
+          if (app.countryValues[d.properties.iso_a3].value != 0) {
+            return stColor(app.countryValues[d.properties.iso_a3].value);
           }
         });
     }

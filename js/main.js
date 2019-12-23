@@ -34,15 +34,30 @@ $(document).ready(function() {
   function ready(error, geojson, data) {
     var stColor = d3
       .scaleThreshold()
-      .domain([0, 20, 40, 60, 80, 100])
-      .range([
-        "#dedede",
-        "#d9f0a3",
-        "#addd8e",
-        "#78c679",
-        "#31a354",
-        "#006837"
-      ]);
+      .domain([0, 10, 20, 30, 40,50,60,70,80,90,100])
+      .range(
+        //   [
+        //   "#dedede",
+        //   "#d9f0a3",
+        //   "#addd8e",
+        //   "#78c679",
+        //   "#31a354",
+        //   "#006837",
+        // ]
+        [
+          "#dedede",
+          "#d9f0a3",
+          "#c0e097",
+          "#a8d18b",
+          "#90c27f",
+          "#78b373",
+          "#60a467",
+          "#48955b",
+          "#30864f",
+          "#187743",
+          "#006837"
+        ]
+      );
 
     app.countryData = data;
     console.log(app.countryData);

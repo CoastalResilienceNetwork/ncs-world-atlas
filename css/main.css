@@ -1,174 +1,329 @@
 /* app wide styles */
 html,
 body {
-    margin: 0;
-    padding: 0;
-    font-size: 13px;
-    font-family: 'Lato',sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-family: "Lato", sans-serif;
 }
-hr{
-    border-top: .2px solid #bbb;
+hr {
+  border-top: 0.2px solid #bbb;
 }
 
 .nwa-green-text {
-    color: #006837;
+  color: #006837;
 }
 
 .nwa-box-wrapper {
-    position: relative;
-    padding: 5px;
-    border: 1pt solid #bbb;
-    box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
+  position: relative;
+  padding: 5px;
+  border: 1pt solid #bbb;
+  box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
 }
 
 /* main wrapper styles ******************************************/
-.nwa-header-wrapper{
-    margin-bottom: 10px;
+.nwa-header-wrapper {
+  margin-bottom: 10px;
 }
-.nwa-header-wrapper h1{
-    margin: 5px 0px;
+.nwa-header-wrapper h1 {
+  margin: 5px 0px;
 }
-.nwa-header-wrapper div{
-    font-size: 16px;
+.nwa-header-wrapper div {
+  font-size: 16px;
 }
 
-.main-site-wrapper{
-    margin: auto;
-    width: 1000px;
-    padding: 10px;
-    position: relative;
-    margin: auto;
+.main-site-wrapper {
+  margin: auto;
+  width: 1000px;
+  padding: 10px;
+  position: relative;
+  margin: auto;
 }
-.nwa-intervention-cb-header-wrapper{
-    display: flex; align-items: center;
+.nwa-intervention-cb-header-wrapper {
+  display: flex;
+  align-items: center;
 }
-.nwa-intervention-info-icon{
-    margin-top: 7px; margin-left: 3px;
+.nwa-intervention-info-icon {
+  margin-top: 7px;
+  margin-left: 3px;
 }
-.nwa-intervention-info-icon:hover{
-    cursor: pointer;
+.nwa-intervention-info-icon:hover {
+  cursor: pointer;
 }
-.nwa-intervention-cb-header-wrapper h3{
-    margin: 3px;
+.nwa-intervention-cb-header-wrapper h3 {
+  margin: 3px;
 }
 .nwa-main-content-wrapper {
-    /* width: 1000px;
+  /* width: 1000px;
     padding: 10px;
     position: relative;
     margin: auto; */
-    display: flex;
-    flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row-reverse;
 }
 .nwa-main-cb-wrapper {
-    width: 275px; 
+  width: 275px;
 }
-.nwa-intervention-main-cb{
-    display: flex;
+.nwa-intervention-main-cb {
+  display: flex;
 }
-.nwa-intervention-main-2-cb{
-    border-left: .2px solid #bbb;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
+.nwa-intervention-main-2-cb {
+  border-left: 0.2px solid #bbb;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
 }
-
-
 
 /* map wrapper area ********************************************/
 
-.nwa-map-wrapper{
-    height: 435px;
-    width: 80%;
-    margin-left: 10px;
+.nwa-map-wrapper {
+  height: 486px;
+  width: 80%;
+  margin-left: 10px;
 }
-
+.nwa-map-wrapper:hover {
+  cursor: all-scroll;
+}
 /* map styles */
 
-.nwa-countries{
-    fill: rgb(161, 161, 161);
-    stroke:#fff; 
-    stroke-linejoin: round;
+.nwa-countries {
+  fill: rgb(161, 161, 161);
+  stroke: #fff;
+  stroke-linejoin: round;
 }
-.nwa-countries:hover{
-    cursor: pointer;
+.nwa-countries:hover {
+  cursor: pointer;
 }
 
+/* legend styles */
 
+.nwa-legend-bar {
+  background-image: linear-gradient(
+    to right,
+    #d9f0a3,
+    #c7e499,
+    #b4d990,
+    #a2cd87,
+    #90c27e,
+    #80b775,
+    #6fab6c,
+    #5fa063,
+    #4c9257,
+    #39844c,
+    #237641,
+    #006837
+  );
+  height: 20px;
+  width: 200px;
+  border: 1px solid rgba(0, 20, 0, 0.4);
+}
+.nwa-legend-wrapper {
+  /* position: absolute;
+    top: 300px; */
+  margin-top: 439px;
+  margin-left: 27%;
+  position: absolute;
+  width: 200px;
+  text-align: center;
+}
+.nwa-legend-text {
+  display: flex;
+}
+.nwa-legend-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
 
+/* metric area styles */
+.nwa-metrics-wrapper {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.nwa-large-metric {
+  font-size: 35px;
+  color: #006837;
+}
 
+.nwa-metric-sub-title {
+  font-size: 18px;
+}
+.nwa-metric-units {
+  font-size: 14px;
+}
 
+/* styles for global indicators */
 
+.nwa-global-indicators-wrapper {
+  height: 100px;
+  width: 700px;
+  margin-left: 297px;
+  margin-top: -99px;
+  position: relative;
+  padding: 5px;
+  border: 1pt solid #bbb;
+  box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
+}
 
-
-
-
+/* media queries */
+@media screen and (max-width: 1000px) {
+  /* body {
+    background-color: lightgreen;
+  } */
+  /* .main-site-wrapper {
+    width: 850px;
+  } */
+  /* .nwa-global-indicators-wrapper {
+    width: 540px;
+  } */
+}
+@media screen and (max-width: 1000px) {
+  .main-site-wrapper {
+    width: 90%;
+  }
+  .nwa-main-content-wrapper {
+    display: block;
+    width: 90%;
+  }
+  .nwa-header-wrapper {
+    text-align: center;
+  }
+  .nwa-map-wrapper {
+    width: 90%;
+    height: 325px;
+    margin-left: 0px;
+  }
+  .nwa-metrics-wrapper {
+    margin-top: 0;
+    width: 90%;
+  }
+  .nwa-main-cb-wrapper {
+    margin: auto;
+  }
+  .nwa-header-wrapper div {
+    width: 90%;
+  }
+  .nwa-legend-wrapper {
+    margin-top: 273px;
+    width: 160px;
+  }
+  .nwa-legend-bar {
+    height: 10px;
+    width: 160px;
+  }
+  .nwa-global-indicators-wrapper {
+    margin: auto;
+    margin-top: 10px;
+    width: 90%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .main-site-wrapper {
+    width: 400px;
+  }
+  .nwa-header-wrapper h1 {
+    width: 400px;
+    font-size: 23px;
+  }
+  .nwa-main-content-wrapper {
+    display: block;
+    width: 400px;
+  }
+  .nwa-header-wrapper div {
+    width: 400px;
+  }
+  .nwa-map-wrapper {
+    width: 400px;
+    height: 325px;
+    margin-left: 0px;
+  }
+  .nwa-legend-wrapper {
+    margin-top: 272px;
+    width: 160px;
+  }
+  .nwa-metrics-wrapper {
+    width: 400px;
+  }
+  .nwa-global-indicators-wrapper {
+    width: 400px;
+  }
+}
 
 /* styleguide styles **********************************************/
 
 .form-component {
-    position: relative;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
 }
 
-.form-component input[type=checkbox]:checked,
-.form-component input[type=radio]:checked {
-    display: none;
+.form-component input[type="checkbox"]:checked,
+.form-component input[type="radio"]:checked {
+  display: none;
 }
 
-.form-component input[type=checkbox],
-.form-component input[type=radio] {
-    display: none;
+.form-component input[type="checkbox"],
+.form-component input[type="radio"] {
+  display: none;
 }
-.form-component input[type=checkbox]:checked~.check,
-.form-component input[type=radio]:checked~.check {
-    background: #31a354;
-    background: linear-gradient(180deg, hsla(0, 0%, 100%, .1), hsla(0, 0%, 100%, 0)) 0 no-repeat,
+.form-component input[type="checkbox"]:checked ~ .check,
+.form-component input[type="radio"]:checked ~ .check {
+  background: #31a354;
+  background: linear-gradient(
+        180deg,
+        hsla(0, 0%, 100%, 0.1),
+        hsla(0, 0%, 100%, 0)
+      )
+      0 no-repeat,
     50% no-repeat #31a354;
-    border-color: rgba(16, 22, 26, .1) rgba(16, 22, 26, .1) rgba(16, 22, 26, .3);
+  border-color: rgba(16, 22, 26, 0.1) rgba(16, 22, 26, 0.1)
+    rgba(16, 22, 26, 0.3);
 }
 
-.form-component input[type=checkbox]~.check,
-.form-component input[type=radio]~.check {
-    border-radius: 3px;
-    width: 12px;
-    height: 12px;
-    background: linear-gradient(180deg, #fff, hsla(0, 0%, 100%, 0)) 0 no-repeat, 50% no-repeat #f5f8fa;
-    border: 1px solid;
-    border-color: rgba(16, 22, 26, .1) rgba(16, 22, 26, .1) rgba(16, 22, 26, .17);
-    box-shadow: 0 1px 1px rgba(16, 22, 26, .1);
-    cursor: pointer;
-    margin-right: 2px;
-    display: inline-block;
-    position: relative;
-    top: 3px;
+.form-component input[type="checkbox"] ~ .check,
+.form-component input[type="radio"] ~ .check {
+  border-radius: 3px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(180deg, #fff, hsla(0, 0%, 100%, 0)) 0 no-repeat,
+    50% no-repeat #f5f8fa;
+  border: 1px solid;
+  border-color: rgba(16, 22, 26, 0.1) rgba(16, 22, 26, 0.1)
+    rgba(16, 22, 26, 0.17);
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.1);
+  cursor: pointer;
+  margin-right: 2px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
 }
 .form-component .form-text {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 *,
 :after,
 :before {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 *,
 :after,
 :before {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
-.form-component input[type=checkbox]:checked~.check:after,
-.form-component input[type=radio]:checked~.check:after {
-    display: inline-block;
-    width: 3px;
-    height:7px;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 1px;
+.form-component input[type="checkbox"]:checked ~ .check:after,
+.form-component input[type="radio"]:checked ~ .check:after {
+  display: inline-block;
+  width: 3px;
+  height: 7px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
 }

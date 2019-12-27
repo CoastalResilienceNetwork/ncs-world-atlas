@@ -34,7 +34,35 @@ $(document).ready(function() {
   function ready(error, geojson, data) {
     var stColor = d3
       .scaleThreshold()
-      .domain([0, 10, 20, 30, 40,50,60,70,80,90,100])
+      // .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+      .domain([
+        0,
+        25,
+        50,
+        75,
+        100,
+        125,
+        150,
+        175,
+        200,
+        225,
+        250,
+        275,
+        300,
+        325,
+        350,
+        375,
+        400,
+        425,
+        450,
+        475,
+        500,
+        600,
+        700,
+        800,
+        900,
+        1000
+      ])
       .range(
         //   [
         //   "#dedede",
@@ -68,13 +96,43 @@ $(document).ready(function() {
     function countryClick(evt) {
       //   console.log("click", evt);
     }
+    // Define the div for the tooltip
+    let tooltipDiv = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
 
     function countryOver(evt) {
+      let countryValue = app.countryValues[evt.properties.iso_a3].value;
+      let countryName = app.countryValues[evt.properties.iso_a3].countryName;
+      countryValue = Math.round(countryValue * 10) / 10;
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
       d3.select(this).style("fill", "#88b8b8");
+      // work with the tooltip on hover
+      tooltipDiv
+        .transition()
+        .duration(200)
+        .style("opacity", 0.9);
+      tooltipDiv
+        .html(
+          "<div>" +
+            countryName +
+            "<br>" +
+            countryValue +
+            // " MT CO<sub>2</sub>e" +
+            "</div>"
+        )
+        .style("left", d3.event.pageX + "px")
+        .style("top", d3.event.pageY - 28 + "px");
     }
     function countryOut(evt) {
       d3.select(this).style("fill", app.hoverRGB);
+      // close the tooltip when hover off
+      tooltipDiv
+        .transition()
+        .duration(500)
+        .style("opacity", 0);
     }
 
     // National map - append a group to SVG and bind TopoJSON data elements (states)
@@ -143,7 +201,10 @@ $(document).ready(function() {
     function buildCountryCarbonObject(columnArray) {
       app.countryValues = {};
       $.each(app.countryData, (i, v) => {
-        app.countryValues[v.AlphaISO] = { value: 0, countryName: "" };
+        app.countryValues[v.AlphaISO] = {
+          value: 0,
+          countryName: ""
+        };
       });
 
       // for each item checked, loop through country data and add value to a master object

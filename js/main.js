@@ -32,6 +32,19 @@ $(document).ready(function() {
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
+    //For Chosen options visit https://harvesthq.github.io/chosen/
+    //Single deselect only works if the first option in the select tag is blank
+
+    $("#chosenSingle")
+      .chosen({
+        allow_single_deselect: true,
+        width: "200px"
+      })
+      .change(function(c) {
+        // console.log(c.target.value);
+        countrySelected(c.target.value, "select");
+      });
+
     var stColor = d3
       .scaleThreshold()
       // .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
@@ -109,13 +122,13 @@ $(document).ready(function() {
       );
 
     app.countryData = data;
-    console.log(app.countryData);
+    // console.log(app.countryData);
     // Check for error
     if (error) throw error;
 
     // declare utility functions before creating svg
     function countryClick(evt) {
-      //   console.log("click", evt);
+      countrySelected(evt.properties.iso_a3, "click");
     }
     // Define the div for the tooltip
     let tooltipDiv = d3
@@ -224,7 +237,8 @@ $(document).ready(function() {
       $.each(app.countryData, (i, v) => {
         app.countryValues[v.AlphaISO] = {
           value: 0,
-          countryName: ""
+          countryName: "",
+          AlphaISO: v.AlphaISO
         };
       });
 
@@ -243,7 +257,7 @@ $(document).ready(function() {
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
         });
       });
-      console.log(app.countryValues);
+      // console.log(app.countryValues);
       updateChloroplethMap(app.countryValues);
     }
 
@@ -260,8 +274,40 @@ $(document).ready(function() {
           }
         });
     }
+    function populateDDMenu(countryValues) {
+      let selectMenu = $("#chosenSingle");
+      $.each(countryValues, (i, v) => {
+        // console.log(v);
+        selectMenu
+          .append(`<option value='${v.AlphaISO}'>${v.countryName}</option>`)
+          .trigger("chosen:updated");
+      });
+    }
+
+    function countrySelected(country, selector) {
+      console.log(country, selector);
+      if (country) {
+        if (selector === "click") {
+          $("#chosenSingle").val(country);
+          $("#chosenSingle").trigger("chosen:updated");
+          $.each(app.countryReportLinks, (i, v) => {
+            if (country == v.iso_code) {
+              console.log("they match", v);
+            }
+          });
+        } else if (selector === "select") {
+          console.log("selet");
+          $("#chosenSingle").val(country);
+          $("#chosenSingle").trigger("chosen:updated");
+        }
+      } else {
+        console.log("no country selected");
+      }
+    }
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site
     createArrayOfFieldsFromCBs();
+    // console.log(app.countryValues);
+    populateDDMenu(app.countryValues);
   }
 });

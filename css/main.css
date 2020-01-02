@@ -120,7 +120,7 @@ hr {
 .nwa-legend-wrapper {
   /* position: absolute;
     top: 300px; */
-  margin-top: 439px;
+  margin-top: 429px;
   margin-left: 27%;
   position: absolute;
   width: 200px;
@@ -139,7 +139,7 @@ hr {
 .nwa-metrics-wrapper {
   text-align: center;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .nwa-large-metric {
   font-size: 35px;
@@ -153,6 +153,34 @@ hr {
   font-size: 14px;
 }
 
+/* styles for country dropdown and report button */
+.nwa-view-report-btn {
+  height: 14px;
+  background-color: #31a354;
+  color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
+  padding: 5px;
+  margin-left: auto;
+}
+.nwa-view-report-btn:focus {
+  outline: 0 !important;
+}
+.nwa-view-report-btn:hover {
+  cursor: pointer;
+}
+.nwa-view-report-btn:active {
+  transform: translate(1px, 1px);
+  filter: saturate(1.3);
+}
+
+.nwa-country-dd-wrapper {
+  display: flex;
+  margin-top: 10px;
+}
+.nwa-country-dd-wrapper select {
+  width: 200px;
+}
 /* styles for global indicators */
 
 .nwa-global-indicators-wrapper {
@@ -339,4 +367,34 @@ div.tooltip {
   position: absolute;
   left: 4px;
   top: 1px;
+}
+
+.toggle-btn {
+  padding-left: 5px;
+  margin-bottom: 10px;
+  display: flex;
+}
+.toggle-btn label {
+  padding: 5px;
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
+  background-clip: padding-box;
+  background-color: #fff;
+  text-align: center;
+  border: 1px solid #ddd;
+  margin: 5px 5px 5px -6px;
+  flex: 1;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  color: #222;
+}
+.toggle-btn input {
+  display: none;
+}
+.toggle-btn input:checked + label {
+  color: #fff;
+  font-weight: bold;
+  background-color: #31a354;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.35),
+    0 1px rgba(255, 255, 255, 0.1);
 }

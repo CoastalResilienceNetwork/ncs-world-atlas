@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css" rel="stylesheet">
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.jquery.js"></script>
+
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="https://d3js.org/topojson.v2.min.js"></script>
     <script src="https://d3js.org/d3-queue.v2.min.js"></script>
@@ -45,7 +53,19 @@
                     <div class="nwa-large-metric">7,894</div>
                     <div class="nwa-metric-sub-title">Mitigation Potential</div>
                     <div class="nwa-metric-units">Million tons CO<sub>2</sub>e per year</div>
+                    <div class="nwa-country-dd-wrapper">
+                        <!-- For Chosen options visit https://harvesthq.github.io/chosen/ -->
+                        <div class="chosen-wrap" style="margin-bottom:10px;">
+                            <select data-placeholder="Select a Country" id="chosenSingle" class="chosen">
+                                <option></option>
+
+                            </select>
+                        </div>
+                        <button class="nwa-view-report-btn">View Report</button>
+                    </div>
                 </div>
+
+
                 <div class="nwa-main-cb-wrapper nwa-box-wrapper">
                     <div class="nwa-intervention-cb-header-wrapper">
                         <h3>Choose your NCS intervention</h3>
@@ -186,9 +206,17 @@
 
         </div>
         <div class="nwa-global-indicators-wrapper">
-            test global
+            <div class="toggle-btn" style="width:250px;">
+                <input checked type="radio" id="num1" name="num" value="one" />
+                <label for="num1">One</label>
+                <input type="radio" id="num2" name="num" value="two" />
+                <label for="num2">Two</label>
+                <input type="radio" id="num3" name="num" value="three" />
+                <label for="num3">Three</label>
+            </div>
         </div>
     </div>
+
     <script src="js/main.js"></script>
 </body>
 

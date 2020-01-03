@@ -42,7 +42,6 @@ $(document).ready(function() {
         width: "190px"
       })
       .change(function(c) {
-        // console.log(c.target.value);
         countrySelected(c.target.value, "select");
       });
 
@@ -123,7 +122,6 @@ $(document).ready(function() {
       );
 
     app.countryData = data;
-    // console.log(app.countryData);
     // Check for error
     if (error) throw error;
 
@@ -143,7 +141,6 @@ $(document).ready(function() {
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
       countryValue = Math.round(countryValue * 10) / 10;
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
-      // console.log(d3);
       d3.select(this).style("fill", "#88b8b8");
       // work with the tooltip on hover
       tooltipDiv
@@ -211,12 +208,28 @@ $(document).ready(function() {
       }
     });
 
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function updateMetric(countryValues) {
+      console.log(countryValues);
+      let metricValue = 0;
+      $.each(countryValues, (i, v) => {
+        console.log(v.value);
+        if (v.value) {
+          metricValue += parseInt(v.value);
+        }
+      });
+      console.log(metricValue);
+      metricValue = numberWithCommas(metricValue);
+      $(".nwa-large-metric").html(metricValue);
+      console.log(metricValue);
+    }
+
     // take the column id arrays and add all tons of carbon based on the column checked
     // also add the country name and iso value to the object
     function buildCountryCarbonObject(columnArray) {
-      console.log("in carbon builder **********************");
-      // console.log(columnArray);
-      // console.log($("#cost-option")[0].checked);
       app.countryValues = {};
       $.each(app.countryData, (i, v) => {
         app.countryValues[v.AlphaISO] = {
@@ -239,6 +252,7 @@ $(document).ready(function() {
         });
       });
       updateChloroplethMap(app.countryValues);
+      updateMetric(app.countryValues);
     }
 
     // chnage the color of each country based on total carbon value
@@ -257,7 +271,6 @@ $(document).ready(function() {
     function populateDDMenu(countryValues) {
       let selectMenu = $("#chosenSingle");
       $.each(countryValues, (i, v) => {
-        // console.log(v);
         selectMenu
           .append(`<option value='${v.AlphaISO}'>${v.countryName}</option>`)
           .trigger("chosen:updated");
@@ -291,7 +304,6 @@ $(document).ready(function() {
           columnArray.push(value);
         }
       });
-      console.log(columnArray);
       buildCountryCarbonObject(columnArray);
     }
 
@@ -352,7 +364,6 @@ $(document).ready(function() {
     });
     // on click of cost option
     $("#cost-option").on("click", evt => {
-      // console.log(evt);
       createArrayOfFieldsFromCBs();
     });
 

@@ -75,7 +75,7 @@ $(document).ready(function() {
         800,
         900,
         1000,
-        1500
+        2000
       ])
       .range(
         // [
@@ -153,7 +153,7 @@ $(document).ready(function() {
             countryName +
             "<br>" +
             countryValue +
-            // " MT CO<sub>2</sub>e" +
+            " - MT CO<sub>2</sub>e/yr" +
             "</div>"
         )
         .style("left", d3.event.pageX + "px")
@@ -207,10 +207,6 @@ $(document).ready(function() {
         $($(".nwa-intervention-info-icon img")[1]).show();
       }
     });
-
-    function numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
 
     function updateMetric(countryValues) {
       let metricValue = 0;
@@ -346,10 +342,47 @@ $(document).ready(function() {
       createArrayOfFieldsFromCBs();
     }
 
+    function handleGlobalIndicatorsClick(evt) {
+      $.each($(".nwa-global-indicators-cb input"), (i, v) => {
+        if (v != evt.currentTarget) {
+          $(v).prop("checked", false);
+        }
+      });
+      $.each($(".nwa-indicator-wrapper"), (i, v) => {
+        $(v).slideUp();
+      });
+
+      let val;
+      if (evt.currentTarget.checked) {
+        val = evt.currentTarget.value;
+      } else {
+        val = "";
+      }
+
+      if (val) {
+        // call function here, pass val
+        switch (val) {
+          case "ndc_sub":
+            $(".nwa-ndc-content").slideDown();
+            break;
+          case "emissions":
+            $(".nwa-emssions-content").slideDown();
+            break;
+          case "socioeconomic":
+            $(".nwa-socioeconomic-content").slideDown();
+            break;
+          case "ecological":
+            $(".nwa-ecological-content").slideDown();
+            break;
+        }
+      }
+    }
+
     // click events
     $(".nwa-pathways-controllers input").on("click", evt => {
       handlePathwaysCbClick();
     });
+
     // on click/change of individual intervention check boxes
     $(".nwa-intervention-sub-cb input").on("click", evt => {
       createArrayOfFieldsFromCBs();
@@ -361,6 +394,24 @@ $(document).ready(function() {
     // on click of cost option
     $("#cost-option").on("click", evt => {
       createArrayOfFieldsFromCBs();
+    });
+
+    // on global indicator cb click
+    $(".nwa-global-indicators-cb input").on("click", evt => {
+      handleGlobalIndicatorsClick(evt);
+    });
+
+    // on info icon hover
+    $(".nwa-info-icon").on("mouseenter", evt => {
+      $(".nwa-popup-wrapper").show();
+      $(".nwa-popup-wrapper").css("top", evt.originalEvent.clientY - 10);
+      $(".nwa-popup-wrapper").css("left", evt.originalEvent.clientX + 10);
+      $(".nwa-popup-wrapper").html(
+        app.helpText[$(evt.currentTarget).find("img")[0].id]
+      );
+    });
+    $(".nwa-info-icon").on("mouseleave", evt => {
+      $(".nwa-popup-wrapper").hide();
     });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site

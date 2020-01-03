@@ -43,11 +43,12 @@ hr {
   display: flex;
   align-items: center;
 }
-.nwa-intervention-info-icon {
+
+.nwa-info-icon {
   margin-top: 7px;
   margin-left: 3px;
 }
-.nwa-intervention-info-icon:hover {
+.nwa-info-icon:hover {
   cursor: pointer;
 }
 h3 {
@@ -72,6 +73,20 @@ h3 {
   display: flex;
   align-items: center;
   padding-left: 10px;
+}
+
+/* popup styles */
+
+.nwa-popup-wrapper {
+  position: fixed;
+  display: none;
+  top: 814px;
+  left: 855px;
+  background-color: rgba(211, 211, 211, 0.7);
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 /* map wrapper area ********************************************/
@@ -197,7 +212,7 @@ h3 {
 /* styles for global indicators */
 
 .nwa-global-indicators-wrapper {
-  height: 100px;
+  /* height: 100px; */
   width: 700px;
   margin-left: 297px;
   margin-top: -99px;
@@ -206,6 +221,13 @@ h3 {
   border: 1pt solid #bbb;
   box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
 }
+.nwa-global-indicator-content-wrapper {
+  display: flex;
+}
+.nwa-indicator-wrapper {
+  display: none;
+}
+
 div.tooltip {
   position: absolute;
   text-align: center;

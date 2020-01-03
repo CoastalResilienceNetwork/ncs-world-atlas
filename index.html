@@ -73,9 +73,9 @@
                 <div class="nwa-main-cb-wrapper nwa-box-wrapper">
                     <div class="nwa-intervention-cb-header-wrapper">
                         <h3>Choose your NCS intervention</h3>
-                        <div class="nwa-intervention-info-icon">
-                            <img src="./assets/info.png" alt="">
-                            <img style="display: none;" src="./assets/infoClose.png" alt="">
+                        <div class="nwa-info-icon">
+                            <img id="intervention-icon" src="./assets/info.png" alt="">
+                            <!-- <img style="display: none;" src="./assets/infoClose.png" alt=""> -->
                         </div>
                     </div>
 
@@ -214,8 +214,59 @@
 
         </div>
         <div class="nwa-global-indicators-wrapper">
-            <h3>Select a Global Indicator</h3>
-            <div class="toggle-btn" style="width:250px;">
+            <div style="display: flex;">
+                <h3>Select a Global Indicator</h3>
+                <div class="nwa-info-icon" style="margin-top: 5px; margin-left: 3px;">
+                    <img id="global-icon" src="./assets/info.png" alt="">
+                </div>
+            </div>
+
+            <div class="nwa-global-indicator-content-wrapper">
+                <div class="nwa-global-indicators-cb">
+                    <label class="form-component" for="ndc_sub-option">
+                        <input type="checkbox" id="ndc_sub-option" name="intervention-cb" value="ndc_sub">
+                        <div class="check"></div>
+                        <span class="form-text">NDC Submissions</span>
+                    </label>
+                    <br>
+                    <label class="form-component" for="emissions-option">
+                        <input type="checkbox" id="emissions-option" name="intervention-cb" value="emissions">
+                        <div class="check"></div>
+                        <span class="form-text">Emissions</span>
+                    </label>
+                    <br>
+                    <label class="form-component" for="socioeconomic-option">
+                        <input type="checkbox" id="socioeconomic-option" name="intervention-cb" value="socioeconomic">
+                        <div class="check"></div>
+                        <span class="form-text">Socioeconomic</span>
+                    </label>
+                    <br>
+                    <label class="form-component" for="ecological-option">
+                        <input type="checkbox" id="ecological-option" name="intervention-cb" value="ecological">
+                        <div class="check"></div>
+                        <span class="form-text">Ecological</span>
+                    </label>
+                </div>
+
+                <div class="nwa-global-indicators-content">
+                    <div class="nwa-ndc-content nwa-indicator-wrapper">
+                        NDC Content
+                    </div>
+                    <div class="nwa-emssions-content nwa-indicator-wrapper">
+                        Emissions
+                    </div>
+                    <div class="nwa-socioeconomic-content nwa-indicator-wrapper">
+                        socio content
+
+                    </div>
+                    <div class="nwa-ecological-content nwa-indicator-wrapper">
+                        eco content
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <div class="toggle-btn" style="width:250px;">
                 <input checked type="radio" id="num1" name="num" value="one" />
                 <label for="num1">NDC Submissions</label>
                 <input type="radio" id="num2" name="num" value="two" />
@@ -224,7 +275,10 @@
                 <label for="num3">Socioeconomic</label>
                 <input type="radio" id="num4" name="num" value="four" />
                 <label for="num4">Ecological</label>
-            </div>
+            </div> -->
+        </div>
+        <div class="nwa-popup-wrapper">
+            popup
         </div>
     </div>
 

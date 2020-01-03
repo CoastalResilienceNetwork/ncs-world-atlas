@@ -1,7 +1,16 @@
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 app.worldCheckboxFields = {
   protect: [4, 26, 28],
   manage: [6, 8, 10, 12, 14, 16, 18, 20, 22],
   restore: [2, 24, 30]
+};
+
+app.helpText = {
+  "intervention-icon": "this is test text for the intervention icon",
+  "global-icon": "this is test text for the global icon"
 };
 
 app.countryReportLinks = [

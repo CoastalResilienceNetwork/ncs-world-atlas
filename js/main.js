@@ -38,7 +38,7 @@ $(document).ready(function() {
     $("#chosenSingle")
       .chosen({
         allow_single_deselect: true,
-        width: "200px"
+        width: "190px"
       })
       .change(function(c) {
         // console.log(c.target.value);
@@ -142,6 +142,7 @@ $(document).ready(function() {
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
       countryValue = Math.round(countryValue * 10) / 10;
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
+      console.log(d3);
       d3.select(this).style("fill", "#88b8b8");
       // work with the tooltip on hover
       tooltipDiv
@@ -285,23 +286,16 @@ $(document).ready(function() {
     }
 
     function countrySelected(country, selector) {
-      console.log(country, selector);
       if (country) {
-        if (selector === "click") {
-          $("#chosenSingle").val(country);
-          $("#chosenSingle").trigger("chosen:updated");
-          $.each(app.countryReportLinks, (i, v) => {
-            if (country == v.iso_code) {
-              console.log("they match", v);
-            }
-          });
-        } else if (selector === "select") {
-          console.log("selet");
-          $("#chosenSingle").val(country);
-          $("#chosenSingle").trigger("chosen:updated");
-        }
+        $("#chosenSingle").val(country);
+        $("#chosenSingle").trigger("chosen:updated");
+        $.each(app.countryReportLinks, (i, v) => {
+          if (country == v.iso_code) {
+            $(".nwa-view-report-btn").attr("href", v.link);
+          }
+        });
       } else {
-        console.log("no country selected");
+        $(".nwa-view-report-btn").attr("href", "#");
       }
     }
 

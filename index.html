@@ -58,10 +58,14 @@
                         <div class="chosen-wrap" style="margin-bottom:10px;">
                             <select data-placeholder="Select a Country" id="chosenSingle" class="chosen">
                                 <option></option>
-
                             </select>
                         </div>
-                        <button class="nwa-view-report-btn">View Report</button>
+                        <a class="nwa-view-report-btn nwa-disable-link" href="#" target="_blank">View Report</a>
+                        <!-- <div class="nwa-link-wrapper nwa-disable-link">
+                            <a class="nwa-view-report-btn" href="" target="_blank">View Report</a>
+                        </div> -->
+
+                        <!-- <button class="">View Report</button> -->
                     </div>
                 </div>
 
@@ -206,13 +210,16 @@
 
         </div>
         <div class="nwa-global-indicators-wrapper">
+            <h3>Select a Global Indicator</h3>
             <div class="toggle-btn" style="width:250px;">
                 <input checked type="radio" id="num1" name="num" value="one" />
-                <label for="num1">One</label>
+                <label for="num1">NDC Submissions</label>
                 <input type="radio" id="num2" name="num" value="two" />
-                <label for="num2">Two</label>
+                <label for="num2">Emissions</label>
                 <input type="radio" id="num3" name="num" value="three" />
-                <label for="num3">Three</label>
+                <label for="num3">Socioeconomic</label>
+                <input type="radio" id="num4" name="num" value="four" />
+                <label for="num4">Ecological</label>
             </div>
         </div>
     </div>

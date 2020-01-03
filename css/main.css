@@ -50,7 +50,7 @@ hr {
 .nwa-intervention-info-icon:hover {
   cursor: pointer;
 }
-.nwa-intervention-cb-header-wrapper h3 {
+h3 {
   margin: 3px;
 }
 .nwa-main-content-wrapper {
@@ -162,6 +162,8 @@ hr {
   box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
   padding: 5px;
   margin-left: auto;
+  text-decoration: none;
+  font-size: 13px;
 }
 .nwa-view-report-btn:focus {
   outline: 0 !important;
@@ -173,6 +175,17 @@ hr {
   transform: translate(1px, 1px);
   filter: saturate(1.3);
 }
+.nwa-link-wrapper {
+  margin-top: -8px;
+  margin-left: 6px;
+}
+
+/* .nwa-disable-link {
+  filter: saturate(0.5);
+}
+.nwa-disable-link:hover {
+  cursor: not-allowed;
+} */
 
 .nwa-country-dd-wrapper {
   display: flex;

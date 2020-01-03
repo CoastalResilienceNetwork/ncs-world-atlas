@@ -213,18 +213,14 @@ $(document).ready(function() {
     }
 
     function updateMetric(countryValues) {
-      console.log(countryValues);
       let metricValue = 0;
       $.each(countryValues, (i, v) => {
-        console.log(v.value);
         if (v.value) {
           metricValue += parseInt(v.value);
         }
       });
-      console.log(metricValue);
       metricValue = numberWithCommas(metricValue);
       $(".nwa-large-metric").html(metricValue);
-      console.log(metricValue);
     }
 
     // take the column id arrays and add all tons of carbon based on the column checked

@@ -1,7 +1,7 @@
 app.worldCheckboxFields = {
-  protectLayers: [0, 2, 4],
-  manageLayers: [0, 2, 4],
-  restoreLayers: [0, 2, 4]
+  protect: [4, 26, 28],
+  manage: [6, 8, 10, 12, 14, 16, 18, 20, 22],
+  restore: [2, 24, 30]
 };
 
 app.countryReportLinks = [

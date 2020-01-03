@@ -81,33 +81,37 @@
 
                     <div class="nwa-intervention-main-cb">
                         <div class="nwa-intervention-main-1-cb">
-                            <label class="form-component" for="a-option">
-                                <input checked type="checkbox" id="a-option" name="food" value="all-pathways">
+                            <label class="form-component" for="all-option">
+                                <input checked type="checkbox" id="all-option" name="food" value="all-pathways">
                                 <div class="check"></div>
                                 <span class="form-text">All Pathways</span>
                             </label>
                             <hr style="width:85%">
-                            <label class="form-component disabled" for="b-option">
-                                <input type="checkbox" id="b-option" name="food" value="protect">
-                                <div class="check"></div>
-                                <span class="form-text">Protect</span>
-                            </label>
-                            <br>
-                            <label class="form-component" for="c-option">
-                                <input type="checkbox" id="c-option" name="food" value="manage">
-                                <div class="check"></div>
-                                <span class="form-text">Manage</span>
-                            </label>
-                            <br>
-                            <label class="form-component" for="d-option">
-                                <input type="checkbox" id="d-option" name="food" value="restore">
-                                <div class="check"></div>
-                                <span class="form-text">Restore</span>
-                            </label>
+                            <div class="nwa-pathways-controllers">
+                                <label class="form-component disabled nwa-individual-pathways" for="b-option">
+                                    <input type="checkbox" id="b-option" name="food" value="protect">
+                                    <div class="check"></div>
+                                    <span class="form-text">Protect</span>
+                                </label>
+                                <br>
+                                <label class="form-component nwa-individual-pathways" for="c-option">
+                                    <input type="checkbox" id="c-option" name="food" value="manage">
+                                    <div class="check"></div>
+                                    <span class="form-text">Manage</span>
+                                </label>
+                                <br>
+                                <label class="form-component nwa-individual-pathways" for="d-option">
+                                    <input type="checkbox" id="d-option" name="food" value="restore">
+                                    <div class="check"></div>
+                                    <span class="form-text">Restore</span>
+                                </label>
+                            </div>
+
+
                         </div>
                         <div class="nwa-intervention-main-2-cb">
-                            <label class="form-component" for="e-option">
-                                <input type="checkbox" id="e-option" name="food">
+                            <label class="form-component" for="cost-option">
+                                <input type="checkbox" id="cost-option" name="food">
                                 <div class="check"></div>
                                 <span class="form-text">Cost-effective</span>
                             </label>

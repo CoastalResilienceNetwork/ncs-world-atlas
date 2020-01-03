@@ -32,6 +32,7 @@ $(document).ready(function() {
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
+    console.log(data);
     //For Chosen options visit https://harvesthq.github.io/chosen/
     //Single deselect only works if the first option in the select tag is blank
 
@@ -142,7 +143,7 @@ $(document).ready(function() {
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
       countryValue = Math.round(countryValue * 10) / 10;
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
-      console.log(d3);
+      // console.log(d3);
       d3.select(this).style("fill", "#88b8b8");
       // work with the tooltip on hover
       tooltipDiv
@@ -198,16 +199,6 @@ $(document).ready(function() {
     // call zoom on the world svg
     worldSvg.call(zoom);
 
-    // click events
-    $(".nwa-intervention-main-cb input").on("click", evt => {
-      console.log(evt);
-    });
-
-    // on click/change of individual intervention check boxes
-    $(".nwa-intervention-sub-cb input").on("click", evt => {
-      createArrayOfFieldsFromCBs();
-    });
-
     // info icon click
     $(".nwa-intervention-info-icon").on("click", evt => {
       // toggle info icon based on element visibility
@@ -220,20 +211,12 @@ $(document).ready(function() {
       }
     });
 
-    // check to see what check boxes are checked and make an array of the column id's
-    function createArrayOfFieldsFromCBs() {
-      let columnArray = [];
-      $.each($(".nwa-intervention-sub-cb input"), (i, v) => {
-        if (v.checked) {
-          columnArray.push(parseInt(v.value));
-        }
-      });
-      buildCountryCarbonObject(columnArray);
-    }
-
     // take the column id arrays and add all tons of carbon based on the column checked
     // also add the country name and iso value to the object
     function buildCountryCarbonObject(columnArray) {
+      console.log("in carbon builder **********************");
+      // console.log(columnArray);
+      // console.log($("#cost-option")[0].checked);
       app.countryValues = {};
       $.each(app.countryData, (i, v) => {
         app.countryValues[v.AlphaISO] = {
@@ -245,9 +228,6 @@ $(document).ready(function() {
 
       // for each item checked, loop through country data and add value to a master object
       $.each(columnArray, (i, id) => {
-        if (true) {
-          id = id + 1;
-        }
         id = app.countryData.columns[id];
         $.each(app.countryData, (i, v) => {
           let val = parseFloat(v[id]);
@@ -258,7 +238,6 @@ $(document).ready(function() {
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
         });
       });
-      // console.log(app.countryValues);
       updateChloroplethMap(app.countryValues);
     }
 
@@ -298,6 +277,84 @@ $(document).ready(function() {
         $(".nwa-view-report-btn").attr("href", "#");
       }
     }
+    // check to see what check boxes are checked and make an array of the column id's
+    function createArrayOfFieldsFromCBs() {
+      let columnArray = [];
+      $.each($(".nwa-intervention-sub-cb input"), (i, v) => {
+        let value;
+        if (v.checked) {
+          if ($("#cost-option")[0].checked) {
+            value = parseInt(v.value) + 1;
+          } else {
+            value = parseInt(v.value);
+          }
+          columnArray.push(value);
+        }
+      });
+      console.log(columnArray);
+      buildCountryCarbonObject(columnArray);
+    }
+
+    function checkCorrectPathways(fieldsToCheck) {
+      // loop through all cb's and check the ones where the value matches the array value
+      $.each($(".nwa-intervention-sub-cb input"), (i, v) => {
+        let pos = fieldsToCheck.indexOf(parseInt(v.value));
+        if (pos > -1) {
+          $(v).prop("checked", true);
+        } else {
+          $(v).prop("checked", false);
+        }
+      });
+      // update data
+      createArrayOfFieldsFromCBs();
+    }
+
+    function handlePathwaysCbClick() {
+      let fieldsToCheck = [];
+      $.each($(".nwa-individual-pathways input"), (i, v) => {
+        if (v.checked) {
+          fieldsToCheck.push.apply(
+            fieldsToCheck,
+            app.worldCheckboxFields[v.value]
+          );
+        }
+      });
+      checkCorrectPathways(fieldsToCheck);
+    }
+
+    function handleAllPathwaysClick(evt) {
+      $.each($(".nwa-intervention-sub-cb input"), (i, v) => {
+        if (evt.currentTarget.checked) {
+          $(v).prop("checked", true);
+        } else {
+          $(v).prop("checked", false);
+        }
+      });
+      $.each($(".nwa-individual-pathways input"), (i, v) => {
+        if (!evt.currentTarget.checked) {
+          $(v).prop("checked", false);
+        }
+      });
+      createArrayOfFieldsFromCBs();
+    }
+
+    // click events
+    $(".nwa-pathways-controllers input").on("click", evt => {
+      handlePathwaysCbClick();
+    });
+    // on click/change of individual intervention check boxes
+    $(".nwa-intervention-sub-cb input").on("click", evt => {
+      createArrayOfFieldsFromCBs();
+    });
+    // on click of all pathways
+    $("#all-option").on("click", evt => {
+      handleAllPathwaysClick(evt);
+    });
+    // on click of cost option
+    $("#cost-option").on("click", evt => {
+      // console.log(evt);
+      createArrayOfFieldsFromCBs();
+    });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site
     createArrayOfFieldsFromCBs();

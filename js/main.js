@@ -186,7 +186,7 @@ $(document).ready(function() {
     function zoomed() {
       g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       g.attr("transform", d3.event.transform); // updated for d3 v4
-      $(".nwa-fullExtent").show();
+      // $(".nwa-fullExtent").show();
     }
     var zoom = d3
       .zoom()

@@ -2,7 +2,7 @@ $(document).ready(function() {
   // National map setup
   // SVG width and height for national map
   var worldWidth = 717;
-  var worldHeight = 435;
+  var worldHeight = 375;
   // National map project, scale, and centering
   var worldProjection = d3
     .geoMercator()
@@ -17,7 +17,7 @@ $(document).ready(function() {
     .attr("id", "nwa-world-svg")
     .attr("width", "100%")
     .attr("height", "100%")
-    .attr("viewBox", "0 0 717 435");
+    .attr("viewBox", "0 0 717 375");
   // .style("margin-left", "30px")
 
   var g = worldSvg.append("g");
@@ -127,12 +127,7 @@ $(document).ready(function() {
 
     // declare utility functions before creating svg
     function countryClick(evt) {
-      // console.log(d3.select(this));
-      // d3.select(this).style("fill", "#88b8b8");
-      // console.log(evt);
-
       countrySelected(evt.properties.iso_a3, "click");
-      // console.log(this);
     }
     // Define the div for the tooltip
     let tooltipDiv = d3
@@ -146,7 +141,6 @@ $(document).ready(function() {
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
       countryValue = Math.round(countryValue * 10) / 10;
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
-      // console.log(d3.select(this));
       d3.select(this).style("fill", "#88b8b8");
       // work with the tooltip on hover
       tooltipDiv
@@ -192,7 +186,6 @@ $(document).ready(function() {
     function zoomed() {
       g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       g.attr("transform", d3.event.transform); // updated for d3 v4
-      // console.log("zoom");
       $(".nwa-fullExtent").show();
     }
     var zoom = d3
@@ -277,7 +270,6 @@ $(document).ready(function() {
     }
 
     function countrySelected(country, selector) {
-      console.log(country);
       if (country) {
         $("#chosenSingle").val(country);
         $("#chosenSingle").trigger("chosen:updated");
@@ -294,12 +286,9 @@ $(document).ready(function() {
     }
 
     function highlightCountry(country) {
-      console.log(country);
       if (country) {
         d3.selectAll(".nwa-countries").select(function(d) {
           if (d.properties.iso_a3 === country) {
-            console.log(country);
-            console.log(this);
             d3.selectAll(".nwa-countries").classed("country-on", false);
             d3.select(this).classed("country-on", true);
           }
@@ -311,9 +300,7 @@ $(document).ready(function() {
 
     function zoomCountry(country) {
       d3.selectAll(".nwa-countries").select(function(d) {
-        // console.log(d);
         if (d.properties.iso_a3 === country) {
-          console.log(d);
           var bounds = worldPath.bounds(d),
             dx = bounds[1][0] - bounds[0][0],
             dy = bounds[1][1] - bounds[0][1],
@@ -471,18 +458,16 @@ $(document).ready(function() {
 
     // on full extent button click
     $("#nwa-fullExtent").on("click", evt => {
-      console.log("full extent");
       g.transition()
         .duration(0)
         .call(zoom.transform, d3.zoomIdentity.translate(0, 0));
       setTimeout(function() {
-        $($(".nwa-fullExtent")[0]).hide();
+        // $($(".nwa-fullExtent")[0]).hide();
       }, 100);
     });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site
     createArrayOfFieldsFromCBs();
-    // console.log(app.countryValues);
     populateDDMenu(app.countryValues);
   }
 });

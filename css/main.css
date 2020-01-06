@@ -113,18 +113,32 @@ h3 {
   cursor: pointer;
 }
 .nwa-fullExtent-wrapper {
+  display: flex;
   width: 100%;
-  position: relative;
+  /* position: relative; */
   text-align: center;
   height: 20px;
   margin-left: -10px;
   top: 25px;
+  color: #006837;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 .nwa-fullExtent {
   /* position: fixed; */
   color: #006837;
   border-radius: 5px;
   font-weight: bold;
+  margin-left: auto;
+}
+.nwa-fullExtent:hover {
+  cursor: pointer;
+}
+.nwa-fullExtent:active {
+  transform: translate(1px, 1px);
+}
+.nwa-fullExtent:focus {
+  outline: 0 !important;
 }
 /* legend styles */
 
@@ -151,7 +165,7 @@ h3 {
 .nwa-legend-wrapper {
   /* position: absolute;
     top: 300px; */
-  margin-top: 429px;
+  margin-top: 418px;
   margin-left: 27%;
   position: absolute;
   width: 200px;
@@ -236,6 +250,7 @@ h3 {
   padding: 5px;
   border: 1pt solid #bbb;
   box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
+  background-color: white;
 }
 .nwa-global-indicator-content-wrapper {
   display: flex;

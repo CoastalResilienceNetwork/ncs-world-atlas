@@ -127,7 +127,12 @@ $(document).ready(function() {
 
     // declare utility functions before creating svg
     function countryClick(evt) {
+      // console.log(d3.select(this));
+      // d3.select(this).style("fill", "#88b8b8");
+      // console.log(evt);
+
       countrySelected(evt.properties.iso_a3, "click");
+      // console.log(this);
     }
     // Define the div for the tooltip
     let tooltipDiv = d3
@@ -141,6 +146,7 @@ $(document).ready(function() {
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
       countryValue = Math.round(countryValue * 10) / 10;
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
+      // console.log(d3.select(this));
       d3.select(this).style("fill", "#88b8b8");
       // work with the tooltip on hover
       tooltipDiv
@@ -172,7 +178,6 @@ $(document).ready(function() {
     let g = worldSvg
       .append("g")
       .selectAll("path")
-      // .data(topojson.feature(geojson).features)
       .data(topojson.feature(geojson, geojson.objects.world).features)
       .enter()
       .append("path")
@@ -187,6 +192,8 @@ $(document).ready(function() {
     function zoomed() {
       g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       g.attr("transform", d3.event.transform); // updated for d3 v4
+      // console.log("zoom");
+      $(".nwa-fullExtent").show();
     }
     var zoom = d3
       .zoom()
@@ -270,6 +277,7 @@ $(document).ready(function() {
     }
 
     function countrySelected(country, selector) {
+      console.log(country);
       if (country) {
         $("#chosenSingle").val(country);
         $("#chosenSingle").trigger("chosen:updated");
@@ -281,6 +289,53 @@ $(document).ready(function() {
       } else {
         $(".nwa-view-report-btn").attr("href", "#");
       }
+      zoomCountry(country);
+      highlightCountry(country);
+    }
+
+    function highlightCountry(country) {
+      console.log(country);
+      if (country) {
+        d3.selectAll(".nwa-countries").select(function(d) {
+          if (d.properties.iso_a3 === country) {
+            console.log(country);
+            console.log(this);
+            d3.selectAll(".nwa-countries").classed("country-on", false);
+            d3.select(this).classed("country-on", true);
+          }
+        });
+      } else {
+        d3.selectAll(".nwa-countries").classed("country-on", false);
+      }
+    }
+
+    function zoomCountry(country) {
+      d3.selectAll(".nwa-countries").select(function(d) {
+        // console.log(d);
+        if (d.properties.iso_a3 === country) {
+          console.log(d);
+          var bounds = worldPath.bounds(d),
+            dx = bounds[1][0] - bounds[0][0],
+            dy = bounds[1][1] - bounds[0][1],
+            x = (bounds[0][0] + bounds[1][0]) / 2,
+            y = (bounds[0][1] + bounds[1][1]) / 2,
+            scale = Math.max(
+              1,
+              Math.min(8, 0.9 / Math.max(dx / worldWidth, dy / worldHeight))
+            ),
+            translate = [
+              worldWidth / 2 - scale * x,
+              worldHeight / 2 - scale * y
+            ];
+
+          g.transition()
+            .duration(200)
+            .call(
+              zoom.transform,
+              d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+            );
+        }
+      });
     }
     // check to see what check boxes are checked and make an array of the column id's
     function createArrayOfFieldsFromCBs() {
@@ -412,6 +467,17 @@ $(document).ready(function() {
     });
     $(".nwa-info-icon").on("mouseleave", evt => {
       $(".nwa-popup-wrapper").hide();
+    });
+
+    // on full extent button click
+    $("#nwa-fullExtent").on("click", evt => {
+      console.log("full extent");
+      g.transition()
+        .duration(0)
+        .call(zoom.transform, d3.zoomIdentity.translate(0, 0));
+      setTimeout(function() {
+        $($(".nwa-fullExtent")[0]).hide();
+      }, 100);
     });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site

@@ -13,7 +13,6 @@ hr {
 .nwa-green-text {
   color: #006837;
 }
-
 .nwa-box-wrapper {
   position: relative;
   padding: 5px;
@@ -100,7 +99,11 @@ h3 {
   cursor: all-scroll;
 }
 /* map styles */
-
+.country-on {
+  /* stroke: rgb(39, 95, 95) !important; */
+  /* stroke-width: 1.5 !important; */
+  fill: rgba(136, 184, 184, 1) !important;
+}
 .nwa-countries {
   fill: rgb(161, 161, 161);
   stroke: #fff;
@@ -109,7 +112,20 @@ h3 {
 .nwa-countries:hover {
   cursor: pointer;
 }
-
+.nwa-fullExtent-wrapper {
+  width: 100%;
+  position: relative;
+  text-align: center;
+  height: 20px;
+  margin-left: -10px;
+  top: 25px;
+}
+.nwa-fullExtent {
+  /* position: fixed; */
+  color: #006837;
+  border-radius: 5px;
+  font-weight: bold;
+}
 /* legend styles */
 
 .nwa-legend-bar {

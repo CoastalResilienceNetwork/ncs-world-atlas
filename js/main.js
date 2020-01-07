@@ -32,6 +32,22 @@ $(document).ready(function() {
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
+
+    // National map - append a group to SVG and bind TopoJSON data elements (states)
+    let g = worldSvg
+      .append("g")
+      .selectAll("path")
+      .data(topojson.feature(geojson, geojson.objects.world).features)
+      .enter()
+      .append("path")
+      .attr("d", worldPath)
+      .attr("class", "nwa-countries")
+      // on various events, call specific functions
+      .on("click", countryClick)
+      .on("mouseover", countryOver)
+      .on("mouseout", countryOut);
+
+      
     console.log(data);
     //For Chosen options visit https://harvesthq.github.io/chosen/
     //Single deselect only works if the first option in the select tag is blank
@@ -125,9 +141,9 @@ $(document).ready(function() {
     // Check for error
     if (error) throw error;
 
-    // declare utility functions before creating svg
+    // // declare utility functions before creating svg
     function countryClick(evt) {
-      countrySelected(evt.properties.iso_a3, "click");
+      countrySelected(evt.properties.iso_a3);
     }
     // Define the div for the tooltip
     let tooltipDiv = d3
@@ -168,19 +184,7 @@ $(document).ready(function() {
         .style("opacity", 0);
     }
 
-    // National map - append a group to SVG and bind TopoJSON data elements (states)
-    let g = worldSvg
-      .append("g")
-      .selectAll("path")
-      .data(topojson.feature(geojson, geojson.objects.world).features)
-      .enter()
-      .append("path")
-      .attr("d", worldPath)
-      .attr("class", "nwa-countries")
-      // on various events, call specific functions
-      .on("click", countryClick)
-      .on("mouseover", countryOver)
-      .on("mouseout", countryOut);
+    
 
     // Define the zoom and attach it to the map ************
     function zoomed() {
@@ -269,10 +273,12 @@ $(document).ready(function() {
       });
     }
 
-    function countrySelected(country, selector) {
+    function countrySelected(country) {
       if (country) {
+        // update the chosen menu
         $("#chosenSingle").val(country);
         $("#chosenSingle").trigger("chosen:updated");
+        // update the link URL
         $.each(app.countryReportLinks, (i, v) => {
           if (country == v.iso_code) {
             $(".nwa-view-report-btn").attr("href", v.link);
@@ -281,7 +287,10 @@ $(document).ready(function() {
       } else {
         $(".nwa-view-report-btn").attr("href", "#");
       }
+
+      // zoom to the country
       zoomCountry(country);
+      // highlight the country
       highlightCountry(country);
     }
 
@@ -316,7 +325,7 @@ $(document).ready(function() {
             ];
 
           g.transition()
-            .duration(200)
+            .duration(800)
             .call(
               zoom.transform,
               d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
@@ -459,11 +468,8 @@ $(document).ready(function() {
     // on full extent button click
     $("#nwa-fullExtent").on("click", evt => {
       g.transition()
-        .duration(0)
+        .duration(800)
         .call(zoom.transform, d3.zoomIdentity.translate(0, 0));
-      setTimeout(function() {
-        // $($(".nwa-fullExtent")[0]).hide();
-      }, 100);
     });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site

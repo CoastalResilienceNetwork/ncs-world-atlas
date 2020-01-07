@@ -20,7 +20,7 @@ $(document).ready(function() {
     .attr("viewBox", "0 0 717 375");
   // .style("margin-left", "30px")
 
-  var g = worldSvg.append("g");
+  // var g = worldSvg.append("g");
 
   // Queue up datasets using d3 Queue
   d3.queue()
@@ -32,9 +32,16 @@ $(document).ready(function() {
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
+    // new code here ****************************
+    var stG = worldSvg.append("g");
 
-    // National map - append a group to SVG and bind TopoJSON data elements (states)
-    let g = worldSvg
+    // stG
+    //   .append("path")
+    //   .datum(topojson.merge(geojson, geojson.objects.world.geometries))
+    //   .attr("class", "nwa-countries")
+    //   .attr("d", worldPath);
+
+    stG
       .append("g")
       .selectAll("path")
       .data(topojson.feature(geojson, geojson.objects.world).features)
@@ -47,7 +54,41 @@ $(document).ready(function() {
       .on("mouseover", countryOver)
       .on("mouseout", countryOut);
 
-      
+    // National map - append a group to SVG and bind TopoJSON data elements (states)
+    // let g = worldSvg
+    //   .append("g")
+    //   .selectAll("path")
+    //   .data(topojson.feature(geojson, geojson.objects.world).features)
+    //   .enter()
+    //   .append("path")
+    //   .attr("d", worldPath)
+    //   .attr("class", "nwa-countries")
+    //   // on various events, call specific functions
+    //   .on("click", countryClick)
+    //   .on("mouseover", countryOver)
+    //   .on("mouseout", countryOut);
+
+    // Define the div for the tooltip
+    let tooltipDiv = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+    // Define the zoom and attach it to the map ************
+    function zoomed() {
+      stG.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+      stG.attr("transform", d3.event.transform); // updated for d3 v4
+      // $(".nwa-fullExtent").show();
+    }
+    var zoom = d3
+      .zoom()
+      .scaleExtent([1, 8])
+      .on("zoom", zoomed);
+
+    // call zoom on the world svg
+    stG.call(zoom);
+
     console.log(data);
     //For Chosen options visit https://harvesthq.github.io/chosen/
     //Single deselect only works if the first option in the select tag is blank
@@ -145,12 +186,6 @@ $(document).ready(function() {
     function countryClick(evt) {
       countrySelected(evt.properties.iso_a3);
     }
-    // Define the div for the tooltip
-    let tooltipDiv = d3
-      .select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0);
 
     function countryOver(evt) {
       let countryValue = app.countryValues[evt.properties.iso_a3].value;
@@ -184,21 +219,25 @@ $(document).ready(function() {
         .style("opacity", 0);
     }
 
-    
+    //  // Define the zoom and attach it to the map ************
+    //  function zoomed() {
+    //    g.style(
+    //      "stroke-width",
+    //      1.5 / d3.event.transform.k + "px"
+    //    );
+    //    g.attr(
+    //      "transform",
+    //      d3.event.transform
+    //    ); // updated for d3 v4
+    //    // $(".nwa-fullExtent").show();
+    //  }
+    //  var zoom = d3
+    //    .zoom()
+    //    .scaleExtent([1, 8])
+    //    .on("zoom", zoomed);
 
-    // Define the zoom and attach it to the map ************
-    function zoomed() {
-      g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
-      g.attr("transform", d3.event.transform); // updated for d3 v4
-      // $(".nwa-fullExtent").show();
-    }
-    var zoom = d3
-      .zoom()
-      .scaleExtent([1, 8])
-      .on("zoom", zoomed);
-
-    // call zoom on the world svg
-    worldSvg.call(zoom);
+    //  // call zoom on the world svg
+    //  worldSvg.call(zoom);
 
     // info icon click
     $(".nwa-intervention-info-icon").on("click", evt => {
@@ -253,9 +292,11 @@ $(document).ready(function() {
 
     // chnage the color of each country based on total carbon value
     function updateChloroplethMap(countryValues) {
+      console.log(countryValues);
       d3.selectAll(".nwa-countries")
         .transition()
         .style("fill", function(d) {
+          console.log(d);
           if (app.countryValues[d.properties.iso_a3] == undefined) {
             app.countryValues[d.properties.iso_a3] = 0;
           }
@@ -324,7 +365,8 @@ $(document).ready(function() {
               worldHeight / 2 - scale * y
             ];
 
-          g.transition()
+          stG
+            .transition()
             .duration(800)
             .call(
               zoom.transform,
@@ -467,7 +509,8 @@ $(document).ready(function() {
 
     // on full extent button click
     $("#nwa-fullExtent").on("click", evt => {
-      g.transition()
+      stG
+        .transition()
         .duration(800)
         .call(zoom.transform, d3.zoomIdentity.translate(0, 0));
     });

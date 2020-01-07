@@ -8,6 +8,29 @@ app.worldCheckboxFields = {
   restore: [2, 24, 30]
 };
 
+app.globalIndicatorFields = {
+  ndc_sub: 34,
+  emmisions: {
+    emmisions_including_lucf: 35,
+    emmisions_including_lucf_cost_effective: 38,
+    emmisions_excluding_lucf: 36,
+    emmisions_excluding_lucf_cost_effective: 39,
+    emmisions_all: 37,
+    emmisions_all_cost_effective: 40
+  },
+  socioeconomic: {
+    income_group: 42,
+    sdg_index: 43,
+    majority_pop: 41
+  },
+  ecological: {
+    area_proportion_total: 44,
+    area_proportion_total_cost_effective: 45,
+    bio_index: 46,
+    protected_area: 47
+  }
+};
+
 app.helpText = {
   "intervention-icon": "this is test text for the intervention icon",
   "global-icon": "this is test text for the global icon"

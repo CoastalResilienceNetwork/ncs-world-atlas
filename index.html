@@ -255,17 +255,162 @@
 
                 <div class="nwa-global-indicators-content">
                     <div class="nwa-ndc-content nwa-indicator-wrapper">
-                        NDC Content
-                    </div>
-                    <div class="nwa-emssions-content nwa-indicator-wrapper">
-                        Emissions
-                    </div>
-                    <div class="nwa-socioeconomic-content nwa-indicator-wrapper">
-                        socio content
+                        <div class="nwa-ndc-wrapper">
+                            <div>Include NDCs with Natural Solutions:</div>
+                            <div class="toggle-btn" style="width:125px;">
+                                <input checked type="radio" id="num1" name="num" value="yes" />
+                                <label for="num1">Yes</label>
+                                <input type="radio" id="num2" name="num" value="no" />
+                                <label for="num2">No</label>
+                            </div>
+                        </div>
 
                     </div>
+                    <div class="nwa-emssions-content nwa-indicator-wrapper">
+                        <div class="nwa-emissions-wrapper">
+                            <label class="form-component" for="lucf-option">
+                                <input checked type="radio" id="lucf-option" name="intervention-cb" value="ecological">
+                                <div class="check"></div>
+                                <span class="form-text">LUCF Emissions only (2004-2014)</span>
+                            </label>
+                            <br>
+                            <label class="form-component" for="ex-lucf-option">
+                                <input type="radio" id="ex-lucf-option" name="intervention-cb" value="ecological">
+                                <div class="check"></div>
+                                <span class="form-text">Excluding LUCF Emissions (2004-2014)</span>
+                            </label>
+                            <br>
+                            <label class="form-component" for="total-option">
+                                <input type="radio" id="total-option" name="intervention-cb" value="ecological">
+                                <div class="check"></div>
+                                <span class="form-text">Excluding LUCF Emissions (2004-2014)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="nwa-socioeconomic-content nwa-indicator-wrapper">
+                        <div class="nwa-socioeconomic-wrapper">
+                            <label class="form-component nwa-socio-main-options" for="income-option">
+                                <input checked type="radio" id="income-option" name="food">
+                                <div class="check"></div>
+                                <span class="form-text">Income Group</span>
+                                <div class="nwa-socio-sub-options" style="display: block;">
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">High</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Upper Middle</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Lower Middle</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Low</span>
+                                    </label>
+                                </div>
+                            </label>
+
+                            <br>
+                            <label class="form-component nwa-socio-main-options" for="sdgi-option">
+                                <input type="radio" id="sdgi-option" name="food">
+                                <div class="check"></div>
+                                <span class="form-text">Sustainable Development Goal Index</span>
+                                <div class="nwa-socio-sub-options">
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">High</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Upper Middle</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Lower Middle</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Low</span>
+                                    </label>
+                                </div>
+                            </label>
+
+                            <br>
+                            <label class="form-component nwa-socio-main-options" for="population-option">
+                                <input type="radio" id="population-option" name="food">
+                                <div class="check"></div>
+                                <span class="form-text">Population</span>
+                                <div class="nwa-socio-sub-options">
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Majority Urban</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input checked type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Majority Rural</span>
+                                    </label>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
                     <div class="nwa-ecological-content nwa-indicator-wrapper">
-                        eco content
+                        <div class="nwa-ecological-wrapper">
+                            <label class="form-component" for="ncs-potential-option">
+                                <input checked type="checkbox" id="ncs-potential-option" name="food">
+                                <div class="check"></div>
+                                <span class="form-text">NCS potential by land area</span>
+                            </label>
+                            <br>
+                            <label class="form-component" for="bio-index-option">
+                                <input type="checkbox" id="bio-index-option" name="food">
+                                <div class="check"></div>
+                                <span class="form-text">Biodiversity Index</span>
+                                <div class="nwa-ecological-sub-options">
+                                    <label class="form-component" for="maj-urban-option">
+                                        <input type="checkbox" id="maj-urban-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Majority Urban</span>
+                                    </label>
+                                    <label class="form-component" for="maj-rural-option">
+                                        <input type="checkbox" id="maj-rural-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Majority Rural</span>
+                                    </label>
+                                </div>
+                            </label>
+                            <br>
+                            <label class="form-component" for="protected-area-option">
+                                <input type="checkbox" id="protected-area-option" name="food">
+                                <div class="check"></div>
+                                <span class="form-text">Protected Area</span>
+                                <div class="nwa-ecological-sub-options">
+                                    <label class="form-component" for="income1-option">
+                                        <input type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Majority Urban</span>
+                                    </label>
+                                    <label class="form-component" for="income1-option">
+                                        <input type="checkbox" id="income1-option" name="food">
+                                        <div class="check"></div>
+                                        <span class="form-text">Majority Rural</span>
+                                    </label>
+                                </div>
+                            </label>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -287,6 +432,7 @@
         </div>
     </div>
 
+    <script src="js/map.js"></script>
     <script src="js/main.js"></script>
 </body>
 

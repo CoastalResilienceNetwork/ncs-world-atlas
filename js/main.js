@@ -292,11 +292,9 @@ $(document).ready(function() {
 
     // chnage the color of each country based on total carbon value
     function updateChloroplethMap(countryValues) {
-      console.log(countryValues);
       d3.selectAll(".nwa-countries")
         .transition()
         .style("fill", function(d) {
-          console.log(d);
           if (app.countryValues[d.properties.iso_a3] == undefined) {
             app.countryValues[d.properties.iso_a3] = 0;
           }
@@ -435,14 +433,15 @@ $(document).ready(function() {
       createArrayOfFieldsFromCBs();
     }
 
-    function handleGlobalIndicatorsClick(evt) {
+    // global indicator functions ***************************************
+    function handleMainGlobalIndicatorsClick(evt) {
       $.each($(".nwa-global-indicators-cb input"), (i, v) => {
         if (v != evt.currentTarget) {
           $(v).prop("checked", false);
         }
       });
       $.each($(".nwa-indicator-wrapper"), (i, v) => {
-        $(v).slideUp();
+        $(v).hide();
       });
 
       let val;
@@ -451,7 +450,10 @@ $(document).ready(function() {
       } else {
         val = "";
       }
-
+      slideDownGlobalIndicators(val);
+    }
+    // slide down global indicator section
+    function slideDownGlobalIndicators(val) {
       if (val) {
         // call function here, pass val
         switch (val) {
@@ -471,7 +473,9 @@ $(document).ready(function() {
       }
     }
 
-    // click events
+    //
+
+    // click events *********************************************************
     $(".nwa-pathways-controllers input").on("click", evt => {
       handlePathwaysCbClick();
     });
@@ -487,11 +491,6 @@ $(document).ready(function() {
     // on click of cost option
     $("#cost-option").on("click", evt => {
       createArrayOfFieldsFromCBs();
-    });
-
-    // on global indicator cb click
-    $(".nwa-global-indicators-cb input").on("click", evt => {
-      handleGlobalIndicatorsClick(evt);
     });
 
     // on info icon hover
@@ -514,6 +513,30 @@ $(document).ready(function() {
         .duration(800)
         .call(zoom.transform, d3.zoomIdentity.translate(0, 0));
     });
+
+    // global indicators clicks ********************************************
+    // on global indicator cb click
+    $(".nwa-global-indicators-cb input").on("click", evt => {
+      handleMainGlobalIndicatorsClick(evt);
+    });
+
+    // socio econmoic options click
+    $(".nwa-socio-main-options input").on("click", evt => {
+      // console.log(
+      //   $(".nwa-socioeconomic-wrapper").find(".nwa-socio-sub-options")
+      // );
+      let opts = $(".nwa-socioeconomic-wrapper").find(".nwa-socio-sub-options");
+      $.each(opts, (i, v) => {
+        $(v).hide();
+      });
+      let content = $(evt.currentTarget)
+        .next()
+        .next()
+        .next();
+      $(content).show();
+    });
+
+    // ecological options click
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site
     createArrayOfFieldsFromCBs();

@@ -104,79 +104,8 @@ $(document).ready(function() {
 
     var stColor = d3
       .scaleThreshold()
-      // .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-      .domain([
-        0,
-        25,
-        50,
-        75,
-        100,
-        125,
-        150,
-        175,
-        200,
-        225,
-        250,
-        275,
-        300,
-        325,
-        350,
-        375,
-        400,
-        425,
-        450,
-        475,
-        500,
-        600,
-        700,
-        800,
-        900,
-        1000,
-        2000
-      ])
-      .range(
-        // [
-        //   "#dedede",
-        //   "#d9f0a3",
-        //   "#c0e097",
-        //   "#a8d18b",
-        //   "#90c27f",
-        //   "#78b373",
-        //   "#60a467",
-        //   "#48955b",
-        //   "#30864f",
-        //   "#187743",
-        //   "#006837"
-        // ]
-        [
-          "#dedede",
-          "#D9F0A3",
-          "#CFEA9E",
-          "#C6E49A",
-          "#BDDF95",
-          "#B4D991",
-          "#ABD38C",
-          "#A2CE88",
-          "#99C883",
-          "#90C27F",
-          "#87BD7A",
-          "#7EB776",
-          "#75B171",
-          "#6CAC6D",
-          "#63A668",
-          "#5AA064",
-          "#519B5F",
-          "#48955B",
-          "#3F8F56",
-          "#368A52",
-          "#2D844D",
-          "#247E49",
-          "#1B7944",
-          "#127340",
-          "#096D3B",
-          "#006837"
-        ]
-      );
+      .domain(app.domain)
+      .range(app.range);
 
     app.countryData = data;
     // Check for error
@@ -218,27 +147,6 @@ $(document).ready(function() {
         .duration(500)
         .style("opacity", 0);
     }
-
-    //  // Define the zoom and attach it to the map ************
-    //  function zoomed() {
-    //    g.style(
-    //      "stroke-width",
-    //      1.5 / d3.event.transform.k + "px"
-    //    );
-    //    g.attr(
-    //      "transform",
-    //      d3.event.transform
-    //    ); // updated for d3 v4
-    //    // $(".nwa-fullExtent").show();
-    //  }
-    //  var zoom = d3
-    //    .zoom()
-    //    .scaleExtent([1, 8])
-    //    .on("zoom", zoomed);
-
-    //  // call zoom on the world svg
-    //  worldSvg.call(zoom);
-
     // info icon click
     $(".nwa-intervention-info-icon").on("click", evt => {
       // toggle info icon based on element visibility
@@ -286,6 +194,34 @@ $(document).ready(function() {
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
         });
       });
+      filterCountryValuesFromGlobalIndicator();
+    }
+
+    function filterCountryValuesFromGlobalIndicator() {
+      function filterCountries(col) {
+        console.log("in filter");
+        col = app.countryData.columns[col];
+        $.each(app.countryData, (i, v) => {
+          if (v[col] !== "NCS-yes") {
+            // do nothing
+            app.countryValues[v["AlphaISO"]] = 0;
+          }
+        });
+      }
+
+      $.each($(".nwa-global-indicators-cb input"), (i, v) => {
+        if (v.checked) {
+          let col;
+          if (v.value === "ndc_sub") {
+            col = 34;
+          }
+          console.log(app.globalIndicatorValues.ndc_sub);
+          // if (app.globalIndicatorValues.ndc_sub === "yes") {
+          filterCountries(col);
+          // }
+        }
+      });
+
       updateChloroplethMap(app.countryValues);
       updateMetric(app.countryValues);
     }
@@ -471,6 +407,8 @@ $(document).ready(function() {
             break;
         }
       }
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
     }
 
     //
@@ -522,21 +460,37 @@ $(document).ready(function() {
 
     // socio econmoic options click
     $(".nwa-socio-main-options input").on("click", evt => {
-      // console.log(
-      //   $(".nwa-socioeconomic-wrapper").find(".nwa-socio-sub-options")
-      // );
       let opts = $(".nwa-socioeconomic-wrapper").find(".nwa-socio-sub-options");
       $.each(opts, (i, v) => {
         $(v).hide();
       });
-      let content = $(evt.currentTarget)
+      $(evt.currentTarget)
+        .parent()
         .next()
-        .next()
-        .next();
-      $(content).show();
+        .show();
     });
 
     // ecological options click
+    $(".nwa-eco-main-options input").on("click", evt => {
+      let opts = $(".nwa-ecological-wrapper").find(
+        ".nwa-ecological-sub-options"
+      );
+      $.each(opts, (i, v) => {
+        $(v).hide();
+      });
+      $(evt.currentTarget)
+        .parent()
+        .next()
+        .show();
+    });
+
+    // ndc yes/no click
+    $(".nwa-ndc-submission input").on("click", evt => {
+      // console.log(evt.currentTarget.value);
+      app.globalIndicatorValues.ndc_sub = evt.currentTarget.value;
+      // console.log(app.globalIndicatorValues);
+      filterCountryValuesFromGlobalIndicator();
+    });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site
     createArrayOfFieldsFromCBs();

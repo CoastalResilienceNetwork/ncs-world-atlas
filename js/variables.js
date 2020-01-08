@@ -31,10 +31,72 @@ app.globalIndicatorFields = {
   }
 };
 
+app.globalIndicatorValues = {
+  ndc_sub: "yes"
+};
+
 app.helpText = {
   "intervention-icon": "this is test text for the intervention icon",
   "global-icon": "this is test text for the global icon"
 };
+
+app.domain = [
+  0,
+  25,
+  50,
+  75,
+  100,
+  125,
+  150,
+  175,
+  200,
+  225,
+  250,
+  275,
+  300,
+  325,
+  350,
+  375,
+  400,
+  425,
+  450,
+  475,
+  500,
+  600,
+  700,
+  800,
+  900,
+  1000,
+  2000
+];
+app.range = [
+  "#dedede",
+  "#D9F0A3",
+  "#CFEA9E",
+  "#C6E49A",
+  "#BDDF95",
+  "#B4D991",
+  "#ABD38C",
+  "#A2CE88",
+  "#99C883",
+  "#90C27F",
+  "#87BD7A",
+  "#7EB776",
+  "#75B171",
+  "#6CAC6D",
+  "#63A668",
+  "#5AA064",
+  "#519B5F",
+  "#48955B",
+  "#3F8F56",
+  "#368A52",
+  "#2D844D",
+  "#247E49",
+  "#1B7944",
+  "#127340",
+  "#096D3B",
+  "#006837"
+];
 
 app.countryReportLinks = [
   {

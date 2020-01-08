@@ -251,20 +251,23 @@ h3 {
   box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
   background-color: white;
 }
+/* .nwa-global-indicators-cb {
+} */
 .nwa-global-indicator-content-wrapper {
   display: flex;
 }
 .nwa-indicator-wrapper {
   display: none;
   margin-left: 20px;
-  border: 1px solid red;
   height: 100%;
+  border-left: 1px solid lightgray;
+  padding-left: 20px;
 }
 
 .nwa-ndc-wrapper {
   display: flex;
   align-items: center;
-  margin-top: 23px;
+  padding-top: 23px;
 }
 /* .nwa-ndc-wrapper div {
   font-weight: bold;
@@ -274,13 +277,13 @@ h3 {
   margin-left: 5px;
 }
 .nwa-emissions-wrapper {
-  margin-top: 12px;
+  padding-top: 12px;
 }
 .nwa-socio-sub-options,
 .nwa-ecological-sub-options {
   margin-left: 17px;
   font-size: 12px;
-  margin-bottom: 1px;
+  margin-bottom: -13px;
   display: none;
 }
 div.tooltip {

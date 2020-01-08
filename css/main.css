@@ -243,6 +243,7 @@ h3 {
 
 .nwa-global-indicators-wrapper {
   width: 700px;
+  height: 112px;
   margin-left: 297px;
   margin-top: -123px;
   position: relative;
@@ -258,6 +259,7 @@ h3 {
 }
 .nwa-indicator-wrapper {
   display: none;
+  max-height: 70px;
   margin-left: 20px;
   height: 100%;
   border-left: 1px solid lightgray;

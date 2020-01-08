@@ -10,6 +10,7 @@ $(document).ready(function() {
     .translate([worldWidth / 2, worldHeight / 1.7]);
   // Set up natinonal map path
   var worldPath = d3.geoPath().projection(worldProjection);
+
   // Create national map SVG
   var worldSvg = d3
     .select("#nwa-world-map")
@@ -18,55 +19,42 @@ $(document).ready(function() {
     .attr("width", "100%")
     .attr("height", "100%")
     .attr("viewBox", "0 0 717 375");
-  // .style("margin-left", "30px")
-
-  // var g = worldSvg.append("g");
 
   // Queue up datasets using d3 Queue
   d3.queue()
-    // .defer(d3.json, "data/world.geo.json") // Load world geojson
     .defer(d3.json, "data/world.topo.json") // Load world geojson
-    // .defer(d3.json, "data/us.json") // Load world geojson
     .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
+    console.log(data);
     // new code here ****************************
+    var zoom = d3
+      .zoom()
+      .scaleExtent([1, 8])
+      .on("zoom", zoomed);
+
     var stG = worldSvg.append("g");
 
     // stG
     //   .append("path")
-    //   .datum(topojson.merge(geojson, geojson.objects.world.geometries))
+    //   .datum(topojson.merge(geojson, data))
     //   .attr("class", "nwa-countries")
     //   .attr("d", worldPath);
-
     stG
-      .append("g")
+      // .append("g")
       .selectAll("path")
       .data(topojson.feature(geojson, geojson.objects.world).features)
       .enter()
       .append("path")
       .attr("d", worldPath)
       .attr("class", "nwa-countries")
+
       // on various events, call specific functions
       .on("click", countryClick)
       .on("mouseover", countryOver)
       .on("mouseout", countryOut);
-
-    // National map - append a group to SVG and bind TopoJSON data elements (states)
-    // let g = worldSvg
-    //   .append("g")
-    //   .selectAll("path")
-    //   .data(topojson.feature(geojson, geojson.objects.world).features)
-    //   .enter()
-    //   .append("path")
-    //   .attr("d", worldPath)
-    //   .attr("class", "nwa-countries")
-    //   // on various events, call specific functions
-    //   .on("click", countryClick)
-    //   .on("mouseover", countryOver)
-    //   .on("mouseout", countryOut);
 
     // Define the div for the tooltip
     let tooltipDiv = d3
@@ -79,15 +67,12 @@ $(document).ready(function() {
     function zoomed() {
       stG.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       stG.attr("transform", d3.event.transform); // updated for d3 v4
-      // $(".nwa-fullExtent").show();
     }
-    var zoom = d3
-      .zoom()
-      .scaleExtent([1, 8])
-      .on("zoom", zoomed);
 
     // call zoom on the world svg
-    stG.call(zoom);
+    stG.call(zoom).on("mousedown.zoom", null); // disbale pan
+    // worldSvg.call(zoom);
+    // stG.call(zoom); // disbale pan
 
     console.log(data);
     //For Chosen options visit https://harvesthq.github.io/chosen/

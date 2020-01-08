@@ -43,7 +43,7 @@ $(document).ready(function() {
     //   .attr("class", "nwa-countries")
     //   .attr("d", worldPath);
     stG
-      // .append("g")
+      .append("g")
       .selectAll("path")
       .data(topojson.feature(geojson, geojson.objects.world).features)
       .enter()
@@ -72,7 +72,7 @@ $(document).ready(function() {
     // call zoom on the world svg
     stG.call(zoom).on("mousedown.zoom", null); // disbale pan
     // worldSvg.call(zoom);
-    // stG.call(zoom); // disbale pan
+    // stG.call(zoom);
 
     console.log(data);
     //For Chosen options visit https://harvesthq.github.io/chosen/
@@ -132,17 +132,6 @@ $(document).ready(function() {
         .duration(500)
         .style("opacity", 0);
     }
-    // info icon click
-    $(".nwa-intervention-info-icon").on("click", evt => {
-      // toggle info icon based on element visibility
-      if ($($(".nwa-intervention-info-icon img")[0]).is(":hidden")) {
-        $($(".nwa-intervention-info-icon img")[0]).show();
-        $($(".nwa-intervention-info-icon img")[1]).hide();
-      } else {
-        $($(".nwa-intervention-info-icon img")[0]).hide();
-        $($(".nwa-intervention-info-icon img")[1]).show();
-      }
-    });
 
     function updateMetric(countryValues) {
       let metricValue = 0;
@@ -183,30 +172,90 @@ $(document).ready(function() {
     }
 
     function filterCountryValuesFromGlobalIndicator() {
-      function filterCountries(col) {
-        console.log("in filter");
+      function filterCountries(col, array) {
         col = app.countryData.columns[col];
-        $.each(app.countryData, (i, v) => {
-          if (v[col] !== "NCS-yes") {
-            // do nothing
-            app.countryValues[v["AlphaISO"]] = 0;
-          }
-        });
+        if (array.length > 1) {
+          $.each(app.countryData, (i, dataValue) => {
+            let query = "";
+            if (array.length === 5) {
+              query =
+                dataValue[col] === array[0] ||
+                dataValue[col] === array[1] ||
+                dataValue[col] === array[2] ||
+                dataValue[col] === array[3] ||
+                dataValue[col] === array[4];
+            } else if (array.length === 4) {
+              query =
+                dataValue[col] === array[0] ||
+                dataValue[col] === array[1] ||
+                dataValue[col] === array[2] ||
+                dataValue[col] === array[3];
+            } else if (array.length === 3) {
+              query =
+                dataValue[col] === array[0] ||
+                dataValue[col] === array[1] ||
+                dataValue[col] === array[2];
+            } else if (array.length === 2) {
+              query =
+                dataValue[col] === array[0] || dataValue[col] === array[1];
+            }
+            if (query) {
+            } else {
+              app.countryValues[dataValue["AlphaISO"]].value = 0;
+            }
+          });
+        } else {
+          $.each(app.countryData, (i, v) => {
+            if (v[col] !== array[0]) {
+              app.countryValues[v["AlphaISO"]].value = 0;
+            }
+          });
+        }
       }
 
       $.each($(".nwa-global-indicators-cb input"), (i, v) => {
         if (v.checked) {
           let col;
+          console.log(v.value);
           if (v.value === "ndc_sub") {
             col = 34;
+            val = ["NCS-yes"];
           }
-          console.log(app.globalIndicatorValues.ndc_sub);
-          // if (app.globalIndicatorValues.ndc_sub === "yes") {
-          filterCountries(col);
-          // }
+          if (v.value === "socioeconomic") {
+            $.each($(".nwa-socio-main-options input"), (i, v) => {
+              if (v.checked) {
+                console.log(v);
+                if (v.value === "income_group") {
+                  col = 42;
+                  val = app.globalIndicatorValues.socioeconomic.income_group;
+                } else if (v.value === "sdgi") {
+                  col = 43;
+                  val = app.globalIndicatorValues.socioeconomic.sdg_index;
+                } else if (v.value === "population") {
+                  col = 41;
+                  val = app.globalIndicatorValues.socioeconomic.majority_pop;
+                }
+              }
+            });
+          }
+          if (v.value === "ecological") {
+            $.each($(".nwa-eco-main-options input"), (i, v) => {
+              if (v.checked) {
+                if (v.value === "bio_index") {
+                  col = 46;
+                  val = app.globalIndicatorValues.ecological.bio_index;
+                } else if (v.value === "protected_area") {
+                  col = 47;
+                  val = app.globalIndicatorValues.ecological.protected_area;
+                }
+              }
+            });
+          }
+          console.log(col);
+          filterCountries(col, val);
         }
       });
-
+      // when finishing filtering country values update map and
       updateChloroplethMap(app.countryValues);
       updateMetric(app.countryValues);
     }
@@ -380,25 +429,144 @@ $(document).ready(function() {
         switch (val) {
           case "ndc_sub":
             $(".nwa-ndc-content").slideDown();
+            // rebuild the map when these cb's are checked
+            createArrayOfFieldsFromCBs();
             break;
-          case "emissions":
-            $(".nwa-emssions-content").slideDown();
-            break;
+
           case "socioeconomic":
             $(".nwa-socioeconomic-content").slideDown();
+            $.each($(".nwa-socio-main-options input"), (i, v) => {
+              if (v.checked) {
+                if (v.value === "income_group") {
+                  //append checked value to the master value array
+                  buildIncomeOptionsArray();
+                } else if (v.value === "sdgi") {
+                  buildSdgiOptionsArray();
+                } else if (v.value === "population") {
+                  buildPopulationOptionsArray();
+                }
+              }
+            });
             break;
           case "ecological":
             $(".nwa-ecological-content").slideDown();
+            $.each($(".nwa-eco-main-options input"), (i, v) => {
+              if (v.checked) {
+                if (v.value === "bio_index") {
+                  buildBioOptionsArray();
+                } else if (v.value === "protected_area") {
+                  buildProtectedAreaOptionsArray();
+                }
+              }
+            });
             break;
         }
+      } else {
+        // rebuild the map when these cb's are checked
+        createArrayOfFieldsFromCBs();
       }
+    }
+
+    function ecologicalOptionsClick(evt) {
+      let opts = $(".nwa-ecological-wrapper").find(
+        ".nwa-ecological-sub-options"
+      );
+      $.each(opts, (i, v) => {
+        $(v).hide();
+      });
+      $(evt.currentTarget)
+        .parent()
+        .next()
+        .show();
+
+      // console.log(evt.currentTarget.value);
+
+      if (evt.currentTarget.value === "bio_index") {
+        buildBioOptionsArray();
+      } else if (evt.currentTarget.value === "protected_area") {
+        buildProtectedAreaOptionsArray();
+      }
+    }
+    function socioOptionsClick(evt) {
+      let opts = $(".nwa-socioeconomic-wrapper").find(".nwa-socio-sub-options");
+      $.each(opts, (i, v) => {
+        $(v).hide();
+      });
+      $(evt.currentTarget)
+        .parent()
+        .next()
+        .show();
+
+      if (evt.currentTarget.value === "income_group") {
+        //append checked value to the master value array
+        buildIncomeOptionsArray();
+      } else if (evt.currentTarget.value === "sdgi") {
+        buildSdgiOptionsArray();
+      } else if (evt.currentTarget.value === "population") {
+        buildPopulationOptionsArray();
+      }
+    }
+
+    function buildIncomeOptionsArray() {
+      app.globalIndicatorValues.socioeconomic.income_group = [];
+      // loop through the cbs
+      $.each($(".nwa-income-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.socioeconomic.income_group.push(v.value);
+        }
+      });
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
+    }
+    function buildSdgiOptionsArray() {
+      app.globalIndicatorValues.socioeconomic.sdg_index = [];
+      // loop through the cbs
+      $.each($(".nwa-sdgi-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.socioeconomic.sdg_index.push(v.value);
+        }
+      });
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
+    }
+    function buildPopulationOptionsArray() {
+      app.globalIndicatorValues.socioeconomic.majority_pop = [];
+      // loop through the cbs
+      $.each($(".nwa-population-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.socioeconomic.majority_pop.push(v.value);
+        }
+      });
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
 
-    //
+    function buildBioOptionsArray() {
+      app.globalIndicatorValues.ecological.bio_index = [];
+      // loop through the cbs
+      $.each($(".nwa-bio-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.ecological.bio_index.push(v.value);
+        }
+      });
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
+    }
 
-    // click events *********************************************************
+    function buildProtectedAreaOptionsArray() {
+      app.globalIndicatorValues.ecological.protected_area = [];
+      // loop through the cbs
+      $.each($(".nwa-protected-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.ecological.protected_area.push(v.value);
+        }
+      });
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
+    }
+
+    // ****************************************************************************************************************************************
+    // click events ***************************************************************************************************************************
     $(".nwa-pathways-controllers input").on("click", evt => {
       handlePathwaysCbClick();
     });
@@ -445,36 +613,47 @@ $(document).ready(function() {
 
     // socio econmoic options click
     $(".nwa-socio-main-options input").on("click", evt => {
-      let opts = $(".nwa-socioeconomic-wrapper").find(".nwa-socio-sub-options");
-      $.each(opts, (i, v) => {
-        $(v).hide();
-      });
-      $(evt.currentTarget)
-        .parent()
-        .next()
-        .show();
+      socioOptionsClick(evt);
     });
 
     // ecological options click
     $(".nwa-eco-main-options input").on("click", evt => {
-      let opts = $(".nwa-ecological-wrapper").find(
-        ".nwa-ecological-sub-options"
-      );
-      $.each(opts, (i, v) => {
-        $(v).hide();
-      });
-      $(evt.currentTarget)
-        .parent()
-        .next()
-        .show();
+      ecologicalOptionsClick(evt);
     });
 
+    // sub options clicks
+    $(".nwa-income-sub-options input").on("click", evt => {
+      buildIncomeOptionsArray();
+    });
+    $(".nwa-sdgi-sub-options input").on("click", evt => {
+      buildSdgiOptionsArray();
+    });
+    $(".nwa-population-sub-options input").on("click", evt => {
+      buildPopulationOptionsArray();
+    });
+    $(".nwa-bio-sub-options input").on("click", evt => {
+      buildBioOptionsArray();
+    });
+    $(".nwa-protected-sub-options input").on("click", evt => {
+      buildProtectedAreaOptionsArray();
+    });
+
+    // *****************************************************************
     // ndc yes/no click
     $(".nwa-ndc-submission input").on("click", evt => {
-      // console.log(evt.currentTarget.value);
       app.globalIndicatorValues.ndc_sub = evt.currentTarget.value;
-      // console.log(app.globalIndicatorValues);
-      filterCountryValuesFromGlobalIndicator();
+      createArrayOfFieldsFromCBs();
+    });
+    // info icon click
+    $(".nwa-intervention-info-icon").on("click", evt => {
+      // toggle info icon based on element visibility
+      if ($($(".nwa-intervention-info-icon img")[0]).is(":hidden")) {
+        $($(".nwa-intervention-info-icon img")[0]).show();
+        $($(".nwa-intervention-info-icon img")[1]).hide();
+      } else {
+        $($(".nwa-intervention-info-icon img")[0]).hide();
+        $($(".nwa-intervention-info-icon img")[1]).show();
+      }
     });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site

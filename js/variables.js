@@ -10,29 +10,43 @@ app.worldCheckboxFields = {
 
 app.globalIndicatorFields = {
   ndc_sub: 34,
-  emmisions: {
-    emmisions_including_lucf: 35,
-    emmisions_including_lucf_cost_effective: 38,
-    emmisions_excluding_lucf: 36,
-    emmisions_excluding_lucf_cost_effective: 39,
-    emmisions_all: 37,
-    emmisions_all_cost_effective: 40
-  },
+  // emmisions: {
+  //   emmisions_including_lucf: 35,
+  //   emmisions_including_lucf_cost_effective: 38,
+  //   emmisions_excluding_lucf: 36,
+  //   emmisions_excluding_lucf_cost_effective: 39,
+  //   emmisions_all: 37,
+  //   emmisions_all_cost_effective: 40
+  // },
   socioeconomic: {
     income_group: 42,
     sdg_index: 43,
     majority_pop: 41
   },
   ecological: {
-    area_proportion_total: 44,
-    area_proportion_total_cost_effective: 45,
+    // area_proportion_total: 44,
+    // area_proportion_total_cost_effective: 45,
     bio_index: 46,
     protected_area: 47
   }
 };
 
 app.globalIndicatorValues = {
-  ndc_sub: "yes"
+  ndc_sub: "yes",
+  socioeconomic: {
+    income_group: [
+      "High income",
+      "Upper middle income",
+      "Lower middle income",
+      "Low income"
+    ],
+    sdgi: ["High", "Upper Middle", "Lower Middle", "Low"],
+    population: ["Majority Urban", "Majority Rural"]
+  },
+  ecological: {
+    bio_index: ["High", "Upper Middle", "Lower Middle", "Low"],
+    protected_area: ["0-1%", "1-5%", "5-10%", "10-20%", ">20%"]
+  }
 };
 
 app.helpText = {

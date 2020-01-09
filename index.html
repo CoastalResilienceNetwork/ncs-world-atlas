@@ -61,7 +61,7 @@
                     <div class="nwa-country-dd-wrapper">
                         <!-- For Chosen options visit https://harvesthq.github.io/chosen/ -->
                         <div class="chosen-wrap" style="margin-bottom:10px;">
-                            <select data-placeholder="Select a Country" id="chosenSingle" class="chosen">
+                            <select data-placeholder="Global (all countries)" id="chosenSingle" class="chosen">
                                 <option></option>
                             </select>
                         </div>
@@ -172,12 +172,13 @@
                             <span class="form-text">Optimal Grazing Intensity</span>
                         </label>
                         <br>
-                        <label class="form-component" for="n-option">
+                        <label class="form-component" for="n-option" id="improved-fire-management-wrapper">
                             <input checked type="checkbox" id="n-option" name="intervention-cb" value="10">
                             <div class="check"></div>
                             <span class="form-text">Improved Fire Management (Savannas)</span>
+                            <br>
                         </label>
-                        <br>
+
                         <label class="form-component" for="o-option">
                             <input checked type="checkbox" id="o-option" name="intervention-cb" value="24">
                             <div class="check"></div>
@@ -231,7 +232,7 @@
                     <label class="form-component" for="ndc_sub-option">
                         <input type="checkbox" id="ndc_sub-option" name="intervention-cb" value="ndc_sub">
                         <div class="check"></div>
-                        <span class="form-text">Include NDC Submissions</span>
+                        <span class="form-text">Nationally Determined Contributions</span>
                     </label>
                     <br>
                     <!-- <label class="form-component" for="emissions-option">
@@ -256,7 +257,7 @@
                 <div class="nwa-global-indicators-content">
                     <div class="nwa-ndc-content nwa-indicator-wrapper">
                         <div class="nwa-ndc-wrapper">
-                            <div>Including NDCs with Natural Solutions</div>
+                            <div>Countries that include Nature Based Solutions in their NDC</div>
                             <!-- <div class="toggle-btn nwa-ndc-submission" style="width:125px;">
                                 <input checked type="radio" id="num1" name="num" value="yes" />
                                 <label for="num1">Yes</label>

@@ -19,6 +19,10 @@ hr {
   border: 1pt solid #bbb;
   box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
 }
+.nwa-disabled {
+  color: lightgray;
+  text-decoration: line-through;
+}
 
 /* main wrapper styles ******************************************/
 .nwa-header-wrapper {
@@ -256,6 +260,7 @@ h3 {
 } */
 .nwa-global-indicator-content-wrapper {
   display: flex;
+  margin-top: 5px;
 }
 .nwa-indicator-wrapper {
   display: none;
@@ -270,6 +275,10 @@ h3 {
   display: flex;
   align-items: center;
   padding-top: 23px;
+}
+.nwa-socioeconomic-wrapper {
+  margin-top: -9px;
+  position: absolute;
 }
 /* .nwa-ndc-wrapper div {
   font-weight: bold;

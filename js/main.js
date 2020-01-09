@@ -75,17 +75,6 @@ $(document).ready(function() {
     // stG.call(zoom);
 
     console.log(data);
-    //For Chosen options visit https://harvesthq.github.io/chosen/
-    //Single deselect only works if the first option in the select tag is blank
-
-    $("#chosenSingle")
-      .chosen({
-        allow_single_deselect: true,
-        width: "190px"
-      })
-      .change(function(c) {
-        countrySelected(c.target.value, "select");
-      });
 
     var stColor = d3
       .scaleThreshold()
@@ -199,8 +188,7 @@ $(document).ready(function() {
               query =
                 dataValue[col] === array[0] || dataValue[col] === array[1];
             }
-            if (query) {
-            } else {
+            if (!query) {
               app.countryValues[dataValue["AlphaISO"]].value = 0;
             }
           });
@@ -216,7 +204,6 @@ $(document).ready(function() {
       $.each($(".nwa-global-indicators-cb input"), (i, v) => {
         if (v.checked) {
           let col;
-          console.log(v.value);
           if (v.value === "ndc_sub") {
             col = 34;
             val = ["NCS-yes"];
@@ -224,7 +211,6 @@ $(document).ready(function() {
           if (v.value === "socioeconomic") {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
               if (v.checked) {
-                console.log(v);
                 if (v.value === "income_group") {
                   col = 42;
                   val = app.globalIndicatorValues.socioeconomic.income_group;
@@ -251,7 +237,6 @@ $(document).ready(function() {
               }
             });
           }
-          console.log(col);
           filterCountries(col, val);
         }
       });
@@ -275,11 +260,16 @@ $(document).ready(function() {
     }
     function populateDDMenu(countryValues) {
       let selectMenu = $("#chosenSingle");
+      // selectMenu.append(
+      //   `<option value='Global'>Global (all countries)</option>`
+      // );
       $.each(countryValues, (i, v) => {
         selectMenu
           .append(`<option value='${v.AlphaISO}'>${v.countryName}</option>`)
           .trigger("chosen:updated");
       });
+      $("#chosenSingle").val("Global");
+      $("#chosenSingle").trigger("chosen:updated");
     }
 
     function countrySelected(country) {
@@ -350,9 +340,11 @@ $(document).ready(function() {
         let value;
         if (v.checked) {
           if ($("#cost-option")[0].checked) {
+            console.log("checked");
             value = parseInt(v.value) + 1;
           } else {
             value = parseInt(v.value);
+            console.log("unchedked");
           }
           columnArray.push(value);
         }
@@ -581,6 +573,11 @@ $(document).ready(function() {
     });
     // on click of cost option
     $("#cost-option").on("click", evt => {
+      if (evt.currentTarget.checked) {
+        $("#improved-fire-management-wrapper").addClass("nwa-disabled");
+      } else {
+        $("#improved-fire-management-wrapper").removeClass("nwa-disabled");
+      }
       createArrayOfFieldsFromCBs();
     });
 
@@ -655,6 +652,17 @@ $(document).ready(function() {
         $($(".nwa-intervention-info-icon img")[1]).show();
       }
     });
+    //For Chosen options visit https://harvesthq.github.io/chosen/
+    //Single deselect only works if the first option in the select tag is blank
+
+    $("#chosenSingle")
+      .chosen({
+        allow_single_deselect: true,
+        width: "190px"
+      })
+      .change(function(c) {
+        countrySelected(c.target.value, "select");
+      });
 
     // call this function once to build the column array and populate the chloropleth map at the load of the site
     createArrayOfFieldsFromCBs();

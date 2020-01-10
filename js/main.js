@@ -38,16 +38,10 @@ $(document).ready(function() {
 
     var stG = worldSvg.append("g");
 
-    // stG
-    //   .append("path")
-    //   .datum(topojson.merge(geojson, data))
-    //   .attr("class", "nwa-countries")
-    //   .attr("d", worldPath);
     stG
       .append("g")
       .selectAll("path")
       .data(topojson.feature(geojson, geojson.objects.world).features)
-      // .data(topojson.feature(geojson, geojson.objects.countries).features)
       .enter()
       .append("path")
       .attr("d", worldPath)
@@ -58,6 +52,24 @@ $(document).ready(function() {
       .on("mouseover", countryOver)
       .on("mouseout", countryOut);
 
+    // label the countries
+    stG
+      .selectAll(".nwa-country-labels")
+      .data(topojson.feature(geojson, geojson.objects.world).features)
+      .enter()
+      .append("text")
+      .attr("class", function(d) {
+        console.log(d);
+        return "nwa-country-labels " + d.properties.name;
+      })
+      .attr("transform", function(d) {
+        return "translate(" + worldPath.centroid(d) + ")";
+      })
+      .attr("dy", ".35em")
+      .text(function(d) {
+        return d.properties.name;
+      });
+
     // Define the div for the tooltip
     let tooltipDiv = d3
       .select("body")
@@ -67,6 +79,14 @@ $(document).ready(function() {
 
     // Define the zoom and attach it to the map ************
     function zoomed() {
+      console.log(stG.selectAll(".nwa-country-labels"));
+
+      //for subunit do
+      stG.selectAll(".nwa-country-labels").attr("transform", function(d) {
+        console.log(d);
+        return "translate(" + worldPath.centroid(d) + ")";
+      });
+
       stG.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       stG.attr("transform", d3.event.transform); // updated for d3 v4
     }
@@ -324,6 +344,7 @@ $(document).ready(function() {
               worldWidth / 2 - scale * x,
               worldHeight / 2 - scale * y
             ];
+          console.log(bounds);
 
           worldSvg
             .transition()

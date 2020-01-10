@@ -22,7 +22,8 @@ $(document).ready(function() {
 
   // Queue up datasets using d3 Queue
   d3.queue()
-    .defer(d3.json, "data/world.topo.json") // Load world geojson
+    // .defer(d3.json, "data/new-world-topo.json") // Load world topo
+    .defer(d3.json, "data/world.topo.json") // Load world topo
     .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
@@ -46,6 +47,7 @@ $(document).ready(function() {
       .append("g")
       .selectAll("path")
       .data(topojson.feature(geojson, geojson.objects.world).features)
+      // .data(topojson.feature(geojson, geojson.objects.countries).features)
       .enter()
       .append("path")
       .attr("d", worldPath)
@@ -70,8 +72,8 @@ $(document).ready(function() {
     }
 
     // call zoom on the world svg
-    stG.call(zoom).on("mousedown.zoom", null); // disbale pan
-    // worldSvg.call(zoom);
+    // stG.call(zoom).on("mousedown.zoom", null); // disbale pan
+    worldSvg.call(zoom);
     // stG.call(zoom);
 
     console.log(data);
@@ -323,7 +325,7 @@ $(document).ready(function() {
               worldHeight / 2 - scale * y
             ];
 
-          stG
+          worldSvg
             .transition()
             .duration(800)
             .call(
@@ -575,8 +577,10 @@ $(document).ready(function() {
     $("#cost-option").on("click", evt => {
       if (evt.currentTarget.checked) {
         $("#improved-fire-management-wrapper").addClass("nwa-disabled");
+        $($("#improved-fire-management-wrapper input")).prop("disabled", true);
       } else {
         $("#improved-fire-management-wrapper").removeClass("nwa-disabled");
+        $($("#improved-fire-management-wrapper input")).prop("disabled", false);
       }
       createArrayOfFieldsFromCBs();
     });
@@ -596,7 +600,7 @@ $(document).ready(function() {
 
     // on full extent button click
     $("#nwa-fullExtent").on("click", evt => {
-      stG
+      worldSvg
         .transition()
         .duration(800)
         .call(zoom.transform, d3.zoomIdentity.translate(0, 0));

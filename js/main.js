@@ -59,7 +59,6 @@ $(document).ready(function() {
       .enter()
       .append("text")
       .attr("class", function(d) {
-        console.log(d);
         return "nwa-country-labels " + d.properties.name;
       })
       .attr("transform", function(d) {
@@ -79,11 +78,8 @@ $(document).ready(function() {
 
     // Define the zoom and attach it to the map ************
     function zoomed() {
-      console.log(stG.selectAll(".nwa-country-labels"));
-
       //for subunit do
       stG.selectAll(".nwa-country-labels").attr("transform", function(d) {
-        console.log(d);
         return "translate(" + worldPath.centroid(d) + ")";
       });
 
@@ -95,8 +91,6 @@ $(document).ready(function() {
     // stG.call(zoom).on("mousedown.zoom", null); // disbale pan
     worldSvg.call(zoom);
     // stG.call(zoom);
-
-    console.log(data);
 
     var stColor = d3
       .scaleThreshold()
@@ -344,7 +338,6 @@ $(document).ready(function() {
               worldWidth / 2 - scale * x,
               worldHeight / 2 - scale * y
             ];
-          console.log(bounds);
 
           worldSvg
             .transition()
@@ -363,11 +356,9 @@ $(document).ready(function() {
         let value;
         if (v.checked) {
           if ($("#cost-option")[0].checked) {
-            console.log("checked");
             value = parseInt(v.value) + 1;
           } else {
             value = parseInt(v.value);
-            console.log("unchedked");
           }
           columnArray.push(value);
         }
@@ -493,8 +484,6 @@ $(document).ready(function() {
         .parent()
         .next()
         .show();
-
-      // console.log(evt.currentTarget.value);
 
       if (evt.currentTarget.value === "bio_index") {
         buildBioOptionsArray();

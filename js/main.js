@@ -65,6 +65,7 @@ $(document).ready(function() {
         return "translate(" + worldPath.centroid(d) + ")";
       })
       .attr("dy", ".35em")
+      .attr("display", "none")
       .text(function(d) {
         return d.properties.name;
       });
@@ -78,11 +79,14 @@ $(document).ready(function() {
 
     // Define the zoom and attach it to the map ************
     function zoomed() {
-      //for subunit do
-      stG.selectAll(".nwa-country-labels").attr("transform", function(d) {
-        return "translate(" + worldPath.centroid(d) + ")";
-      });
-
+      // label the countries once we get to a vertain zoom level
+      if (d3.event.transform.k > 4.5) {
+        // label the countries based on zoom level
+        stG.selectAll(".nwa-country-labels").attr("display", "block");
+      } else {
+        // empty labels
+        stG.selectAll(".nwa-country-labels").attr("display", "none");
+      }
       stG.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       stG.attr("transform", d3.event.transform); // updated for d3 v4
     }

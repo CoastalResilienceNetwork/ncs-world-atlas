@@ -142,6 +142,9 @@ h3 {
   font-weight: bold;
   margin-left: auto;
 }
+.nwa-country-value {
+  display: none;
+}
 .nwa-fullExtent:hover {
   cursor: pointer;
 }

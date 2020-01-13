@@ -232,13 +232,13 @@ $(document).ready(function() {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
               if (v.checked) {
                 if (v.value === "income_group") {
-                  col = 42;
+                  col = 43;
                   val = app.globalIndicatorValues.socioeconomic.income_group;
                 } else if (v.value === "sdgi") {
-                  col = 43;
+                  col = 44;
                   val = app.globalIndicatorValues.socioeconomic.sdg_index;
                 } else if (v.value === "population") {
-                  col = 41;
+                  col = 42;
                   val = app.globalIndicatorValues.socioeconomic.majority_pop;
                 }
               }
@@ -248,10 +248,10 @@ $(document).ready(function() {
             $.each($(".nwa-eco-main-options input"), (i, v) => {
               if (v.checked) {
                 if (v.value === "bio_index") {
-                  col = 46;
+                  col = 47;
                   val = app.globalIndicatorValues.ecological.bio_index;
                 } else if (v.value === "protected_area") {
-                  col = 47;
+                  col = 48;
                   val = app.globalIndicatorValues.ecological.protected_area;
                 }
               }
@@ -263,6 +263,8 @@ $(document).ready(function() {
       // when finishing filtering country values update map and
       updateChloroplethMap(app.countryValues);
       updateMetric(app.countryValues);
+      // update the country selected metric
+      updateCountrySelectedMetric();
     }
 
     // chnage the color of each country based on total carbon value
@@ -291,8 +293,29 @@ $(document).ready(function() {
       $("#chosenSingle").val("Global");
       $("#chosenSingle").trigger("chosen:updated");
     }
+    function updateCountrySelectedMetric() {
+      if (app.countrySelected) {
+        // update country selected metric
+        let text = `${
+          app.countryValues[app.countrySelected].countryName
+        }: ${Math.round(app.countryValues[app.countrySelected].value)} `;
+        $(".nwa-country-value span").text(text);
+        if (Math.round(app.countryValues[app.countrySelected].value) > 0) {
+          $(".nwa-country-value").show();
+        } else {
+          $(".nwa-country-value").hide();
+        }
+      } else {
+        $(".nwa-country-value").hide();
+      }
+    }
 
     function countrySelected(country) {
+      app.countrySelected = country;
+      // update the country selected metric
+      updateCountrySelectedMetric();
+
+      // update link and chosen menu
       if (country) {
         // update the chosen menu
         $("#chosenSingle").val(country);

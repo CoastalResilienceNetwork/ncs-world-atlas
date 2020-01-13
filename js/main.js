@@ -33,7 +33,7 @@ $(document).ready(function() {
     // new code here ****************************
     var zoom = d3
       .zoom()
-      .scaleExtent([1, 8])
+      .scaleExtent([1, 10])
       .on("zoom", zoomed);
 
     var stG = worldSvg.append("g");

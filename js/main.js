@@ -113,7 +113,7 @@ $(document).ready(function() {
     function countryOver(evt) {
       let countryValue = app.countryValues[evt.properties.iso_a3].value;
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
-      countryValue = Math.round(countryValue * 10) / 10;
+      countryValue = numberWithCommas(Math.round(countryValue * 10) / 10);
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
       d3.select(this).style("fill", "#88b8b8");
       // work with the tooltip on hover
@@ -182,40 +182,67 @@ $(document).ready(function() {
 
     function filterCountryValuesFromGlobalIndicator() {
       function filterCountries(col, array) {
-        col = app.countryData.columns[col];
-        if (array.length > 1) {
+        if (col !== "ndc") {
+          col = app.countryData.columns[col];
+          if (array.length > 1) {
+            $.each(app.countryData, (i, dataValue) => {
+              let query = "";
+              if (array.length === 5) {
+                query =
+                  dataValue[col] === array[0] ||
+                  dataValue[col] === array[1] ||
+                  dataValue[col] === array[2] ||
+                  dataValue[col] === array[3] ||
+                  dataValue[col] === array[4];
+              } else if (array.length === 4) {
+                query =
+                  dataValue[col] === array[0] ||
+                  dataValue[col] === array[1] ||
+                  dataValue[col] === array[2] ||
+                  dataValue[col] === array[3];
+              } else if (array.length === 3) {
+                query =
+                  dataValue[col] === array[0] ||
+                  dataValue[col] === array[1] ||
+                  dataValue[col] === array[2];
+              } else if (array.length === 2) {
+                query =
+                  dataValue[col] === array[0] || dataValue[col] === array[1];
+              }
+              if (!query) {
+                app.countryValues[dataValue["AlphaISO"]].value = 0;
+              }
+            });
+          } else {
+            $.each(app.countryData, (i, v) => {
+              if (v[col] !== array[0]) {
+                app.countryValues[v["AlphaISO"]].value = 0;
+              }
+            });
+          }
+        } else {
+          // if ndc global indicator was selected
+          col = [];
+          $.each($(".nwa-ndc-wrapper input"), (i, v) => {
+            if (v.checked) {
+              if (v.value === "NCS-yes") {
+                col.push(34);
+              } else if (v.value === "yes") {
+                col.push(35);
+              }
+            }
+          });
           $.each(app.countryData, (i, dataValue) => {
             let query = "";
-            if (array.length === 5) {
+            if (col.length === 1) {
+              query = dataValue[app.countryData.columns[col[0]]] === array[0];
+            } else if (col.length === 2) {
               query =
-                dataValue[col] === array[0] ||
-                dataValue[col] === array[1] ||
-                dataValue[col] === array[2] ||
-                dataValue[col] === array[3] ||
-                dataValue[col] === array[4];
-            } else if (array.length === 4) {
-              query =
-                dataValue[col] === array[0] ||
-                dataValue[col] === array[1] ||
-                dataValue[col] === array[2] ||
-                dataValue[col] === array[3];
-            } else if (array.length === 3) {
-              query =
-                dataValue[col] === array[0] ||
-                dataValue[col] === array[1] ||
-                dataValue[col] === array[2];
-            } else if (array.length === 2) {
-              query =
-                dataValue[col] === array[0] || dataValue[col] === array[1];
+                dataValue[app.countryData.columns[col[0]]] === array[0] ||
+                dataValue[app.countryData.columns[col[1]]] === array[1];
             }
             if (!query) {
               app.countryValues[dataValue["AlphaISO"]].value = 0;
-            }
-          });
-        } else {
-          $.each(app.countryData, (i, v) => {
-            if (v[col] !== array[0]) {
-              app.countryValues[v["AlphaISO"]].value = 0;
             }
           });
         }
@@ -225,8 +252,8 @@ $(document).ready(function() {
         if (v.checked) {
           let col;
           if (v.value === "ndc_sub") {
-            col = 34;
-            val = ["NCS-yes"];
+            col = "ndc";
+            val = app.globalIndicatorValues.ndc_sub;
           }
           if (v.value === "socioeconomic") {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
@@ -298,9 +325,11 @@ $(document).ready(function() {
         // update country selected metric
         let text = `${
           app.countryValues[app.countrySelected].countryName
-        }: ${Math.round(app.countryValues[app.countrySelected].value)} `;
+        }: ${numberWithCommas(
+          Math.round(app.countryValues[app.countrySelected].value)
+        )} `;
         $(".nwa-country-value span").text(text);
-        if (Math.round(app.countryValues[app.countrySelected].value) > 0) {
+        if (app.countryValues[app.countrySelected].value > 0) {
           $(".nwa-country-value").show();
         } else {
           $(".nwa-country-value").hide();
@@ -403,7 +432,7 @@ $(document).ready(function() {
           $(v).prop("checked", false);
         }
       });
-      // update data
+      // update datauser_seed_data.json
       createArrayOfFieldsFromCBs();
     }
 
@@ -462,8 +491,9 @@ $(document).ready(function() {
         switch (val) {
           case "ndc_sub":
             $(".nwa-ndc-content").slideDown();
+            buildNdcOptionsArray();
             // rebuild the map when these cb's are checked
-            createArrayOfFieldsFromCBs();
+            // createArrayOfFieldsFromCBs();
             break;
 
           case "socioeconomic":
@@ -499,6 +529,10 @@ $(document).ready(function() {
         createArrayOfFieldsFromCBs();
       }
     }
+
+    // function ndcOptionsClick(evt) {
+
+    // }
 
     function ecologicalOptionsClick(evt) {
       let opts = $(".nwa-ecological-wrapper").find(
@@ -536,6 +570,17 @@ $(document).ready(function() {
       } else if (evt.currentTarget.value === "population") {
         buildPopulationOptionsArray();
       }
+    }
+    function buildNdcOptionsArray() {
+      app.globalIndicatorValues.ndc_sub = [];
+      $.each($(".nwa-ndc-wrapper input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.ndc_sub.push(v.value);
+        }
+      });
+
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
     }
 
     function buildIncomeOptionsArray() {
@@ -674,6 +719,9 @@ $(document).ready(function() {
     });
     $(".nwa-protected-sub-options input").on("click", evt => {
       buildProtectedAreaOptionsArray();
+    });
+    $(".nwa-ndc-wrapper input").on("click", evt => {
+      buildNdcOptionsArray();
     });
 
     // *****************************************************************

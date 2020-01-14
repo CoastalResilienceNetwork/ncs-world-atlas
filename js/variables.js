@@ -9,7 +9,10 @@ app.worldCheckboxFields = {
 };
 
 app.globalIndicatorFields = {
-  ndc_sub: 34,
+  ndc_sub: {
+    ndc_now: 34,
+    ndc_2020: 35
+  },
   // emmisions: {
   //   emmisions_including_lucf: 35,
   //   emmisions_including_lucf_cost_effective: 38,
@@ -32,7 +35,7 @@ app.globalIndicatorFields = {
 };
 
 app.globalIndicatorValues = {
-  ndc_sub: "yes",
+  ndc_sub: ["ndc-now", "ndc-2020"],
   socioeconomic: {
     income_group: [
       "High income",

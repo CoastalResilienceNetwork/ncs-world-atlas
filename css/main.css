@@ -282,9 +282,8 @@ h3 {
 }
 
 .nwa-ndc-wrapper {
-  display: flex;
   align-items: center;
-  padding-top: 23px;
+  padding-top: 12px;
 }
 .nwa-socioeconomic-wrapper {
   margin-top: -9px;

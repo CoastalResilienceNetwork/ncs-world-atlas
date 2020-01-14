@@ -129,7 +129,7 @@ h3 {
   /* position: relative; */
   text-align: center;
   height: 20px;
-  margin-left: -10px;
+  /* margin-left: -10px; */
   top: 25px;
   color: #006837;
   font-size: 15px;
@@ -144,6 +144,8 @@ h3 {
 }
 .nwa-country-value {
   display: none;
+  font-size: 12px;
+  font-weight: 100;
 }
 .nwa-fullExtent:hover {
   cursor: pointer;

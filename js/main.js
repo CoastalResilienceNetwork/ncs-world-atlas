@@ -309,9 +309,9 @@ $(document).ready(function() {
     }
     function populateDDMenu(countryValues) {
       let selectMenu = $("#chosenSingle");
-      // selectMenu.append(
-      //   `<option value='Global'>Global (all countries)</option>`
-      // );
+      selectMenu.append(
+        `<option disabled selected hidden value='Global'>Global (all countries)</option>`
+      );
       $.each(countryValues, (i, v) => {
         selectMenu
           .append(`<option value='${v.AlphaISO}'>${v.countryName}</option>`)

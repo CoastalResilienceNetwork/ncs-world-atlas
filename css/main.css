@@ -323,35 +323,33 @@ div.tooltip {
 
 /* media queries */
 @media screen and (max-width: 1000px) {
-  /* body {
-    background-color: lightgreen;
-  } */
-  /* .main-site-wrapper {
-    width: 850px;
-  } */
-  /* .nwa-global-indicators-wrapper {
-    width: 540px;
-  } */
-}
-@media screen and (max-width: 1000px) {
   .main-site-wrapper {
-    width: 90%;
+    width: 95%;
   }
   .nwa-main-content-wrapper {
     display: block;
-    width: 90%;
+    width: 100%;
+    margin: auto;
   }
   .nwa-header-wrapper {
     text-align: center;
   }
   .nwa-map-wrapper {
-    width: 90%;
     height: 325px;
-    margin-left: 0px;
+    margin: auto;
+    width: auto;
+  }
+  .nwa-fullExtent {
+    background-color: white;
+    border: none;
   }
   .nwa-metrics-wrapper {
-    margin-top: 0;
-    width: 90%;
+    margin-top: 35px;
+    width: 100%;
+  }
+  .nwa-country-dd-wrapper select {
+    width: 200px;
+    border: 1px solid black;
   }
   .nwa-main-cb-wrapper {
     margin: auto;
@@ -361,47 +359,52 @@ div.tooltip {
   }
   .nwa-legend-wrapper {
     margin-top: 273px;
+    margin-left: 33%;
     width: 160px;
+    font-size: 11px !important;
+  }
+  .nwa-legend-title {
+    font-size: 12px;
   }
   .nwa-legend-bar {
     height: 10px;
     width: 160px;
   }
+
+  .nwa-country-dd-wrapper {
+    width: 300px;
+    margin: auto;
+    margin-top: 10px;
+    height: 40px;
+    align-items: center;
+  }
   .nwa-global-indicators-wrapper {
     margin: auto;
     margin-top: 10px;
     width: 90%;
+    height: auto;
   }
-}
-@media screen and (max-width: 600px) {
-  .main-site-wrapper {
-    width: 400px;
-  }
-  .nwa-header-wrapper h1 {
-    width: 400px;
-    font-size: 23px;
-  }
-  .nwa-main-content-wrapper {
+  .nwa-global-indicator-content-wrapper {
     display: block;
-    width: 400px;
   }
-  .nwa-header-wrapper div {
-    width: 400px;
+  .nwa-global-indicators-content {
+    padding-top: 5px;
   }
-  .nwa-map-wrapper {
-    width: 400px;
-    height: 325px;
+  .nwa-ndc-wrapper {
+    padding-top: 0;
+  }
+  .nwa-indicator-wrapper {
+    height: auto;
+    max-height: unset;
+    border: none;
+    border-top: 1px solid lightgray;
+    padding-bottom: 10px;
+    padding-left: 0px;
     margin-left: 0px;
   }
-  .nwa-legend-wrapper {
-    margin-top: 272px;
-    width: 160px;
-  }
-  .nwa-metrics-wrapper {
-    width: 400px;
-  }
-  .nwa-global-indicators-wrapper {
-    width: 400px;
+  .nwa-socioeconomic-wrapper {
+    margin-top: 0px;
+    position: inherit;
   }
 }
 

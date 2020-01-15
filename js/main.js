@@ -23,14 +23,12 @@ $(document).ready(function() {
   // Queue up datasets using d3 Queue
   d3.queue()
     // .defer(d3.json, "data/new-world-topo.json") // Load world topo
-    .defer(d3.json, "data/world.topo.json") // Load world topo
+    .defer(d3.json, "data/world.topo.min.json") // Load world topo
     .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
-    console.log(data);
-    // new code here ****************************
     var zoom = d3
       .zoom()
       .scaleExtent([1, 10])

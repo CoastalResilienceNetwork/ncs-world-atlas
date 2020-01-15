@@ -1,9 +1,9 @@
 $(document).ready(function() {
-  // National map setup
-  // SVG width and height for national map
+  // world map setup
+  // SVG width and height for world map
   var worldWidth = 717;
   var worldHeight = 375;
-  // National map project, scale, and centering
+  // world map project, scale, and centering
   var worldProjection = d3
     .geoMercator()
     .scale(125)
@@ -11,7 +11,7 @@ $(document).ready(function() {
   // Set up natinonal map path
   var worldPath = d3.geoPath().projection(worldProjection);
 
-  // Create national map SVG
+  // Create world map SVG
   var worldSvg = d3
     .select("#nwa-world-map")
     .append("svg")
@@ -22,18 +22,20 @@ $(document).ready(function() {
 
   // Queue up datasets using d3 Queue
   d3.queue()
-    // .defer(d3.json, "data/new-world-topo.json") // Load world topo
     .defer(d3.json, "data/world.topo.min.json") // Load world topo
     .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
+    // set country data globally
+    app.countryData = data;
+    // on zoom
     var zoom = d3
       .zoom()
       .scaleExtent([1, 10])
       .on("zoom", zoomed);
-
+    // create the svg and append classes, data and functions to it
     var stG = worldSvg.append("g");
 
     stG
@@ -85,21 +87,20 @@ $(document).ready(function() {
         // empty labels
         stG.selectAll(".nwa-country-labels").attr("display", "none");
       }
+      // update styling based on zoom level
       stG.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       stG.attr("transform", d3.event.transform); // updated for d3 v4
     }
 
     // call zoom on the world svg
-    // stG.call(zoom).on("mousedown.zoom", null); // disbale pan
     worldSvg.call(zoom);
-    // stG.call(zoom);
 
+    // create a d3 color scheme
     var stColor = d3
       .scaleThreshold()
       .domain(app.domain)
       .range(app.range);
 
-    app.countryData = data;
     // Check for error
     if (error) throw error;
 
@@ -107,7 +108,7 @@ $(document).ready(function() {
     function countryClick(evt) {
       countrySelected(evt.properties.iso_a3);
     }
-
+    // on country mouse over
     function countryOver(evt) {
       let countryValue = app.countryValues[evt.properties.iso_a3].value;
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
@@ -131,6 +132,7 @@ $(document).ready(function() {
         .style("left", d3.event.pageX + "px")
         .style("top", d3.event.pageY - 28 + "px");
     }
+    // on country mouse out
     function countryOut(evt) {
       d3.select(this).style("fill", app.hoverRGB);
       // close the tooltip when hover off
@@ -139,7 +141,7 @@ $(document).ready(function() {
         .duration(500)
         .style("opacity", 0);
     }
-
+    // update the main metric of the site
     function updateMetric(countryValues) {
       let metricValue = 0;
       $.each(countryValues, (i, v) => {
@@ -177,7 +179,7 @@ $(document).ready(function() {
       });
       filterCountryValuesFromGlobalIndicator();
     }
-
+    // this function filters the data based on a global indicator selection
     function filterCountryValuesFromGlobalIndicator() {
       function filterCountries(col, array) {
         if (col !== "ndc") {
@@ -305,6 +307,7 @@ $(document).ready(function() {
           }
         });
     }
+    // populate the dropdown menu once at load of site
     function populateDDMenu(countryValues) {
       let selectMenu = $("#chosenSingle");
       selectMenu.append(
@@ -318,6 +321,7 @@ $(document).ready(function() {
       $("#chosenSingle").val("Global");
       $("#chosenSingle").trigger("chosen:updated");
     }
+    // this updates the metric above the map for a single country click
     function updateCountrySelectedMetric() {
       if (app.countrySelected) {
         // update country selected metric
@@ -336,7 +340,7 @@ $(document).ready(function() {
         $(".nwa-country-value").hide();
       }
     }
-
+    // when a country is selecetd
     function countrySelected(country) {
       app.countrySelected = country;
       // update the country selected metric
@@ -362,7 +366,7 @@ $(document).ready(function() {
       // highlight the country
       highlightCountry(country);
     }
-
+    // change styling once a country is seleectd
     function highlightCountry(country) {
       if (country) {
         d3.selectAll(".nwa-countries").select(function(d) {
@@ -375,7 +379,7 @@ $(document).ready(function() {
         d3.selectAll(".nwa-countries").classed("country-on", false);
       }
     }
-
+    // zoom to a country once it has been selected
     function zoomCountry(country) {
       d3.selectAll(".nwa-countries").select(function(d) {
         if (d.properties.iso_a3 === country) {
@@ -419,7 +423,7 @@ $(document).ready(function() {
       });
       buildCountryCarbonObject(columnArray);
     }
-
+    // find out which pathways have been selecetd
     function checkCorrectPathways(fieldsToCheck) {
       // loop through all cb's and check the ones where the value matches the array value
       $.each($(".nwa-intervention-sub-cb input"), (i, v) => {
@@ -433,7 +437,7 @@ $(document).ready(function() {
       // update datauser_seed_data.json
       createArrayOfFieldsFromCBs();
     }
-
+    // handle click event on pathways
     function handlePathwaysCbClick() {
       let fieldsToCheck = [];
       $.each($(".nwa-individual-pathways input"), (i, v) => {
@@ -446,7 +450,7 @@ $(document).ready(function() {
       });
       checkCorrectPathways(fieldsToCheck);
     }
-
+    // when you select all pathways
     function handleAllPathwaysClick(evt) {
       $.each($(".nwa-intervention-sub-cb input"), (i, v) => {
         if (evt.currentTarget.checked) {
@@ -527,11 +531,7 @@ $(document).ready(function() {
         createArrayOfFieldsFromCBs();
       }
     }
-
-    // function ndcOptionsClick(evt) {
-
-    // }
-
+    // eco options click
     function ecologicalOptionsClick(evt) {
       let opts = $(".nwa-ecological-wrapper").find(
         ".nwa-ecological-sub-options"
@@ -550,6 +550,7 @@ $(document).ready(function() {
         buildProtectedAreaOptionsArray();
       }
     }
+    // socio options click
     function socioOptionsClick(evt) {
       let opts = $(".nwa-socioeconomic-wrapper").find(".nwa-socio-sub-options");
       $.each(opts, (i, v) => {
@@ -569,6 +570,7 @@ $(document).ready(function() {
         buildPopulationOptionsArray();
       }
     }
+    // build array of options 
     function buildNdcOptionsArray() {
       app.globalIndicatorValues.ndc_sub = [];
       $.each($(".nwa-ndc-wrapper input"), (i, v) => {
@@ -580,7 +582,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-
+    // build array of options 
     function buildIncomeOptionsArray() {
       app.globalIndicatorValues.socioeconomic.income_group = [];
       // loop through the cbs
@@ -592,6 +594,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
+    // build array of options 
     function buildSdgiOptionsArray() {
       app.globalIndicatorValues.socioeconomic.sdg_index = [];
       // loop through the cbs
@@ -603,6 +606,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
+    // build array of options 
     function buildPopulationOptionsArray() {
       app.globalIndicatorValues.socioeconomic.majority_pop = [];
       // loop through the cbs
@@ -614,7 +618,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-
+    // build array of options 
     function buildBioOptionsArray() {
       app.globalIndicatorValues.ecological.bio_index = [];
       // loop through the cbs
@@ -626,7 +630,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-
+    // build array of options 
     function buildProtectedAreaOptionsArray() {
       app.globalIndicatorValues.ecological.protected_area = [];
       // loop through the cbs
@@ -751,7 +755,7 @@ $(document).ready(function() {
         countrySelected(c.target.value, "select");
       });
 
-    // call this function once to build the column array and populate the chloropleth map at the load of the site
+    // call these functions once to build the column array and populate the chloropleth map at the load of the site
     createArrayOfFieldsFromCBs();
     populateDDMenu(app.countryValues);
   }

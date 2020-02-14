@@ -344,6 +344,12 @@ $(document).ready(function() {
     }
     // when a country is selecetd
     function countrySelected(country) {
+      // handle if click on australia
+      if (country === "AUS") {
+        $(".nwa-australia-text-wrapper").show();
+      } else if (country === "") {
+        $(".nwa-australia-text-wrapper").hide();
+      }
       app.countrySelected = country;
       // update the country selected metric
       updateCountrySelectedMetric();

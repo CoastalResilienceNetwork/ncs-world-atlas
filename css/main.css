@@ -243,7 +243,7 @@ h3 {
   margin-left: 20px;
   position: absolute;
   bottom: 170px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.7);
   padding-bottom: 19px;
   border-radius: 10px;
   padding: 5px;
@@ -381,6 +381,21 @@ div.tooltip {
   border: 0px;
   border-radius: 8px;
   pointer-events: none;
+  font-weight: bold;
+}
+
+/* australia text */
+.nwa-australia-text-wrapper {
+  display: none;
+  position: absolute;
+  background-color: red;
+  width: 50%;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+  background-color: lightgray;
+  top: 90px;
+  right: 184px;
   font-weight: bold;
 }
 

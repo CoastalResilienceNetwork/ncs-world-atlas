@@ -3,21 +3,20 @@
 
 <head>
     <title>NCS World Atlas</title>
+    <link rel="stylesheet" href="css/main.css">
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.css" rel="stylesheet">
-
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.jquery.js"></script>
-
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="https://d3js.org/topojson.v2.min.js"></script>
     <script src="https://d3js.org/d3-queue.v2.min.js"></script>
+    <!-- Place your font awesome kit's code here -->
+    <script src="https://kit.fontawesome.com/29fbbd33e8.js" crossorigin="anonymous"></script>
+
     <script>app = {};</script>
     <script src="js/variables.js"></script>
 
@@ -34,19 +33,31 @@
         <div class="nwa-main-content-wrapper">
             <div id="nwa-world-map" class="nwa-map-wrapper">
                 <div class="nwa-fullExtent-wrapper">
-                    <h3 class="nwa-country-value"><span style="font-size: 18px; font-weight:bold;"><span>Gabon:</span>
-                            457</span> MT C0<sub>2</sub>e per year</h3>
+
                     <button class="nwa-fullExtent" id="nwa-fullExtent">Full Extent</button>
                 </div>
 
                 <div class="nwa-legend-wrapper">
+                    <div class="nwa-country-value" style="display: none;">
+                        <h3><span class="nwa-country-name">Gabon:</span></h3>
+                        <div>
+                            <span class="nwa-country-value">457</span> MT C0<sub>2</sub>e per year
+                        </div>
+                    </div>
+                    <!-- <h3><span>Gabon:</span></h3>
+                    <br>
+                    <div>
+                        <span>457</span> MT C0<sub>2</sub>e per year
+                    </div>
+                    <h3 class="nwa-country-value"><span style="font-size: 18px; font-weight:bold;"><span>Gabon:</span>
+                            457</span> MT C0<sub>2</sub>e per year</h3> -->
                     <div class="nwa-legend-title">
                         Mitigation Potential
                     </div>
                     <div class="nwa-legend-bar"></div>
                     <div class="nwa-legend-text">
-                        <div style="position: absolute; left: -14px;">Low</div>
-                        <div style="position: absolute; right: -14px;">High</div>
+                        <div style="position: absolute; left: 0px;">Low</div>
+                        <div style="position: absolute; right: 0px;">High</div>
                     </div>
                 </div>
             </div>
@@ -79,7 +90,8 @@
                     <div class="nwa-intervention-cb-header-wrapper">
                         <h3>Choose your NCS intervention</h3>
                         <div class="nwa-info-icon">
-                            <img id="intervention-icon" src="./assets/info.png" alt="">
+                            <!-- <img id="intervention-icon" src="./assets/info.png" alt=""> -->
+                            <i class="fas fa-info-circle"></i>
                             <!-- <img style="display: none;" src="./assets/infoClose.png" alt=""> -->
                         </div>
                     </div>
@@ -220,10 +232,10 @@
 
         </div>
         <div class="nwa-global-indicators-wrapper">
-            <div style="display: flex;">
+            <div style="display: flex; align-items: center;">
                 <h3>Select a Global Indicator</h3>
-                <div class="nwa-info-icon" style="margin-top: 5px; margin-left: 3px;">
-                    <img id="global-icon" src="./assets/info.png" alt="">
+                <div class="nwa-info-icon">
+                    <i class="fas fa-info-circle"></i>
                 </div>
             </div>
 

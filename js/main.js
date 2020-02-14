@@ -114,7 +114,7 @@ $(document).ready(function() {
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
       countryValue = numberWithCommas(Math.round(countryValue * 10) / 10);
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
-      d3.select(this).style("fill", "#88b8b8");
+      d3.select(this).style("fill", "#8C959A");
       // work with the tooltip on hover
       tooltipDiv
         .transition()
@@ -325,12 +325,14 @@ $(document).ready(function() {
     function updateCountrySelectedMetric() {
       if (app.countrySelected) {
         // update country selected metric
-        let text = `${
+        let countryName = `${
           app.countryValues[app.countrySelected].countryName
-        }: ${numberWithCommas(
+        }:`;
+        let value = ` ${numberWithCommas(
           Math.round(app.countryValues[app.countrySelected].value)
         )} `;
-        $(".nwa-country-value span").text(text);
+        $(".nwa-country-name").text(countryName);
+        $(".nwa-country-value .nwa-country-value").text(value);
         if (app.countryValues[app.countrySelected].value > 0) {
           $(".nwa-country-value").show();
         } else {
@@ -570,7 +572,7 @@ $(document).ready(function() {
         buildPopulationOptionsArray();
       }
     }
-    // build array of options 
+    // build array of options
     function buildNdcOptionsArray() {
       app.globalIndicatorValues.ndc_sub = [];
       $.each($(".nwa-ndc-wrapper input"), (i, v) => {
@@ -582,7 +584,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-    // build array of options 
+    // build array of options
     function buildIncomeOptionsArray() {
       app.globalIndicatorValues.socioeconomic.income_group = [];
       // loop through the cbs
@@ -594,7 +596,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-    // build array of options 
+    // build array of options
     function buildSdgiOptionsArray() {
       app.globalIndicatorValues.socioeconomic.sdg_index = [];
       // loop through the cbs
@@ -606,7 +608,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-    // build array of options 
+    // build array of options
     function buildPopulationOptionsArray() {
       app.globalIndicatorValues.socioeconomic.majority_pop = [];
       // loop through the cbs
@@ -618,7 +620,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-    // build array of options 
+    // build array of options
     function buildBioOptionsArray() {
       app.globalIndicatorValues.ecological.bio_index = [];
       // loop through the cbs
@@ -630,7 +632,7 @@ $(document).ready(function() {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
-    // build array of options 
+    // build array of options
     function buildProtectedAreaOptionsArray() {
       app.globalIndicatorValues.ecological.protected_area = [];
       // loop through the cbs
@@ -749,7 +751,7 @@ $(document).ready(function() {
     $("#chosenSingle")
       .chosen({
         allow_single_deselect: true,
-        width: "190px"
+        width: "209px"
       })
       .change(function(c) {
         countrySelected(c.target.value, "select");

@@ -673,12 +673,20 @@ $(document).ready(function() {
 
     // on info icon hover
     $(".nwa-info-icon").on("mouseenter", evt => {
-      $(".nwa-popup-wrapper").show();
-      $(".nwa-popup-wrapper").css("top", evt.originalEvent.clientY - 10);
-      $(".nwa-popup-wrapper").css("left", evt.originalEvent.clientX + 10);
-      $(".nwa-popup-wrapper").html(
-        app.helpText[$(evt.currentTarget).find("img")[0].id]
+      $(".nwa-popup-wrapper .nwa-popup-text").html(
+        app.helpText[
+          $(evt.currentTarget)
+            .parent()
+            .find(".nwa-info-icon")[0].id
+        ]
       );
+      $(".nwa-popup-wrapper").show();
+      let offset = $(evt.currentTarget).offset();
+      $(".nwa-popup-wrapper").css(
+        "top",
+        offset.top - $(".nwa-popup-wrapper").height() / 2 + 2
+      );
+      $(".nwa-popup-wrapper").css("left", offset.left + 30);
     });
     $(".nwa-info-icon").on("mouseleave", evt => {
       $(".nwa-popup-wrapper").hide();

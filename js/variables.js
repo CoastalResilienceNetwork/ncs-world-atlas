@@ -53,8 +53,38 @@ app.globalIndicatorValues = {
 };
 
 app.helpText = {
-  "intervention-icon": "this is test text for the intervention icon",
-  "global-icon": "this is test text for the global icon"
+  "intervention-icon": "this is test text for the intervention icon.",
+  "global-icon": "this is test text for the global icon.",
+  reforestation:
+    "Additional carbon sequestration by converting non-forest to forest where suitable.",
+  "avoid-forest-conversion":
+    "Emissions of CO2 avoided by avoiding forest conversion.",
+  "trees-in-ag":
+    "Additional carbon sequestration due to integration of trees into croplands at levels that do not reduce crop yields.",
+  "improved-forest-man":
+    "Additional carbon sequestration in forest biomass in native forests under non-intensive management for wood production.",
+  biochar:
+    "Additional carbon sequestration by amending agricultural soils with biochar.",
+  "reduced-woodful-har":
+    "Avoided emissions due to reduced harvest of woodfuel used for cooking and heating.",
+  "nutrient-management":
+    "Avoided N2O emissions due to reduced fertilizer use and improved application methods on croplands.",
+  "optimal-grazing-int":
+    "Additional soil carbon sequestration due to grazing optimization on rangeland and planted pastures.",
+  "imp-fire-management":
+    "Intentionally burnning savannas during the early dry to reduce fire severity in the late dry season.",
+  "peatland-restoration":
+    "Avoided oxidation of soil carbon due to soil re-wetting in freshwater wetlands.",
+  "improved-rice":
+    "Avoided emissions of methane and N2O by employing periodic draining of rice soils and removal of residues.",
+  "avoid-mangrove-impacts":
+    "Avoided emissions of biomass and soil carbon due to avoided degradation and/or loss of mangroves.",
+  "avoid-peat-impacts":
+    "Avoided emissions of carbon due to avoided degradation and/or loss of freshwater wetlands.",
+  "mangrove-restoration":
+    "Avoided oxidation of soil carbon and enhanced soil carbon sink by rehabilitating mangrove habitat.",
+  "grazing-legumes":
+    "Additional soil carbon sequestration due to sowing legumes in planted pastures."
 };
 
 app.domain = [

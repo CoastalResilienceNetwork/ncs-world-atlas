@@ -56,8 +56,8 @@
                     </div>
                     <div class="nwa-legend-bar"></div>
                     <div class="nwa-legend-text">
-                        <div style="position: absolute; left: 0px;">Low</div>
-                        <div style="position: absolute; right: 0px;">High</div>
+                        <div style="position: absolute; left: 5px;">Low</div>
+                        <div style="position: absolute; right: 5px;">High</div>
                     </div>
                 </div>
             </div>
@@ -89,105 +89,107 @@
                 <div class="nwa-main-cb-wrapper nwa-box-wrapper">
                     <div class="nwa-intervention-cb-header-wrapper">
                         <h3>Choose your NCS intervention</h3>
-                        <div class="nwa-info-icon">
-                            <!-- <img id="intervention-icon" src="./assets/info.png" alt=""> -->
-                            <i class="fas fa-info-circle"></i>
-                            <!-- <img style="display: none;" src="./assets/infoClose.png" alt=""> -->
+                        <div>
+                            <i class="fas fa-info-circle nwa-info-icon" id="intervention-icon"></i>
                         </div>
                     </div>
-
                     <div class="nwa-intervention-main-cb">
-                        <div class="nwa-intervention-main-1-cb">
+                        <div class="nwa-path-cost-cbs-wrapper">
                             <label class="form-component" for="all-option">
                                 <input checked type="checkbox" id="all-option" name="food" value="all-pathways">
                                 <div class="check"></div>
                                 <span class="form-text">All Pathways</span>
                             </label>
-                            <hr style="width:85%">
-                            <div class="nwa-pathways-controllers">
-                                <label class="form-component disabled nwa-individual-pathways" for="b-option">
-                                    <input type="checkbox" id="b-option" name="food" value="protect">
-                                    <div class="check"></div>
-                                    <span class="form-text">Protect</span>
-                                </label>
-                                <br>
-                                <label class="form-component nwa-individual-pathways" for="c-option">
-                                    <input type="checkbox" id="c-option" name="food" value="manage">
-                                    <div class="check"></div>
-                                    <span class="form-text">Manage</span>
-                                </label>
-                                <br>
-                                <label class="form-component nwa-individual-pathways" for="d-option">
-                                    <input type="checkbox" id="d-option" name="food" value="restore">
-                                    <div class="check"></div>
-                                    <span class="form-text">Restore</span>
-                                </label>
-                            </div>
-
-
-                        </div>
-                        <div class="nwa-intervention-main-2-cb">
-                            <label class="form-component" for="cost-option">
+                            <label class="form-component cost-effective-cb" for="cost-option">
                                 <input type="checkbox" id="cost-option" name="food">
                                 <div class="check"></div>
                                 <span class="form-text">Cost-effective</span>
                             </label>
                         </div>
                     </div>
+                    <div class='nwa-prot-man-rest-wrapper'>
+                        <label class="form-component disabled nwa-individual-pathways" for="b-option">
+                            <input type="checkbox" id="b-option" name="food" value="protect">
+                            <div class="check"></div>
+                            <span class="form-text">Protect</span>
+                        </label>
+
+                        <label class="form-component nwa-individual-pathways" for="c-option">
+                            <input type="checkbox" id="c-option" name="food" value="manage">
+                            <div class="check"></div>
+                            <span class="form-text">Manage</span>
+                        </label>
+
+                        <label class="form-component nwa-individual-pathways" for="d-option">
+                            <input type="checkbox" id="d-option" name="food" value="restore">
+                            <div class="check"></div>
+                            <span class="form-text">Restore</span>
+                        </label>
+                    </div>
+
                     <hr>
                     <div class="nwa-intervention-sub-cb">
                         <label class="form-component" for="f-option">
                             <input checked checked type="checkbox" id="f-option" name="intervention-cb" value="2">
                             <div class="check"></div>
                             <span class="form-text">Reforestation</span>
+                            <i id='reforestation' class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="g-option">
                             <input checked type="checkbox" id="g-option" name="intervention-cb" value="4">
                             <div class="check"></div>
                             <span class="form-text">Avoided Forest Conversion</span>
+                            <i id="avoid-forest-conversion" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="h-option">
                             <input checked type="checkbox" id="h-option" name="intervention-cb" value="14">
                             <div class="check"></div>
                             <span class="form-text">Trees in Agriculture Lands</span>
+                            <i id="trees-in-ag" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="i-option">
                             <input checked type="checkbox" id="i-option" name="intervention-cb" value="6">
                             <div class="check"></div>
                             <span class="form-text">Improved Natural Forest Management</span>
+                            <i id="improved-forest-man" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="j-option">
                             <input checked type="checkbox" id="j-option" name="intervention-cb" value="12">
                             <div class="check"></div>
                             <span class="form-text">Biochar</span>
+                            <i id="biochar" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="k-option">
                             <input checked type="checkbox" id="k-option" name="intervention-cb" value="8">
                             <div class="check"></div>
                             <span class="form-text">Reduced Woodfuel Harvest</span>
+                            <i id="reduced-woodful-har" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="l-option">
                             <input checked type="checkbox" id="l-option" name="intervention-cb" value="16">
                             <div class="check"></div>
                             <span class="form-text">Nutrient Management</span>
+                            <i id="nutrient-management" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="m-option">
                             <input checked type="checkbox" id="m-option" name="intervention-cb" value="20">
                             <div class="check"></div>
                             <span class="form-text">Optimal Grazing Intensity</span>
+                            <i id='optimal-grazing-int' class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="n-option" id="improved-fire-management-wrapper">
                             <input checked type="checkbox" id="n-option" name="intervention-cb" value="10">
                             <div class="check"></div>
                             <span class="form-text">Improved Fire Management (Savannas)</span>
+                            <i id="imp-fire-management" class="fas fa-info-circle nwa-info-icon"></i>
                             <br>
                         </label>
 
@@ -195,36 +197,42 @@
                             <input checked type="checkbox" id="o-option" name="intervention-cb" value="24">
                             <div class="check"></div>
                             <span class="form-text">Peatland Restoration</span>
+                            <i id="peatland-restoration" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="p-option">
                             <input checked type="checkbox" id="p-option" name="intervention-cb" value="18">
                             <div class="check"></div>
                             <span class="form-text">Improved Rice Cultivation</span>
+                            <i id="improved-rice" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="q-option">
                             <input checked type="checkbox" id="q-option" name="intervention-cb" value="28">
                             <div class="check"></div>
                             <span class="form-text">Avoided Mangrove Impacts</span>
+                            <i id="avoid-mangrove-impacts" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="r-option">
                             <input checked type="checkbox" id="r-option" name="intervention-cb" value="26">
                             <div class="check"></div>
                             <span class="form-text">Avoided Peat Impacts</span>
+                            <i id="avoid-peat-impacts" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="s-option">
                             <input checked type="checkbox" id="s-option" name="intervention-cb" value="30">
                             <div class="check"></div>
                             <span class="form-text">Mangrove Restoration</span>
+                            <i id="mangrove-restoration" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                         <br>
                         <label class="form-component" for="t-option">
                             <input checked type="checkbox" id="t-option" name="intervention-cb" value="22">
                             <div class="check"></div>
                             <span class="form-text">Grazing Legumes</span>
+                            <i id="grazing-legumes" class="fas fa-info-circle nwa-info-icon"></i>
                         </label>
                     </div>
                 </div>
@@ -234,8 +242,8 @@
         <div class="nwa-global-indicators-wrapper">
             <div style="display: flex; align-items: center;">
                 <h3>Select a Global Indicator</h3>
-                <div class="nwa-info-icon">
-                    <i class="fas fa-info-circle"></i>
+                <div class="">
+                    <i class="fas fa-info-circle nwa-info-icon" id="global-icon"></i>
                 </div>
             </div>
 
@@ -449,8 +457,10 @@
                 </div>
             </div>
         </div>
-        <div class="nwa-popup-wrapper">
-            popup
+        <div class="nwa-popup-wrapper" style="display: none;">
+            <div class="nwa-popup-wrapper-arrow"></div>
+            <div class="nwa-popup-text">Additional carbon sequestration by converting non-forest to forest where
+                suitable.</div>
         </div>
     </div>
     <script src="js/main.js"></script>

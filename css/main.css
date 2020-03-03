@@ -180,7 +180,7 @@ h3 {
 }
 .nwa-country-value {
   /* display: none; */
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 100;
   margin-bottom: 10px;
 }
@@ -198,7 +198,7 @@ h3 {
 }
 /* legend styles */
 
-/* .nwa-legend-bar {
+.nwa-legend-bar {
   background-image: linear-gradient(
     to right,
     #d9f0a3,
@@ -216,9 +216,9 @@ h3 {
   );
   height: 20px;
   width: 200px;
-  border: 1px solid rgba(0, 20, 0, 0.4);
-} */
-.nwa-legend-bar {
+  /* border: 1px solid rgba(0, 20, 0, 0.4); */
+}
+/* .nwa-legend-bar {
   background-image: linear-gradient(
     to right,
     #4db8d7,
@@ -236,8 +236,8 @@ h3 {
   );
   height: 14px;
   width: 170px;
-  /* border: 1px solid rgba(0, 20, 0, 0.4); */
-}
+  border: 1px solid rgba(0, 20, 0, 0.4);
+ } */
 .nwa-legend-wrapper {
   margin-top: 418px;
   margin-left: 20px;
@@ -382,6 +382,9 @@ div.tooltip {
   border-radius: 8px;
   pointer-events: none;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* australia text */

@@ -120,17 +120,25 @@ $(document).ready(function() {
         .transition()
         .duration(200)
         .style("opacity", 0.9);
-      tooltipDiv
-        .html(
-          "<div>" +
-            countryName +
-            "<br>" +
-            countryValue +
-            " - MT CO<sub>2</sub>e/yr" +
-            "</div>"
-        )
-        .style("left", d3.event.pageX + "px")
-        .style("top", d3.event.pageY - 28 + "px");
+      // handle a hover over australia
+      if (evt.properties.iso_a3 != "AUS") {
+        tooltipDiv
+          .html(
+            "<div>" +
+              countryName +
+              "<br>" +
+              countryValue +
+              " - MT CO<sub>2</sub>e/yr" +
+              "</div>"
+          )
+          .style("left", d3.event.pageX + "px")
+          .style("top", d3.event.pageY - 28 + "px");
+      } else {
+        tooltipDiv
+          .html("<div>" + countryName)
+          .style("left", d3.event.pageX + "px")
+          .style("top", d3.event.pageY - 28 + "px");
+      }
     }
     // on country mouse out
     function countryOut(evt) {
@@ -333,7 +341,12 @@ $(document).ready(function() {
         )} `;
         $(".nwa-country-name").text(countryName);
         $(".nwa-country-value .nwa-country-value").text(value);
-        if (app.countryValues[app.countrySelected].value > 0) {
+
+        // // handle showing the number metric for Australia
+        if (
+          app.countryValues[app.countrySelected].value > 0 &&
+          app.countrySelected != "AUS"
+        ) {
           $(".nwa-country-value").show();
         } else {
           $(".nwa-country-value").hide();
@@ -348,6 +361,8 @@ $(document).ready(function() {
       if (country === "AUS") {
         $(".nwa-australia-text-wrapper").show();
       } else if (country === "") {
+        $(".nwa-australia-text-wrapper").hide();
+      } else {
         $(".nwa-australia-text-wrapper").hide();
       }
       app.countrySelected = country;
@@ -367,6 +382,8 @@ $(document).ready(function() {
         });
       } else {
         $(".nwa-view-report-btn").attr("href", "#");
+        // deslect country from choosen menu, trigger click on full extent button
+        $(".nwa-fullExtent").trigger("click");
       }
 
       // zoom to the country
@@ -653,7 +670,7 @@ $(document).ready(function() {
 
     // ****************************************************************************************************************************************
     // click events ***************************************************************************************************************************
-    $(".nwa-pathways-controllers input").on("click", evt => {
+    $(".nwa-prot-man-rest-wrapper input").on("click", evt => {
       handlePathwaysCbClick();
     });
 

@@ -52,7 +52,8 @@ hr {
 .nwa-info-icon {
   margin-top: 0px;
   margin-left: 3px;
-  color: rgb(200, 200, 200);
+  /* color: rgb(200, 200, 200); */
+  color: #3c464c;
   font-size: 14px;
 }
 .nwa-info-icon:hover {

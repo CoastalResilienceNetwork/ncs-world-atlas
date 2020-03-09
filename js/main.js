@@ -23,6 +23,7 @@ $(document).ready(function() {
   // Queue up datasets using d3 Queue
   d3.queue()
     .defer(d3.json, "data/world.topo.min.json") // Load world topo
+    // .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
@@ -192,6 +193,7 @@ $(document).ready(function() {
       function filterCountries(col, array) {
         if (col !== "ndc") {
           col = app.countryData.columns[col];
+
           if (array.length > 1) {
             $.each(app.countryData, (i, dataValue) => {
               let query = "";
@@ -233,10 +235,13 @@ $(document).ready(function() {
           col = [];
           $.each($(".nwa-ndc-wrapper input"), (i, v) => {
             if (v.checked) {
-              if (v.value === "NCS-yes") {
+              if (v.value === "yes") {
                 col.push(34);
-              } else if (v.value === "yes") {
+              } else if (v.value === "enhance") {
                 col.push(35);
+              } else if (v.value === "update") {
+                col.push(36);
+              } else if (v.value === "") {
               }
             }
           });
@@ -248,6 +253,11 @@ $(document).ready(function() {
               query =
                 dataValue[app.countryData.columns[col[0]]] === array[0] ||
                 dataValue[app.countryData.columns[col[1]]] === array[1];
+            } else if (col.length === 3) {
+              query =
+                dataValue[app.countryData.columns[col[0]]] === array[0] ||
+                dataValue[app.countryData.columns[col[1]]] === array[1] ||
+                dataValue[app.countryData.columns[col[1]]] === array[2];
             }
             if (!query) {
               app.countryValues[dataValue["AlphaISO"]].value = 0;
@@ -694,26 +704,43 @@ $(document).ready(function() {
       createArrayOfFieldsFromCBs();
     });
 
+    // on info icon click
+    $(".nwa-info-icon").on("click", evt => {
+      console.log("click");
+      console.log(evt.currentTarget.id);
+      if (evt.currentTarget.id === "intervention-icon") {
+        window.open(
+          "http://nature4climate.s3.amazonaws.com/FAQ/FAQ_NCS%20Interventions.pdf",
+          "_blank"
+        );
+      } else if (evt.currentTarget.id === "global-icon") {
+        window.open(
+          "http://nature4climate.s3.amazonaws.com/FAQ/FAQ%20Global%20Indicators.pdf",
+          "_blank"
+        );
+      }
+    });
+
     // on info icon hover
-    $(".nwa-info-icon").on("mouseenter", evt => {
-      $(".nwa-popup-wrapper .nwa-popup-text").html(
-        app.helpText[
-          $(evt.currentTarget)
-            .parent()
-            .find(".nwa-info-icon")[0].id
-        ]
-      );
-      $(".nwa-popup-wrapper").show();
-      let offset = $(evt.currentTarget).offset();
-      $(".nwa-popup-wrapper").css(
-        "top",
-        offset.top - $(".nwa-popup-wrapper").height() / 2 + 2
-      );
-      $(".nwa-popup-wrapper").css("left", offset.left + 30);
-    });
-    $(".nwa-info-icon").on("mouseleave", evt => {
-      $(".nwa-popup-wrapper").hide();
-    });
+    // $(".nwa-info-icon").on("mouseenter", evt => {
+    //   $(".nwa-popup-wrapper .nwa-popup-text").html(
+    //     app.helpText[
+    //       $(evt.currentTarget)
+    //         .parent()
+    //         .find(".nwa-info-icon")[0].id
+    //     ]
+    //   );
+    //   $(".nwa-popup-wrapper").show();
+    //   let offset = $(evt.currentTarget).offset();
+    //   $(".nwa-popup-wrapper").css(
+    //     "top",
+    //     offset.top - $(".nwa-popup-wrapper").height() / 2 + 2
+    //   );
+    //   $(".nwa-popup-wrapper").css("left", offset.left + 30);
+    // });
+    // $(".nwa-info-icon").on("mouseleave", evt => {
+    //   $(".nwa-popup-wrapper").hide();
+    // });
 
     // on full extent button click
     $("#nwa-fullExtent").on("click", evt => {

@@ -11,7 +11,8 @@ app.worldCheckboxFields = {
 app.globalIndicatorFields = {
   ndc_sub: {
     ndc_now: 34,
-    ndc_2020: 35
+    ndc_2020: 35,
+    ndc_update: 36
   },
   // emmisions: {
   //   emmisions_including_lucf: 35,
@@ -22,20 +23,20 @@ app.globalIndicatorFields = {
   //   emmisions_all_cost_effective: 40
   // },
   socioeconomic: {
-    income_group: 42,
-    sdg_index: 43,
-    majority_pop: 41
+    income_group: 44,
+    sdg_index: 45,
+    majority_pop: 43
   },
   ecological: {
     // area_proportion_total: 44,
     // area_proportion_total_cost_effective: 45,
-    bio_index: 46,
-    protected_area: 47
+    bio_index: 48,
+    protected_area: 49
   }
 };
 
 app.globalIndicatorValues = {
-  ndc_sub: ["ndc-now", "ndc-2020"],
+  ndc_sub: ["yes", "enhance", "update"],
   socioeconomic: {
     income_group: [
       "High income",

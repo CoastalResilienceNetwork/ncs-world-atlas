@@ -440,10 +440,11 @@ div.tooltip {
     width: 90%;
   }
   .nwa-legend-wrapper {
-    margin-top: 273px;
-    margin-left: 33%;
     width: 160px;
     font-size: 11px !important;
+    position: absolute;
+    top: -100px;
+    height: 100px;
   }
   .nwa-legend-title {
     font-size: 12px;

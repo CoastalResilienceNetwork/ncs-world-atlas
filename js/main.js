@@ -277,13 +277,13 @@ $(document).ready(function() {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
               if (v.checked) {
                 if (v.value === "income_group") {
-                  col = 43;
+                  col = app.globalIndicatorFields.socioeconomic.income_group;
                   val = app.globalIndicatorValues.socioeconomic.income_group;
                 } else if (v.value === "sdgi") {
-                  col = 44;
+                  col = app.globalIndicatorFields.socioeconomic.sdg_index;
                   val = app.globalIndicatorValues.socioeconomic.sdg_index;
                 } else if (v.value === "population") {
-                  col = 42;
+                  col = app.globalIndicatorFields.socioeconomic.majority_pop;
                   val = app.globalIndicatorValues.socioeconomic.majority_pop;
                 }
               }
@@ -293,10 +293,10 @@ $(document).ready(function() {
             $.each($(".nwa-eco-main-options input"), (i, v) => {
               if (v.checked) {
                 if (v.value === "bio_index") {
-                  col = 47;
+                  col = app.globalIndicatorFields.ecological.bio_index;
                   val = app.globalIndicatorValues.ecological.bio_index;
                 } else if (v.value === "protected_area") {
-                  col = 48;
+                  col = app.globalIndicatorFields.ecological.protected_area;
                   val = app.globalIndicatorValues.ecological.protected_area;
                 }
               }
@@ -706,8 +706,6 @@ $(document).ready(function() {
 
     // on info icon click
     $(".nwa-info-icon").on("click", evt => {
-      console.log("click");
-      console.log(evt.currentTarget.id);
       if (evt.currentTarget.id === "intervention-icon") {
         window.open(
           "http://nature4climate.s3.amazonaws.com/FAQ/FAQ_NCS%20Interventions.pdf",

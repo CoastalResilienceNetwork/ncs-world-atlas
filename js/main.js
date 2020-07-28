@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // world map setup
   // SVG width and height for world map
   var worldWidth = 717;
@@ -32,10 +32,7 @@ $(document).ready(function() {
     // set country data globally
     app.countryData = data;
     // on zoom
-    var zoom = d3
-      .zoom()
-      .scaleExtent([1, 10])
-      .on("zoom", zoomed);
+    var zoom = d3.zoom().scaleExtent([1, 10]).on("zoom", zoomed);
     // create the svg and append classes, data and functions to it
     var stG = worldSvg.append("g");
 
@@ -59,15 +56,15 @@ $(document).ready(function() {
       .data(topojson.feature(geojson, geojson.objects.world).features)
       .enter()
       .append("text")
-      .attr("class", function(d) {
+      .attr("class", function (d) {
         return "nwa-country-labels " + d.properties.name;
       })
-      .attr("transform", function(d) {
+      .attr("transform", function (d) {
         return "translate(" + worldPath.centroid(d) + ")";
       })
       .attr("dy", ".35em")
       .attr("display", "none")
-      .text(function(d) {
+      .text(function (d) {
         return d.properties.name;
       });
 
@@ -97,10 +94,7 @@ $(document).ready(function() {
     worldSvg.call(zoom);
 
     // create a d3 color scheme
-    var stColor = d3
-      .scaleThreshold()
-      .domain(app.domain)
-      .range(app.range);
+    var stColor = d3.scaleThreshold().domain(app.domain).range(app.range);
 
     // Check for error
     if (error) throw error;
@@ -117,10 +111,7 @@ $(document).ready(function() {
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
       d3.select(this).style("fill", "#8C959A");
       // work with the tooltip on hover
-      tooltipDiv
-        .transition()
-        .duration(200)
-        .style("opacity", 0.9);
+      tooltipDiv.transition().duration(200).style("opacity", 0.9);
       // handle a hover over australia
       if (evt.properties.iso_a3 != "AUS") {
         tooltipDiv
@@ -145,10 +136,7 @@ $(document).ready(function() {
     function countryOut(evt) {
       d3.select(this).style("fill", app.hoverRGB);
       // close the tooltip when hover off
-      tooltipDiv
-        .transition()
-        .duration(500)
-        .style("opacity", 0);
+      tooltipDiv.transition().duration(500).style("opacity", 0);
     }
     // update the main metric of the site
     function updateMetric(countryValues) {
@@ -170,7 +158,7 @@ $(document).ready(function() {
         app.countryValues[v.AlphaISO] = {
           value: 0,
           countryName: "",
-          AlphaISO: v.AlphaISO
+          AlphaISO: v.AlphaISO,
         };
       });
 
@@ -232,23 +220,58 @@ $(document).ready(function() {
           }
         } else {
           // if ndc global indicator was selected
+          console.log(array, "another array spot");
           col = [];
           $.each($(".nwa-ndc-wrapper input"), (i, v) => {
             if (v.checked) {
-              if (v.value === "yes") {
-                col.push(34);
-              } else if (v.value === "enhance") {
+              // if (v.value === "yes") {
+              //   col.push(34);
+              // } else
+              if (v.value === "yes-m") {
                 col.push(35);
-              } else if (v.value === "update") {
+              } else if (v.value === "yes-a") {
                 col.push(36);
-              } else if (v.value === "") {
+              } else if (v.value === "enhance") {
+                col.push(37);
+              } else if (v.value === "update") {
+                col.push(38);
               }
             }
+            console.log(col);
           });
           $.each(app.countryData, (i, dataValue) => {
+            // console.log(dataValue);
+            // console.log(app.countryData.columns[col[0]]);
+            // console.log(app.countryData.columns[col[1]]);
+            // app.countryData.columns[col[1]];
+            // app.countryData.columns[col[2]];
+            // console.log(array);
+
+            // console.log(dataValue[app.countryData.columns[col[0]]]);
+            // console.log(array[0]);
+
+            // console.log(dataValue[app.countryData.columns[col[1]]]);
+            // console.log(dataValue[app.countryData.columns[col[2]]]);
+            // clean array
+            array.forEach((element, i) => {
+              // console.log(element);
+              if (element === "yes-m") {
+                array[i] = "yes";
+              } else if (element === "yes-a") {
+                array[i] = "yes";
+              }
+            });
+            console.log(array);
+
             let query = "";
             if (col.length === 1) {
               query = dataValue[app.countryData.columns[col[0]]] === array[0];
+              // console.log(
+              //   dataValue[app.countryData.columns[col[0]]],
+              //   "break",
+              //   array[0]
+              // );
+              // console.log(query, "query here");
             } else if (col.length === 2) {
               query =
                 dataValue[app.countryData.columns[col[0]]] === array[0] ||
@@ -257,8 +280,23 @@ $(document).ready(function() {
               query =
                 dataValue[app.countryData.columns[col[0]]] === array[0] ||
                 dataValue[app.countryData.columns[col[1]]] === array[1] ||
-                dataValue[app.countryData.columns[col[1]]] === array[2];
+                dataValue[app.countryData.columns[col[2]]] === array[2];
+              // console.log(query);
+            } else if (col.length === 4) {
+              query =
+                dataValue[app.countryData.columns[col[0]]] === array[0] ||
+                dataValue[app.countryData.columns[col[1]]] === array[1] ||
+                dataValue[app.countryData.columns[col[2]]] === array[2] ||
+                dataValue[app.countryData.columns[col[3]]] === array[3];
+            } else if (col.length === 5) {
+              query =
+                dataValue[app.countryData.columns[col[0]]] === array[0] ||
+                dataValue[app.countryData.columns[col[1]]] === array[1] ||
+                dataValue[app.countryData.columns[col[2]]] === array[2] ||
+                dataValue[app.countryData.columns[col[3]]] === array[3] ||
+                dataValue[app.countryData.columns[col[4]]] === array[4];
             }
+            // console.log(app.countryValues);
             if (!query) {
               app.countryValues[dataValue["AlphaISO"]].value = 0;
             }
@@ -272,6 +310,13 @@ $(document).ready(function() {
           if (v.value === "ndc_sub") {
             col = "ndc";
             val = app.globalIndicatorValues.ndc_sub;
+            console.log(val);
+            // $.each($(".nwa-ndc-main-options input"), (i, v) => {
+            //   // if this option is selecetd Countries that include Nature Based Solutions in their NDC
+            //   if (v.value === "yes") {
+            //     console.log("you have selecetd the first one");
+            //   }
+            // });
           }
           if (v.value === "socioeconomic") {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
@@ -302,9 +347,11 @@ $(document).ready(function() {
               }
             });
           }
+          console.log(col, val, "look here for final filter vals");
           filterCountries(col, val);
         }
       });
+      console.log(app.countryValues);
       // when finishing filtering country values update map and
       updateChloroplethMap(app.countryValues);
       updateMetric(app.countryValues);
@@ -316,7 +363,7 @@ $(document).ready(function() {
     function updateChloroplethMap(countryValues) {
       d3.selectAll(".nwa-countries")
         .transition()
-        .style("fill", function(d) {
+        .style("fill", function (d) {
           if (app.countryValues[d.properties.iso_a3] == undefined) {
             app.countryValues[d.properties.iso_a3] = 0;
           }
@@ -404,7 +451,7 @@ $(document).ready(function() {
     // change styling once a country is seleectd
     function highlightCountry(country) {
       if (country) {
-        d3.selectAll(".nwa-countries").select(function(d) {
+        d3.selectAll(".nwa-countries").select(function (d) {
           if (d.properties.iso_a3 === country) {
             d3.selectAll(".nwa-countries").classed("country-on", false);
             d3.select(this).classed("country-on", true);
@@ -416,7 +463,7 @@ $(document).ready(function() {
     }
     // zoom to a country once it has been selected
     function zoomCountry(country) {
-      d3.selectAll(".nwa-countries").select(function(d) {
+      d3.selectAll(".nwa-countries").select(function (d) {
         if (d.properties.iso_a3 === country) {
           var bounds = worldPath.bounds(d),
             dx = bounds[1][0] - bounds[0][0],
@@ -429,7 +476,7 @@ $(document).ready(function() {
             ),
             translate = [
               worldWidth / 2 - scale * x,
-              worldHeight / 2 - scale * y
+              worldHeight / 2 - scale * y,
             ];
 
           worldSvg
@@ -574,10 +621,7 @@ $(document).ready(function() {
       $.each(opts, (i, v) => {
         $(v).hide();
       });
-      $(evt.currentTarget)
-        .parent()
-        .next()
-        .show();
+      $(evt.currentTarget).parent().next().show();
 
       if (evt.currentTarget.value === "bio_index") {
         buildBioOptionsArray();
@@ -591,10 +635,7 @@ $(document).ready(function() {
       $.each(opts, (i, v) => {
         $(v).hide();
       });
-      $(evt.currentTarget)
-        .parent()
-        .next()
-        .show();
+      $(evt.currentTarget).parent().next().show();
 
       if (evt.currentTarget.value === "income_group") {
         //append checked value to the master value array
@@ -680,20 +721,20 @@ $(document).ready(function() {
 
     // ****************************************************************************************************************************************
     // click events ***************************************************************************************************************************
-    $(".nwa-prot-man-rest-wrapper input").on("click", evt => {
+    $(".nwa-prot-man-rest-wrapper input").on("click", (evt) => {
       handlePathwaysCbClick();
     });
 
     // on click/change of individual intervention check boxes
-    $(".nwa-intervention-sub-cb input").on("click", evt => {
+    $(".nwa-intervention-sub-cb input").on("click", (evt) => {
       createArrayOfFieldsFromCBs();
     });
     // on click of all pathways
-    $("#all-option").on("click", evt => {
+    $("#all-option").on("click", (evt) => {
       handleAllPathwaysClick(evt);
     });
     // on click of cost option
-    $("#cost-option").on("click", evt => {
+    $("#cost-option").on("click", (evt) => {
       if (evt.currentTarget.checked) {
         $("#improved-fire-management-wrapper").addClass("nwa-disabled");
         $($("#improved-fire-management-wrapper input")).prop("disabled", true);
@@ -705,7 +746,7 @@ $(document).ready(function() {
     });
 
     // on info icon click
-    $(".nwa-info-icon").on("click", evt => {
+    $(".nwa-info-icon").on("click", (evt) => {
       if (evt.currentTarget.id === "intervention-icon") {
         window.open(
           "http://nature4climate.s3.amazonaws.com/FAQ/FAQ_NCS%20Interventions.pdf",
@@ -741,7 +782,7 @@ $(document).ready(function() {
     // });
 
     // on full extent button click
-    $("#nwa-fullExtent").on("click", evt => {
+    $("#nwa-fullExtent").on("click", (evt) => {
       worldSvg
         .transition()
         .duration(800)
@@ -750,48 +791,48 @@ $(document).ready(function() {
 
     // global indicators clicks ********************************************
     // on global indicator cb click
-    $(".nwa-global-indicators-cb input").on("click", evt => {
+    $(".nwa-global-indicators-cb input").on("click", (evt) => {
       handleMainGlobalIndicatorsClick(evt);
     });
 
     // socio econmoic options click
-    $(".nwa-socio-main-options input").on("click", evt => {
+    $(".nwa-socio-main-options input").on("click", (evt) => {
       socioOptionsClick(evt);
     });
 
     // ecological options click
-    $(".nwa-eco-main-options input").on("click", evt => {
+    $(".nwa-eco-main-options input").on("click", (evt) => {
       ecologicalOptionsClick(evt);
     });
 
     // sub options clicks
-    $(".nwa-income-sub-options input").on("click", evt => {
+    $(".nwa-income-sub-options input").on("click", (evt) => {
       buildIncomeOptionsArray();
     });
-    $(".nwa-sdgi-sub-options input").on("click", evt => {
+    $(".nwa-sdgi-sub-options input").on("click", (evt) => {
       buildSdgiOptionsArray();
     });
-    $(".nwa-population-sub-options input").on("click", evt => {
+    $(".nwa-population-sub-options input").on("click", (evt) => {
       buildPopulationOptionsArray();
     });
-    $(".nwa-bio-sub-options input").on("click", evt => {
+    $(".nwa-bio-sub-options input").on("click", (evt) => {
       buildBioOptionsArray();
     });
-    $(".nwa-protected-sub-options input").on("click", evt => {
+    $(".nwa-protected-sub-options input").on("click", (evt) => {
       buildProtectedAreaOptionsArray();
     });
-    $(".nwa-ndc-wrapper input").on("click", evt => {
+    $(".nwa-ndc-wrapper input").on("click", (evt) => {
       buildNdcOptionsArray();
     });
 
     // *****************************************************************
     // ndc yes/no click
-    $(".nwa-ndc-submission input").on("click", evt => {
+    $(".nwa-ndc-submission input").on("click", (evt) => {
       app.globalIndicatorValues.ndc_sub = evt.currentTarget.value;
       createArrayOfFieldsFromCBs();
     });
     // info icon click
-    $(".nwa-intervention-info-icon").on("click", evt => {
+    $(".nwa-intervention-info-icon").on("click", (evt) => {
       // toggle info icon based on element visibility
       if ($($(".nwa-intervention-info-icon img")[0]).is(":hidden")) {
         $($(".nwa-intervention-info-icon img")[0]).show();
@@ -807,9 +848,9 @@ $(document).ready(function() {
     $("#chosenSingle")
       .chosen({
         allow_single_deselect: true,
-        width: "209px"
+        width: "209px",
       })
-      .change(function(c) {
+      .change(function (c) {
         countrySelected(c.target.value, "select");
       });
 

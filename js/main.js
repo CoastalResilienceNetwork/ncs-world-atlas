@@ -29,6 +29,7 @@ $(document).ready(function () {
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
+    console.log(data);
     // set country data globally
     app.countryData = data;
     // on zoom
@@ -172,6 +173,11 @@ $(document).ready(function () {
           }
           app.countryValues[v.AlphaISO]["value"] += val;
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
+          app.countryValues[v.AlphaISO]["areaNorm"] =
+            v["Area proportional Max NCS Total"];
+          app.countryValues[v.AlphaISO]["areaDiv"] =
+            v["Area proportional Max NCS Total"] /
+            app.countryValues[v.AlphaISO]["value"];
         });
       });
       filterCountryValuesFromGlobalIndicator();
@@ -179,9 +185,8 @@ $(document).ready(function () {
     // this function filters the data based on a global indicator selection
     function filterCountryValuesFromGlobalIndicator() {
       function filterCountries(col, array) {
-        if (col !== "ndc") {
+        if (col !== "ndc" && col !== "carbon") {
           col = app.countryData.columns[col];
-
           if (array.length > 1) {
             $.each(app.countryData, (i, dataValue) => {
               let query = "";
@@ -220,58 +225,40 @@ $(document).ready(function () {
           }
         } else {
           // if ndc global indicator was selected
-          console.log(array, "another array spot");
-          col = [];
-          $.each($(".nwa-ndc-wrapper input"), (i, v) => {
-            if (v.checked) {
-              // if (v.value === "yes") {
-              //   col.push(34);
-              // } else
-              if (v.value === "yes-m") {
-                col.push(35);
-              } else if (v.value === "yes-a") {
-                col.push(36);
-              } else if (v.value === "enhance") {
-                col.push(37);
-              } else if (v.value === "update") {
-                col.push(38);
-              }
-            }
-            console.log(col);
-          });
-          $.each(app.countryData, (i, dataValue) => {
-            // console.log(dataValue);
-            // console.log(app.countryData.columns[col[0]]);
-            // console.log(app.countryData.columns[col[1]]);
-            // app.countryData.columns[col[1]];
-            // app.countryData.columns[col[2]];
-            // console.log(array);
-
-            // console.log(dataValue[app.countryData.columns[col[0]]]);
-            // console.log(array[0]);
-
-            // console.log(dataValue[app.countryData.columns[col[1]]]);
-            // console.log(dataValue[app.countryData.columns[col[2]]]);
-            // clean array
-            array.forEach((element, i) => {
-              // console.log(element);
-              if (element === "yes-m") {
-                array[i] = "yes";
-              } else if (element === "yes-a") {
-                array[i] = "yes";
+          if (col === "ndc") {
+            col = [];
+            $.each($(".nwa-ndc-wrapper input"), (i, v) => {
+              if (v.checked) {
+                if (v.value === "nature-solutions") {
+                  if (app.newVal) {
+                    col.push(app.globalIndicatorFields.ndc_sub.nat_solutions);
+                  }
+                } else if (v.value === "enhance") {
+                  col.push(app.globalIndicatorFields.ndc_sub.ndc_2020);
+                } else if (v.value === "update") {
+                  col.push(app.globalIndicatorFields.ndc_sub.ndc_update);
+                }
               }
             });
-            console.log(array);
-
+          } else if (col === "carbon") {
+            col = [];
+            $.each($(".nwa-carbon-sub-options input"), (i, v) => {
+              if (v.checked) {
+                if (v.value === "national") {
+                  col.push(app.globalIndicatorFields.carbon.national);
+                } else if (v.value === "sub-national") {
+                  col.push(app.globalIndicatorFields.carbon.subNational);
+                } else if (v.value === "regional") {
+                  col.push(app.globalIndicatorFields.carbon.regional);
+                }
+              }
+            });
+          }
+          $.each(app.countryData, (i, dataValue) => {
             let query = "";
+
             if (col.length === 1) {
               query = dataValue[app.countryData.columns[col[0]]] === array[0];
-              // console.log(
-              //   dataValue[app.countryData.columns[col[0]]],
-              //   "break",
-              //   array[0]
-              // );
-              // console.log(query, "query here");
             } else if (col.length === 2) {
               query =
                 dataValue[app.countryData.columns[col[0]]] === array[0] ||
@@ -281,7 +268,6 @@ $(document).ready(function () {
                 dataValue[app.countryData.columns[col[0]]] === array[0] ||
                 dataValue[app.countryData.columns[col[1]]] === array[1] ||
                 dataValue[app.countryData.columns[col[2]]] === array[2];
-              // console.log(query);
             } else if (col.length === 4) {
               query =
                 dataValue[app.countryData.columns[col[0]]] === array[0] ||
@@ -296,7 +282,6 @@ $(document).ready(function () {
                 dataValue[app.countryData.columns[col[3]]] === array[3] ||
                 dataValue[app.countryData.columns[col[4]]] === array[4];
             }
-            // console.log(app.countryValues);
             if (!query) {
               app.countryValues[dataValue["AlphaISO"]].value = 0;
             }
@@ -310,13 +295,34 @@ $(document).ready(function () {
           if (v.value === "ndc_sub") {
             col = "ndc";
             val = app.globalIndicatorValues.ndc_sub;
-            console.log(val);
-            // $.each($(".nwa-ndc-main-options input"), (i, v) => {
-            //   // if this option is selecetd Countries that include Nature Based Solutions in their NDC
-            //   if (v.value === "yes") {
-            //     console.log("you have selecetd the first one");
-            //   }
-            // });
+            // find out which sub checkboxes are checked under NBS sub options
+            let valArray = [];
+            $.each($(".nwa-include-nbs-sub-options input"), (i, v) => {
+              if (v.checked) {
+                valArray.push(v.value);
+              }
+            });
+            app.newVal = "";
+            if (
+              valArray.includes("adaptation") &&
+              valArray.includes("mitigation")
+            ) {
+              app.newVal = "Mitigation and Adaptation";
+            } else if (valArray.includes("adaptation")) {
+              app.newVal = "Adaptation";
+            } else if (valArray.includes("mitigation")) {
+              app.newVal = "Mitigation";
+            } else {
+              app.newVal = "";
+            }
+            // if new val exists
+            if (app.newVal) {
+              // add to the front of ndc array
+              val.shift();
+              val.unshift(app.newVal);
+            } else {
+              val.shift();
+            }
           }
           if (v.value === "socioeconomic") {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
@@ -347,11 +353,24 @@ $(document).ready(function () {
               }
             });
           }
-          console.log(col, val, "look here for final filter vals");
+          if (v.value === "carbon") {
+            val = [];
+            col = "carbon";
+            $.each($(".nwa-carbon-sub-options input"), (i, v) => {
+              if (v.checked) {
+                if (v.value === "national") {
+                  val.push("yes");
+                } else if (v.value === "sub-national") {
+                  val.push("yes");
+                } else if (v.value === "regional") {
+                  val.push("yes");
+                }
+              }
+            });
+          }
           filterCountries(col, val);
         }
       });
-      console.log(app.countryValues);
       // when finishing filtering country values update map and
       updateChloroplethMap(app.countryValues);
       updateMetric(app.countryValues);
@@ -497,6 +516,7 @@ $(document).ready(function () {
         if (v.checked) {
           if ($("#cost-option")[0].checked) {
             value = parseInt(v.value) + 1;
+          } else if ($("#area-option")[0].checked) {
           } else {
             value = parseInt(v.value);
           }
@@ -607,6 +627,9 @@ $(document).ready(function () {
               }
             });
             break;
+          case "carbon":
+            buildCarbonOptionsArray();
+            $(".nwa-carbon-content").slideDown();
         }
       } else {
         // rebuild the map when these cb's are checked
@@ -649,7 +672,7 @@ $(document).ready(function () {
     // build array of options
     function buildNdcOptionsArray() {
       app.globalIndicatorValues.ndc_sub = [];
-      $.each($(".nwa-ndc-wrapper input"), (i, v) => {
+      $.each($(".nwa-ndc-wrapper-input"), (i, v) => {
         if (v.checked) {
           app.globalIndicatorValues.ndc_sub.push(v.value);
         }
@@ -706,6 +729,18 @@ $(document).ready(function () {
       // rebuild the map when these cb's are checked
       createArrayOfFieldsFromCBs();
     }
+    // build carbon options array
+    function buildCarbonOptionsArray() {
+      app.globalIndicatorValues.carbon = [];
+      // loop through the cbs
+      $.each($(".nwa-carbon-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.carbon.push(v.value);
+        }
+      });
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
+    }
     // build array of options
     function buildProtectedAreaOptionsArray() {
       app.globalIndicatorValues.ecological.protected_area = [];
@@ -732,6 +767,10 @@ $(document).ready(function () {
     // on click of all pathways
     $("#all-option").on("click", (evt) => {
       handleAllPathwaysClick(evt);
+    });
+    // on click of all pathways
+    $("#area-option").on("click", (evt) => {
+      createArrayOfFieldsFromCBs();
     });
     // on click of cost option
     $("#cost-option").on("click", (evt) => {
@@ -818,11 +857,17 @@ $(document).ready(function () {
     $(".nwa-bio-sub-options input").on("click", (evt) => {
       buildBioOptionsArray();
     });
+    $(".nwa-carbon-sub-options input").on("click", (evt) => {
+      buildCarbonOptionsArray();
+    });
     $(".nwa-protected-sub-options input").on("click", (evt) => {
       buildProtectedAreaOptionsArray();
     });
     $(".nwa-ndc-wrapper input").on("click", (evt) => {
       buildNdcOptionsArray();
+    });
+    $(".nwa-bio-sub-options input").on("click", (evt) => {
+      buildCarbonOptionsArray();
     });
 
     // *****************************************************************

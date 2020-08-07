@@ -105,6 +105,11 @@
                                 <div class="check"></div>
                                 <span class="form-text">Cost-effective</span>
                             </label>
+                            <label class="form-component cost-effective-cb" for="area-option">
+                                <input type="checkbox" id="area-option" name="food">
+                                <div class="check"></div>
+                                <span class="form-text">By Area</span>
+                            </label>
                         </div>
                     </div>
                     <div class='nwa-prot-man-rest-wrapper'>
@@ -234,6 +239,12 @@
                             <span class="form-text">Grazing Legumes</span>
                             <!-- <i id="grazing-legumes" class="fas fa-info-circle nwa-info-icon"></i> -->
                         </label>
+                        <label class="form-component" for="u-option">
+                            <input checked type="checkbox" id="u-option" name="intervention-cb" value="32">
+                            <div class="check"></div>
+                            <span class="form-text">Avoided Grassland Conversion</span>
+                            <!-- <i id="grazing-legumes" class="fas fa-info-circle nwa-info-icon"></i> -->
+                        </label>
                     </div>
                 </div>
             </div>
@@ -272,49 +283,49 @@
                         <div class="check"></div>
                         <span class="form-text">Ecological</span>
                     </label>
+                    <br>
+                    <label class="form-component" for="carbon-option">
+                        <input type="checkbox" id="carbon-option" name="intervention-cb" value="carbon">
+                        <div class="check"></div>
+                        <span class="form-text">Carbon Pricing</span>
+                    </label>
                 </div>
 
                 <div class="nwa-global-indicators-content">
                     <div class="nwa-ndc-content nwa-indicator-wrapper">
-                        <div class="nwa-ndc-wrapper ">
-                            <!-- <div>Countries that include Nature Based Solutions in their NDC</div> -->
-                            <label class="form-component nwa-ndc-main-options " for="ndc-mitigation-option">
-                                <input checked type="checkbox" id="ndc-mitigation-option" name="ndc" value="yes-m">
+                        <div class="nwa-ndc-wrapper">
+                            <label class="form-component nwa-ndc-main-options" for="ndc-2020-nbs-option">
+                                <input class="nwa-ndc-wrapper-input" checked type="checkbox" id="ndc-2020-nbs-option"
+                                    name="ndc" value="nature-solutions">
                                 <div class="check"></div>
-                                <span class="form-text">Countries that include Mitigation in their Nature Based
-                                    Solutions in their
-                                    NDC</span>
+                                <span class="form-text">Countries that include Nature Based Solutions in their ND</span>
                             </label>
-                            <label class="form-component nwa-ndc-main-options " for="ndc-adaptation-option">
-                                <input checked type="checkbox" id="ndc-adaptation-option" name="ndc" value="yes-a">
-                                <div class="check"></div>
-                                <span class="form-text">Countries that include Adaptation in their Nature Based
-                                    Solutions in their
-                                    NDC</span>
-                            </label>
-                            <!-- <div class="nwa-ncs-sub-options nwa-ncs-sub-options" style="display: block;">
-                                <label class="form-component" for="ncs-mitigation-option">
-                                    <input checked type="checkbox" id="ncs-mitigation-option" name="ncs-adap-mit"
-                                        value="yes">
+
+                            <div class="nwa-include-nbs-sub-options">
+                                <label class="form-component nwa-ndc-main-options " for="ndc-adaptation-option">
+                                    <input checked type="checkbox" id="ndc-adaptation-option" name="ndc"
+                                        value="adaptation">
                                     <div class="check"></div>
-                                    <span class="form-text">NCS for Mitigation</span>
+                                    <span class="form-text">Adaptation</span>
                                 </label>
-                                <label class="form-component" for="ncs-adaptation-option">
-                                    <input checked type="checkbox" id="ncs-adaptation-option" name="ncs-adap-mit"
-                                        value="yes">
+                                <label class="form-component nwa-ndc-main-options " for="ndc-mitigation-option">
+                                    <input checked type="checkbox" id="ndc-mitigation-option" name="ndc"
+                                        value="mitigation">
                                     <div class="check"></div>
-                                    <span class="form-text">NCS for Adaptation</span>
+                                    <span class="form-text">Mitigation</span>
                                 </label>
-                            </div> -->
-                            <br>
+                            </div>
+
                             <label class="form-component nwa-ndc-main-options" for="ndc-2020-enhance-option">
-                                <input checked type="checkbox" id="ndc-2020-enhance-option" name="ndc" value="enhance">
+                                <input class="nwa-ndc-wrapper-input" checked type="checkbox"
+                                    id="ndc-2020-enhance-option" name="ndc" value="enhance">
                                 <div class="check"></div>
                                 <span class="form-text">Countries that will enhance their NDCs by 2020</span>
                             </label>
                             <br>
                             <label class="form-component nwa-ndc-main-options" for="ndc-2020-update-option">
-                                <input checked type="checkbox" id="ndc-2020-update-option" name="ndc" value="update">
+                                <input class="nwa-ndc-wrapper-input" checked type="checkbox" id="ndc-2020-update-option"
+                                    name="ndc" value="update">
                                 <div class="check"></div>
                                 <span class="form-text">Countries that intend to update their NDCs by 2020</span>
                             </label>
@@ -481,6 +492,28 @@
                             </div>
 
                         </div>
+                    </div>
+                    <div class="nwa-carbon-content nwa-indicator-wrapper">
+                        <h3>Countries with carbon pricing programs</h3>
+                        <div class="nwa-carbon-sub-options">
+                            <label class="form-component" for="national-option">
+                                <input checked type="checkbox" id="national-option" name="food" value="national">
+                                <div class="check"></div>
+                                <span class="form-text">National</span>
+                            </label>
+                            <label class="form-component" for="sub-national-option">
+                                <input checked type="checkbox" id="sub-national-option" name="food"
+                                    value="sub-national">
+                                <div class="check"></div>
+                                <span class="form-text">Sub-national</span>
+                            </label>
+                            <label class="form-component" for="regional-option">
+                                <input checked type="checkbox" id="regional-option" name="food" value="regional">
+                                <div class="check"></div>
+                                <span class="form-text">Regional</span>
+                            </label>
+                        </div>
+
                     </div>
                 </div>
             </div>

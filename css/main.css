@@ -91,7 +91,7 @@ h3 {
 }
 .cost-effective-cb {
   border-left: 0.2px solid #bbb;
-  padding-left: 9px;
+  padding-left: 6px;
 }
 .nwa-prot-man-rest-wrapper {
   margin-top: 9px;
@@ -332,18 +332,13 @@ h3 {
   box-shadow: 2px 2px 1px 0px rgba(204, 204, 204, 0.75);
   background-color: rgb(249, 249, 249);
 }
-/* .nwa-global-indicators-cb {
-} */
 .nwa-global-indicator-content-wrapper {
   display: flex;
-  margin-top: 5px;
 }
 .nwa-indicator-wrapper {
   display: none;
   max-height: 93px;
-  /* margin-left: 20px; */
   margin-top: -15px;
-  /* height: 100%; */
   border-left: 1px solid lightgray;
   padding-left: 20px;
   position: absolute;
@@ -356,18 +351,12 @@ h3 {
 }
 .nwa-socioeconomic-wrapper {
   margin-top: 0px;
-  position: absolute;
-  border-left: 1px solid lightgray;
   margin-left: -20px;
   padding-left: 20px;
 }
 .nwa-ecological-content {
   margin-top: -2px;
 }
-/* .nwa-ndc-wrapper div {
-  font-weight: bold;
-  font-size: 13px;
-} */
 .nwa-ndc-wrapper .toggle-btn {
   margin-left: 5px;
 }
@@ -380,6 +369,10 @@ h3 {
   font-size: 12px;
   margin-bottom: -13px;
   display: none;
+}
+.nwa-include-nbs-sub-options {
+  margin-left: 17px;
+  margin-top: -3px;
 }
 div.tooltip {
   position: absolute;
@@ -504,9 +497,10 @@ div.tooltip {
 
 .form-component {
   position: relative;
-  margin-right: 5px;
+  margin-right: 3px;
   margin-bottom: 5px;
   display: inline-block;
+  font-size: 12px;
 }
 
 .form-component input[type="checkbox"]:checked,

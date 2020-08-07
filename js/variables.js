@@ -10,9 +10,10 @@ app.worldCheckboxFields = {
 
 app.globalIndicatorFields = {
   ndc_sub: {
-    ndc_now: 34,
-    ndc_mitigation: 35,
-    ndc_adaptation: 36,
+    // ndc_now: 36,
+    // ndc_mitigation: 37,
+    // ndc_adaptation: 38,
+    nat_solutions: 36,
     ndc_2020: 37,
     ndc_update: 38,
   },
@@ -25,20 +26,25 @@ app.globalIndicatorFields = {
   //   emmisions_all_cost_effective: 40
   // },
   socioeconomic: {
+    majority_pop: 45,
     income_group: 46,
     sdg_index: 47,
-    majority_pop: 45,
   },
   ecological: {
     // area_proportion_total: 44,
     // area_proportion_total_cost_effective: 45,
-    bio_index: 50,
-    protected_area: 51,
+    bio_index: 48,
+    protected_area: 49,
+  },
+  carbon: {
+    national: 53,
+    subNational: 54,
+    regional: 55,
   },
 };
 
 app.globalIndicatorValues = {
-  ndc_sub: ["yes", "yes", "enhance", "update"],
+  ndc_sub: ["enhance", "update"],
   socioeconomic: {
     income_group: [
       "High income",
@@ -53,6 +59,7 @@ app.globalIndicatorValues = {
     bio_index: ["High", "Upper Middle", "Lower Middle", "Low"],
     protected_area: ["0-1%", "1-5%", "5-10%", "10-20%", ">20%"],
   },
+  carbon: [],
 };
 
 app.helpText = {

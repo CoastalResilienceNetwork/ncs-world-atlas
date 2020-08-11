@@ -3,7 +3,7 @@ function numberWithCommas(x) {
 }
 
 app.worldCheckboxFields = {
-  protect: [4, 26, 28],
+  protect: [4, 26, 28, 32],
   manage: [6, 8, 10, 12, 14, 16, 18, 20, 22],
   restore: [2, 24, 30],
 };
@@ -44,7 +44,7 @@ app.globalIndicatorFields = {
 };
 
 app.globalIndicatorValues = {
-  ndc_sub: ["enhance", "update"],
+  ndc_sub: [],
   socioeconomic: {
     income_group: [
       "High income",

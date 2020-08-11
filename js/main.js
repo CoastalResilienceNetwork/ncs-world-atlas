@@ -108,7 +108,7 @@ $(document).ready(function () {
     function countryOver(evt) {
       let countryValue = app.countryValues[evt.properties.iso_a3].value;
       let countryName = app.countryValues[evt.properties.iso_a3].countryName;
-      countryValue = numberWithCommas(Math.round(countryValue * 10) / 10);
+      countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(2));
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
       d3.select(this).style("fill", "#8C959A");
       // work with the tooltip on hover
@@ -229,6 +229,7 @@ $(document).ready(function () {
             col = [];
             $.each($(".nwa-ndc-wrapper input"), (i, v) => {
               if (v.checked) {
+                console.log(v.value);
                 if (v.value === "nature-solutions") {
                   if (app.newVal) {
                     col.push(app.globalIndicatorFields.ndc_sub.nat_solutions);
@@ -240,6 +241,7 @@ $(document).ready(function () {
                 }
               }
             });
+            console.log(col, array);
           } else if (col === "carbon") {
             col = [];
             $.each($(".nwa-carbon-sub-options input"), (i, v) => {
@@ -317,12 +319,16 @@ $(document).ready(function () {
             }
             // if new val exists
             if (app.newVal) {
-              // add to the front of ndc array
-              val.shift();
-              val.unshift(app.newVal);
+              if (val.includes("nature-solutions")) {
+                val.shift();
+                val.unshift(app.newVal);
+              }
             } else {
-              val.shift();
+              if (val.includes("nature-solutions")) {
+                val.shift();
+              }
             }
+            console.log(val, valArray);
           }
           if (v.value === "socioeconomic") {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
@@ -412,8 +418,9 @@ $(document).ready(function () {
         let countryName = `${
           app.countryValues[app.countrySelected].countryName
         }:`;
+        console.log(app.countryValues[app.countrySelected]);
         let value = ` ${numberWithCommas(
-          Math.round(app.countryValues[app.countrySelected].value)
+          app.countryValues[app.countrySelected].value.toFixed(2)
         )} `;
         $(".nwa-country-name").text(countryName);
         $(".nwa-country-value .nwa-country-value").text(value);

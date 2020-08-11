@@ -374,6 +374,18 @@ h3 {
   margin-left: 17px;
   margin-top: -3px;
 }
+.nwa-ndc-content {
+  margin-top: -9px;
+}
+.nwa-carbon-content {
+  margin-top: 12px;
+}
+.nwa-carbon-sub-options {
+  margin-left: 12px;
+}
+.nwa-global-indicators-content {
+  margin-left: 12px;
+}
 div.tooltip {
   position: absolute;
   text-align: center;

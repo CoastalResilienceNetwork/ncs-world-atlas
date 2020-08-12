@@ -26,8 +26,8 @@
     <div class="main-site-wrapper">
         <div class="nwa-header-wrapper">
             <h1 class="nwa-green-text">Natural Climate Solutions Global Atlas</h1>
-            <div class="nwa-header-subtext nwa-green-text">View the mitigation potential of natural climate solution
-                pathways and selected global indicators.</div>
+            <!-- <div class="nwa-header-subtext nwa-green-text">View the mitigation potential of natural climate solution
+                pathways and selected global indicators.</div> -->
         </div>
 
         <div class="nwa-main-content-wrapper">
@@ -95,24 +95,26 @@
                     </div>
                     <div class="nwa-intervention-main-cb">
                         <div class="nwa-path-cost-cbs-wrapper">
-                            <label class="form-component" for="all-option">
+                            <!-- <label class="form-component" for="all-option">
                                 <input checked type="checkbox" id="all-option" name="food" value="all-pathways">
                                 <div class="check"></div>
                                 <span class="form-text">All Pathways</span>
-                            </label>
-                            <label class="form-component cost-effective-cb" for="cost-option">
+                            </label> -->
+                            <label style="margin-right: 15px;" class="form-component" for="cost-option">
                                 <input type="checkbox" id="cost-option" name="food">
                                 <div class="check"></div>
                                 <span class="form-text">Cost-effective</span>
                             </label>
-                            <label class="form-component cost-effective-cb" for="area-option">
+                            <label style="padding-left: 17px;" class="form-component cost-effective-cb"
+                                for="area-option">
                                 <input type="checkbox" id="area-option" name="food">
                                 <div class="check"></div>
-                                <span class="form-text">By Area</span>
+                                <span class="form-text">Scale by country area</span>
                             </label>
                         </div>
                     </div>
                     <div class='nwa-prot-man-rest-wrapper'>
+
                         <label class="form-component nwa-individual-pathways" for="b-option">
                             <input checked type="checkbox" id="b-option" name="food" value="protect">
                             <div class="check"></div>
@@ -129,6 +131,11 @@
                             <input checked type="checkbox" id="d-option" name="food" value="restore">
                             <div class="check"></div>
                             <span class="form-text">Restore</span>
+                        </label>
+                        <label style="font-weight:bold" class="form-component cost-effective-cb" for="all-option">
+                            <input checked type="checkbox" id="all-option" name="food" value="all-pathways">
+                            <div class="check"></div>
+                            <span class="form-text">All</span>
                         </label>
                     </div>
 
@@ -252,7 +259,7 @@
         </div>
         <div class="nwa-global-indicators-wrapper">
             <div style="display: flex; align-items: center;">
-                <h3>Select a Global Indicator</h3>
+                <h3>Filter countries by:</h3>
                 <div class="">
                     <i class="fas fa-info-circle nwa-info-icon" id="global-icon"></i>
                 </div>
@@ -263,26 +270,26 @@
                     <label class="form-component" for="ndc_sub-option">
                         <input type="checkbox" id="ndc_sub-option" name="intervention-cb" value="ndc_sub">
                         <div class="check"></div>
-                        <span class="form-text">Nationally Determined Contributions</span>
+                        <span class="form-text">Nationally determined contributions</span>
                     </label>
                     <br>
 
                     <label class="form-component" for="socioeconomic-option">
                         <input type="checkbox" id="socioeconomic-option" name="intervention-cb" value="socioeconomic">
                         <div class="check"></div>
-                        <span class="form-text">Socioeconomic</span>
+                        <span class="form-text">Socioeconomic indicators</span>
                     </label>
                     <br>
                     <label class="form-component" for="ecological-option">
                         <input type="checkbox" id="ecological-option" name="intervention-cb" value="ecological">
                         <div class="check"></div>
-                        <span class="form-text">Ecological</span>
+                        <span class="form-text">Ecological indicators</span>
                     </label>
                     <br>
                     <label class="form-component" for="carbon-option">
                         <input type="checkbox" id="carbon-option" name="intervention-cb" value="carbon">
                         <div class="check"></div>
-                        <span class="form-text">Carbon Pricing</span>
+                        <span class="form-text">Carbon pricing programs</span>
                     </label>
                 </div>
 

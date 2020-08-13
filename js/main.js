@@ -174,21 +174,32 @@ $(document).ready(function () {
           }
           app.countryValues[v.AlphaISO]["value"] += val;
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
-          app.countryValues[v.AlphaISO]["areaNorm"] =
-            v["Area proportional Max NCS Total"];
+
+          // console.log(v["Land area"] * 100);
           app.countryValues[v.AlphaISO]["areaValue"] =
-            app.countryValues[v.AlphaISO]["value"] /
-            v["Area proportional Max NCS Total"];
+            (app.countryValues[v.AlphaISO]["value"] / (v["Land area"] * 100)) *
+            1000000;
+          // console.log(
+          //   app.countryValues[v.AlphaISO]["areaValue"],
+          //   "value",
+          //   app.countryValues[v.AlphaISO],
+          //   "-----",
+          //   v["Land area"]
+          // );
         });
+        console.log(app.countryValues);
       });
       let areaDivValues = [];
       $.each(app.countryValues, (i, v) => {
+        console.log(v.areaValue, v);
         if (!isNaN(v.areaValue) && v.areaValue !== Infinity) {
           areaDivValues.push(v.areaValue);
         }
       });
       let max = Math.max(...areaDivValues);
       let valToDivide = max / 2000;
+      console.log(areaDivValues);
+      console.log(max, valToDivide);
 
       $.each(app.countryValues, (i, v) => {
         v.areaValue = v.areaValue / valToDivide;

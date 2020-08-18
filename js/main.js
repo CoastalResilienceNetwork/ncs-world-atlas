@@ -58,7 +58,10 @@ $(document).ready(function () {
       .enter()
       .append("text")
       .attr("class", function (d) {
-        return "nwa-country-labels " + d.properties.name;
+        // remove label from taiwan
+        if (d.properties.iso_a3 !== "TWN") {
+          return "nwa-country-labels " + d.properties.name;
+        }
       })
       .attr("transform", function (d) {
         return "translate(" + worldPath.centroid(d) + ")";
@@ -106,24 +109,45 @@ $(document).ready(function () {
     }
     // on country mouse over
     function countryOver(evt) {
-      let countryValue = app.countryValues[evt.properties.iso_a3].value;
-      let countryName = app.countryValues[evt.properties.iso_a3].countryName;
-      countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(2));
+      let countryValue, countryName;
+      // handle if user hovers over taiwan, show values for china.
+      if (evt.properties.iso_a3 === "TWN") {
+        if ($("#area-option")[0].checked) {
+          countryValue = app.countryValues["CHN"].areaValue;
+        } else {
+          countryValue = app.countryValues["CHN"].value;
+        }
+        countryName = app.countryValues["CHN"].countryName;
+      } else {
+        if ($("#area-option")[0].checked) {
+          countryValue = app.countryValues[evt.properties.iso_a3].areaValue;
+        } else {
+          countryValue = app.countryValues[evt.properties.iso_a3].value;
+        }
+
+        countryName = app.countryValues[evt.properties.iso_a3].countryName;
+      }
+
+      if ($("#area-option")[0].checked) {
+        countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(3));
+      } else {
+        countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(2));
+      }
+
       app.hoverRGB = d3.select(this)._groups[0][0].style.fill;
       d3.select(this).style("fill", "#8C959A");
       // work with the tooltip on hover
       tooltipDiv.transition().duration(200).style("opacity", 0.9);
       // handle a hover over australia
-      if (evt.properties.iso_a3 != "AUS") {
+      if (evt.properties.iso_a3 !== "AUS") {
+        let html = ``;
+        if ($("#area-option")[0].checked) {
+          html = `<div>${countryName} <br> ${countryValue} - t C0<sub>2</sub>e/ha per year</div>`;
+        } else {
+          html = `<div>${countryName}<br> ${countryValue}  - MT CO<sub>2</sub>e/yr</div>`;
+        }
         tooltipDiv
-          .html(
-            "<div>" +
-              countryName +
-              "<br>" +
-              countryValue +
-              " - MT CO<sub>2</sub>e/yr" +
-              "</div>"
-          )
+          .html(html)
           .style("left", d3.event.pageX + "px")
           .style("top", d3.event.pageY - 28 + "px");
       } else {
@@ -175,31 +199,19 @@ $(document).ready(function () {
           app.countryValues[v.AlphaISO]["value"] += val;
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
 
-          // console.log(v["Land area"] * 100);
           app.countryValues[v.AlphaISO]["areaValue"] =
             (app.countryValues[v.AlphaISO]["value"] / (v["Land area"] * 100)) *
             1000000;
-          // console.log(
-          //   app.countryValues[v.AlphaISO]["areaValue"],
-          //   "value",
-          //   app.countryValues[v.AlphaISO],
-          //   "-----",
-          //   v["Land area"]
-          // );
         });
-        console.log(app.countryValues);
       });
       let areaDivValues = [];
       $.each(app.countryValues, (i, v) => {
-        console.log(v.areaValue, v);
         if (!isNaN(v.areaValue) && v.areaValue !== Infinity) {
           areaDivValues.push(v.areaValue);
         }
       });
       let max = Math.max(...areaDivValues);
       let valToDivide = max / 2000;
-      console.log(areaDivValues);
-      console.log(max, valToDivide);
 
       $.each(app.countryValues, (i, v) => {
         v.areaValue = v.areaValue / valToDivide;
@@ -430,9 +442,12 @@ $(document).ready(function () {
         `<option disabled selected hidden value='Global'>Global (all countries)</option>`
       );
       $.each(countryValues, (i, v) => {
-        selectMenu
-          .append(`<option value='${v.AlphaISO}'>${v.countryName}</option>`)
-          .trigger("chosen:updated");
+        // remove taiwan from the dropdown menu
+        if (v.AlphaISO !== "TWN") {
+          selectMenu
+            .append(`<option value='${v.AlphaISO}'>${v.countryName}</option>`)
+            .trigger("chosen:updated");
+        }
       });
       $("#chosenSingle").val("Global");
       $("#chosenSingle").trigger("chosen:updated");
@@ -440,15 +455,45 @@ $(document).ready(function () {
     // this updates the metric above the map for a single country click
     function updateCountrySelectedMetric() {
       if (app.countrySelected) {
-        // update country selected metric
-        let countryName = `${
-          app.countryValues[app.countrySelected].countryName
-        }:`;
-        let value = ` ${numberWithCommas(
-          app.countryValues[app.countrySelected].value.toFixed(2)
-        )} `;
+        let countryName, value;
+        // handle taiwan click
+        if (app.countrySelected === "TWN") {
+          // update country selected metric
+          countryName = `${app.countryValues["CHN"].countryName}:`;
+          if ($("#area-option")[0].checked) {
+            value = ` ${numberWithCommas(
+              app.countryValues["CHN"].areaValue.toFixed(3)
+            )} `;
+          } else {
+            value = ` ${numberWithCommas(
+              app.countryValues["CHN"].value.toFixed(2)
+            )} `;
+          }
+        } else {
+          // update country selected metric
+          countryName = `${
+            app.countryValues[app.countrySelected].countryName
+          }:`;
+          if ($("#area-option")[0].checked) {
+            value = ` ${numberWithCommas(
+              app.countryValues[app.countrySelected].areaValue.toFixed(3)
+            )} `;
+          } else {
+            value = ` ${numberWithCommas(
+              app.countryValues[app.countrySelected].value.toFixed(2)
+            )} `;
+          }
+        }
+
         $(".nwa-country-name").text(countryName);
-        $(".nwa-country-value .nwa-country-value").text(value);
+        let html = ``;
+        if ($("#area-option")[0].checked) {
+          html = `${value} t C0<sub>2</sub>e/ha per year`;
+        } else {
+          html = `${value} MT C0<sub>2</sub>e per year`;
+        }
+
+        $(".nwa-country-value-wrapper").html(html);
 
         // // handle showing the number metric for Australia
         if (
@@ -479,6 +524,10 @@ $(document).ready(function () {
 
       // update link and chosen menu
       if (country) {
+        // handle taiwan click
+        if (country === "TWN") {
+          country = "CHN";
+        }
         // update the chosen menu
         $("#chosenSingle").val(country);
         $("#chosenSingle").trigger("chosen:updated");
@@ -529,6 +578,14 @@ $(document).ready(function () {
               worldWidth / 2 - scale * x,
               worldHeight / 2 - scale * y,
             ];
+
+          // handle if a user clicks on Fiji, the zoom was malfunctioning because
+          // of the island crossing the international date line.
+          // set properties manually
+          if (d.properties.iso_a3 === "FJI") {
+            translate = [-5428.361933816162, -1853.1730368988067];
+            scale = 8;
+          }
 
           worldSvg
             .transition()
@@ -597,6 +654,8 @@ $(document).ready(function () {
       $.each($(".nwa-individual-pathways input"), (i, v) => {
         if (!evt.currentTarget.checked) {
           $(v).prop("checked", false);
+        } else {
+          $(v).prop("checked", true);
         }
       });
       createArrayOfFieldsFromCBs();

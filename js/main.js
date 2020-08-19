@@ -488,9 +488,9 @@ $(document).ready(function () {
         $(".nwa-country-name").text(countryName);
         let html = ``;
         if ($("#area-option")[0].checked) {
-          html = `${value} t C0<sub>2</sub>e/ha per year`;
+          html = `${value} - t C0<sub>2</sub>e/ha per year`;
         } else {
-          html = `${value} MT C0<sub>2</sub>e per year`;
+          html = `${value} - MT C0<sub>2</sub>e per year`;
         }
 
         $(".nwa-country-value-wrapper").html(html);

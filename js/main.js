@@ -29,7 +29,7 @@ $(document).ready(function () {
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
-    console.log(data);
+    // console.log(data);
     // set country data globally
     app.countryData = data;
     // on zoom

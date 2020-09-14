@@ -113,14 +113,15 @@ $(document).ready(function () {
       // handle if user hovers over taiwan, show values for china.
       if (evt.properties.iso_a3 === "TWN") {
         if ($("#area-option")[0].checked) {
-          countryValue = app.countryValues["CHN"].areaValue;
+          countryValue = app.countryValues["CHN"].actualAreaValue;
         } else {
           countryValue = app.countryValues["CHN"].value;
         }
         countryName = app.countryValues["CHN"].countryName;
       } else {
         if ($("#area-option")[0].checked) {
-          countryValue = app.countryValues[evt.properties.iso_a3].areaValue;
+          countryValue =
+            app.countryValues[evt.properties.iso_a3].actualAreaValue;
         } else {
           countryValue = app.countryValues[evt.properties.iso_a3].value;
         }
@@ -129,6 +130,7 @@ $(document).ready(function () {
       }
 
       if ($("#area-option")[0].checked) {
+        console.log(countryValue);
         countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(3));
       } else {
         countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(2));
@@ -182,9 +184,10 @@ $(document).ready(function () {
       $.each(app.countryData, (i, v) => {
         app.countryValues[v.AlphaISO] = {
           value: 0,
-          areaValue: 0,
+          scaledAreaValue: 0,
           countryName: "",
           AlphaISO: v.AlphaISO,
+          actualAreaValue: 0,
         };
       });
 
@@ -199,22 +202,30 @@ $(document).ready(function () {
           app.countryValues[v.AlphaISO]["value"] += val;
           app.countryValues[v.AlphaISO]["countryName"] = v.Country;
 
-          app.countryValues[v.AlphaISO]["areaValue"] =
-            (app.countryValues[v.AlphaISO]["value"] / (v["Land area"] * 100)) *
+          let landArea = parseInt(v["Land area"]);
+          app.countryValues[v.AlphaISO]["scaledAreaValue"] =
+            (app.countryValues[v.AlphaISO]["value"] / (landArea * 100)) *
+            1000000;
+          app.countryValues[v.AlphaISO]["actualAreaValue"] =
+            (app.countryValues[v.AlphaISO]["value"] / (landArea * 100)) *
             1000000;
         });
       });
+
+      console.log(app.countryValues);
+      console.log(app.countryData);
+
       let areaDivValues = [];
       $.each(app.countryValues, (i, v) => {
-        if (!isNaN(v.areaValue) && v.areaValue !== Infinity) {
-          areaDivValues.push(v.areaValue);
+        if (!isNaN(v.scaledAreaValue) && v.scaledAreaValue !== Infinity) {
+          areaDivValues.push(v.scaledAreaValue);
         }
       });
       let max = Math.max(...areaDivValues);
       let valToDivide = max / 2000;
 
       $.each(app.countryValues, (i, v) => {
-        v.areaValue = v.areaValue / valToDivide;
+        v.scaledAreaValue = v.scaledAreaValue / valToDivide;
       });
       filterCountryValuesFromGlobalIndicator();
     }
@@ -428,7 +439,9 @@ $(document).ready(function () {
           }
           if (app.countryValues[d.properties.iso_a3].value != 0) {
             if ($("#area-option")[0].checked) {
-              return stColor(app.countryValues[d.properties.iso_a3].areaValue);
+              return stColor(
+                app.countryValues[d.properties.iso_a3].scaledAreaValue
+              );
             } else {
               return stColor(app.countryValues[d.properties.iso_a3].value);
             }
@@ -462,7 +475,7 @@ $(document).ready(function () {
           countryName = `${app.countryValues["CHN"].countryName}:`;
           if ($("#area-option")[0].checked) {
             value = ` ${numberWithCommas(
-              app.countryValues["CHN"].areaValue.toFixed(3)
+              app.countryValues["CHN"].actualAreaValue.toFixed(3)
             )} `;
           } else {
             value = ` ${numberWithCommas(
@@ -476,7 +489,7 @@ $(document).ready(function () {
           }:`;
           if ($("#area-option")[0].checked) {
             value = ` ${numberWithCommas(
-              app.countryValues[app.countrySelected].areaValue.toFixed(3)
+              app.countryValues[app.countrySelected].actualAreaValue.toFixed(3)
             )} `;
           } else {
             value = ` ${numberWithCommas(

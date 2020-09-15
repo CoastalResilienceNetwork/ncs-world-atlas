@@ -339,12 +339,53 @@
 
                     <div class="nwa-socioeconomic-content nwa-indicator-wrapper">
                         <div class="nwa-socioeconomic-wrapper">
+                            <label class="form-component nwa-socio-main-options" for="governance-option">
+                                <input checked type="radio" id="governance-option" name="food1"
+                                    value="governance_group">
+                                <div class="check"></div>
+                                <span class="form-text">Governance</span>
+                            </label>
+                            <div class="nwa-socio-sub-options nwa-governance-sub-options" style="display: block;">
+                                <label class="form-component" for="governance-high-option">
+                                    <input checked type="checkbox" id="governance-high-option" name="food" value="High">
+                                    <div class="check"></div>
+                                    <span class="form-text">High</span>
+                                </label>
+                                <label class="form-component" for="governance-up-middle-option">
+                                    <input checked type="checkbox" id="governance-up-middle-option" name="food"
+                                        value="Upper middle">
+                                    <div class="check"></div>
+                                    <span class="form-text">Upper Middle</span>
+                                </label>
+                                <label class="form-component" for="governance-middle-option">
+                                    <input checked type="checkbox" id="governance-middle-option" name="food"
+                                        value="Middle">
+                                    <div class="check"></div>
+                                    <span class="form-text">Middle</span>
+                                </label>
+                                <label class="form-component" for="governance-low-middle-option">
+                                    <input checked type="checkbox" id="governance-low-middle-option" name="food"
+                                        value="Lower middle">
+                                    <div class="check"></div>
+                                    <span class="form-text">Lower Middle</span>
+                                </label>
+                                <label class="form-component" for="governance-low-option">
+                                    <input checked type="checkbox" id="governance-low-option" name="food" value="Low">
+                                    <div class="check"></div>
+                                    <span class="form-text">Low</span>
+                                </label>
+
+
+
+                            </div>
+
+                            <br>
                             <label class="form-component nwa-socio-main-options" for="income-option">
-                                <input checked type="radio" id="income-option" name="food1" value="income_group">
+                                <input type="radio" id="income-option" name="food1" value="income_group">
                                 <div class="check"></div>
                                 <span class="form-text">Income Group</span>
                             </label>
-                            <div class="nwa-socio-sub-options nwa-income-sub-options" style="display: block;">
+                            <div class="nwa-socio-sub-options nwa-income-sub-options">
                                 <label class="form-component" for="income-low-option">
                                     <input checked type="checkbox" id="income-low-option" name="food"
                                         value="Low income">

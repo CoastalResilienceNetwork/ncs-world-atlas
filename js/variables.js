@@ -29,6 +29,7 @@ app.globalIndicatorFields = {
     majority_pop: 45,
     income_group: 46,
     sdg_index: 47,
+    governance: 57,
   },
   ecological: {
     // area_proportion_total: 44,
@@ -54,6 +55,7 @@ app.globalIndicatorValues = {
     ],
     sdgi: ["High", "Upper Middle", "Lower Middle", "Low"],
     population: ["Majority Urban", "Majority Rural"],
+    governance: ["High", "Upper middle", "Middle", "Lower middle", "Low"],
   },
   ecological: {
     bio_index: ["High", "Upper Middle", "Lower Middle", "Low"],

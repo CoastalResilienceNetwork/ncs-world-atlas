@@ -29,7 +29,7 @@ $(document).ready(function () {
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
-    // console.log(data);
+    console.log(data);
     // set country data globally
     app.countryData = data;
     // on zoom
@@ -130,7 +130,6 @@ $(document).ready(function () {
       }
 
       if ($("#area-option")[0].checked) {
-        console.log(countryValue);
         countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(3));
       } else {
         countryValue = numberWithCommas(((countryValue * 10) / 10).toFixed(2));
@@ -211,9 +210,6 @@ $(document).ready(function () {
             1000000;
         });
       });
-
-      console.log(app.countryValues);
-      console.log(app.countryData);
 
       let areaDivValues = [];
       $.each(app.countryValues, (i, v) => {
@@ -387,6 +383,9 @@ $(document).ready(function () {
                 } else if (v.value === "population") {
                   col = app.globalIndicatorFields.socioeconomic.majority_pop;
                   val = app.globalIndicatorValues.socioeconomic.majority_pop;
+                } else if (v.value === "governance_group") {
+                  col = app.globalIndicatorFields.socioeconomic.governance;
+                  val = app.globalIndicatorValues.socioeconomic.governance;
                 }
               }
             });
@@ -716,6 +715,8 @@ $(document).ready(function () {
                   buildSdgiOptionsArray();
                 } else if (v.value === "population") {
                   buildPopulationOptionsArray();
+                } else if (v.value === "governance_group") {
+                  buildGovernanceOptionsArray();
                 }
               }
             });
@@ -772,6 +773,8 @@ $(document).ready(function () {
         buildSdgiOptionsArray();
       } else if (evt.currentTarget.value === "population") {
         buildPopulationOptionsArray();
+      } else if (evt.currentTarget.value === "governance_group") {
+        buildGovernanceOptionsArray();
       }
     }
     // build array of options
@@ -817,6 +820,17 @@ $(document).ready(function () {
       $.each($(".nwa-population-sub-options input"), (i, v) => {
         if (v.checked) {
           app.globalIndicatorValues.socioeconomic.majority_pop.push(v.value);
+        }
+      });
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
+    }
+    function buildGovernanceOptionsArray() {
+      app.globalIndicatorValues.socioeconomic.governance = [];
+      // loop through the cbs
+      $.each($(".nwa-governance-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.socioeconomic.governance.push(v.value);
         }
       });
       // rebuild the map when these cb's are checked
@@ -958,6 +972,9 @@ $(document).ready(function () {
     });
     $(".nwa-population-sub-options input").on("click", (evt) => {
       buildPopulationOptionsArray();
+    });
+    $(".nwa-governance-sub-options input").on("click", (evt) => {
+      buildGovernanceOptionsArray();
     });
     $(".nwa-bio-sub-options input").on("click", (evt) => {
       buildBioOptionsArray();

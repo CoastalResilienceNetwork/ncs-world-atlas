@@ -272,14 +272,26 @@ $(document).ready(function () {
             col = [];
             $.each($(".nwa-ndc-wrapper input"), (i, v) => {
               if (v.checked) {
-                if (v.value === "nature-solutions") {
-                  if (app.newVal) {
-                    col.push(app.globalIndicatorFields.ndc_sub.nat_solutions);
-                  }
-                } else if (v.value === "enhance") {
+                if (v.value === "enhance") {
                   col.push(app.globalIndicatorFields.ndc_sub.ndc_2020);
                 } else if (v.value === "update") {
                   col.push(app.globalIndicatorFields.ndc_sub.ndc_update);
+                } else if (v.value === "nature-solutions") {
+                  $.each($(".nwa-include-nbs-sub-options input"), (i, c) => {
+                    if (c.checked) {
+                      if (c.value === "Mitigation") {
+                        col.push(
+                          app.globalIndicatorFields.ndc_sub.ndc_mitigation
+                        );
+                      } else if (c.value === "Adaptation") {
+                        col.push(
+                          app.globalIndicatorFields.ndc_sub.ndc_adaptation
+                        );
+                      } else if (c.value === "Mitigation and Adaptation") {
+                        col.push(app.globalIndicatorFields.ndc_sub.ndc_both);
+                      }
+                    }
+                  });
                 }
               }
             });
@@ -299,7 +311,6 @@ $(document).ready(function () {
           }
           $.each(app.countryData, (i, dataValue) => {
             let query = "";
-
             if (col.length === 1) {
               query = dataValue[app.countryData.columns[col[0]]] === array[0];
             } else if (col.length === 2) {
@@ -342,34 +353,12 @@ $(document).ready(function () {
             let valArray = [];
             $.each($(".nwa-include-nbs-sub-options input"), (i, v) => {
               if (v.checked) {
-                valArray.push(v.value);
+                valArray.unshift(v.value);
               }
             });
-            app.newVal = "";
-            if (
-              valArray.includes("adaptation") &&
-              valArray.includes("mitigation")
-            ) {
-              app.newVal = "Mitigation and Adaptation";
-            } else if (valArray.includes("adaptation")) {
-              app.newVal = "Adaptation";
-            } else if (valArray.includes("mitigation")) {
-              app.newVal = "Mitigation";
-            } else {
-              app.newVal = "";
-            }
-            // if new val exists
-            if (app.newVal) {
-              if (val.includes("nature-solutions")) {
-                val.shift();
-                val.unshift(app.newVal);
-              }
-            } else {
-              // check to see if nature-solutions is in, if so, remove first val
-              if (val.includes("nature-solutions")) {
-                val.shift();
-              }
-            }
+            $.each(valArray, (i, v) => {
+              val.unshift(v);
+            });
           }
           if (v.value === "socioeconomic") {
             $.each($(".nwa-socio-main-options input"), (i, v) => {
@@ -782,7 +771,9 @@ $(document).ready(function () {
       app.globalIndicatorValues.ndc_sub = [];
       $.each($(".nwa-ndc-wrapper-input"), (i, v) => {
         if (v.checked) {
-          app.globalIndicatorValues.ndc_sub.push(v.value);
+          if (v.value !== "nature-solutions") {
+            app.globalIndicatorValues.ndc_sub.push(v.value);
+          }
         }
       });
 

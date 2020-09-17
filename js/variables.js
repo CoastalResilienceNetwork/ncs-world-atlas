@@ -11,11 +11,11 @@ app.worldCheckboxFields = {
 app.globalIndicatorFields = {
   ndc_sub: {
     // ndc_now: 36,
-    // ndc_mitigation: 37,
-    // ndc_adaptation: 38,
-    nat_solutions: 36,
-    ndc_2020: 37,
-    ndc_update: 38,
+    ndc_mitigation: 37,
+    ndc_adaptation: 36,
+    ndc_both: 38,
+    ndc_2020: 39,
+    ndc_update: 40,
   },
   // emmisions: {
   //   emmisions_including_lucf: 35,
@@ -26,21 +26,21 @@ app.globalIndicatorFields = {
   //   emmisions_all_cost_effective: 40
   // },
   socioeconomic: {
-    majority_pop: 45,
-    income_group: 46,
-    sdg_index: 47,
-    governance: 57,
+    majority_pop: 47,
+    income_group: 48,
+    sdg_index: 49,
+    governance: 59,
   },
   ecological: {
     // area_proportion_total: 44,
     // area_proportion_total_cost_effective: 45,
-    bio_index: 48,
-    protected_area: 49,
+    bio_index: 50,
+    protected_area: 51,
   },
   carbon: {
-    national: 53,
-    subNational: 54,
-    regional: 55,
+    national: 55,
+    subNational: 56,
+    regional: 57,
   },
 };
 

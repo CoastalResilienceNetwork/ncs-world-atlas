@@ -465,13 +465,13 @@ div.tooltip {
     margin: auto;
     margin-top: 10px;
     width: 90%;
-    height: auto;
+    height: 264px;
   }
   .nwa-global-indicator-content-wrapper {
     display: block;
   }
   .nwa-global-indicators-content {
-    padding-top: 5px;
+    /* padding-top: 5px; */
   }
   .nwa-ndc-wrapper {
     padding-top: 0;
@@ -484,10 +484,13 @@ div.tooltip {
     padding-bottom: 10px;
     padding-left: 0px;
     margin-left: 0px;
+    margin-top: 10px;
+    padding-top: 10px;
   }
   .nwa-socioeconomic-wrapper {
-    margin-top: 0px;
+    margin-top: 12px;
     position: inherit;
+    width: 300px;
   }
 }
 

@@ -72,7 +72,7 @@ h3 {
   flex-direction: row-reverse;
 }
 .nwa-main-cb-wrapper {
-  width: 275px;
+  width: 285px;
 }
 .nwa-intervention-main-cb {
   display: flex;
@@ -325,7 +325,7 @@ h3 {
 .nwa-global-indicators-wrapper {
   width: 700px;
   height: 112px;
-  margin-left: 297px;
+  margin-left: 305px;
   margin-top: -123px;
   position: relative;
   padding: 5px;
@@ -351,9 +351,9 @@ h3 {
   align-items: center;
 }
 .nwa-socioeconomic-wrapper {
-  margin-top: -7px;
-  margin-left: -20px;
-  padding-left: 20px;
+  margin-top: -20px;
+  margin-left: -4px;
+  padding-left: 15px;
 }
 .nwa-ecological-content {
   margin-top: -2px;

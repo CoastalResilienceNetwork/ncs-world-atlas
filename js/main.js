@@ -24,7 +24,7 @@ $(document).ready(function () {
   d3.queue()
     .defer(d3.json, "data/world.topo.min.json") // Load world topo
     // .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
-    .defer(d3.csv, "data/ncs-world-atlas-data_2.csv") // Load world csv data
+    .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
   // Ready Function, handle data once loaded

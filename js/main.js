@@ -24,12 +24,12 @@ $(document).ready(function () {
   d3.queue()
     .defer(d3.json, "data/world.topo.min.json") // Load world topo
     // .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
-    .defer(d3.csv, "data/ncs-world-atlas-data.csv") // Load world csv data
+    .defer(d3.csv, "data/ncs-world-atlas-data_2.csv") // Load world csv data
     .await(ready); // Run ready function when JSONs are loaded
 
   // Ready Function, handle data once loaded
   function ready(error, geojson, data) {
-    // console.log(data);
+    console.log(data);
     // set country data globally
     app.countryData = data;
     // on zoom
@@ -145,7 +145,7 @@ $(document).ready(function () {
         if ($("#area-option")[0].checked) {
           html = `<div>${countryName} <br> ${countryValue} - t C0<sub>2</sub>e/ha per year</div>`;
         } else {
-          html = `<div>${countryName}<br> ${countryValue}  - MT CO<sub>2</sub>e/yr</div>`;
+          html = `<div>${countryName}<br> ${countryValue}  - Mt CO<sub>2</sub>e/yr</div>`;
         }
         tooltipDiv
           .html(html)
@@ -491,7 +491,7 @@ $(document).ready(function () {
         if ($("#area-option")[0].checked) {
           html = `${value} - t C0<sub>2</sub>e/ha per year`;
         } else {
-          html = `${value} - MT C0<sub>2</sub>e per year`;
+          html = `${value} - Mt C0<sub>2</sub>e per year`;
         }
 
         $(".nwa-country-value-wrapper").html(html);

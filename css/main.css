@@ -403,21 +403,6 @@ div.tooltip {
   align-items: center;
 }
 
-/* australia text */
-.nwa-australia-text-wrapper {
-  display: none;
-  position: absolute;
-  background-color: red;
-  width: 50%;
-  border-radius: 10px;
-  padding: 5px;
-  font-size: 12px;
-  background-color: lightgray;
-  top: 90px;
-  right: 184px;
-  font-weight: bold;
-}
-
 /* media queries */
 @media screen and (max-width: 1000px) {
   .main-site-wrapper {

@@ -139,24 +139,17 @@ $(document).ready(function () {
       d3.select(this).style("fill", "#8C959A");
       // work with the tooltip on hover
       tooltipDiv.transition().duration(200).style("opacity", 0.9);
-      // handle a hover over australia
-      if (evt.properties.iso_a3 !== "AUS") {
-        let html = ``;
-        if ($("#area-option")[0].checked) {
-          html = `<div>${countryName} <br> ${countryValue} - t C0<sub>2</sub>e/ha per year</div>`;
-        } else {
-          html = `<div>${countryName}<br> ${countryValue}  - Mt CO<sub>2</sub>e/yr</div>`;
-        }
-        tooltipDiv
-          .html(html)
-          .style("left", d3.event.pageX + "px")
-          .style("top", d3.event.pageY - 28 + "px");
+
+      let html = ``;
+      if ($("#area-option")[0].checked) {
+        html = `<div>${countryName} <br> ${countryValue} - t C0<sub>2</sub>e/ha per year</div>`;
       } else {
-        tooltipDiv
-          .html("<div>" + countryName)
-          .style("left", d3.event.pageX + "px")
-          .style("top", d3.event.pageY - 28 + "px");
+        html = `<div>${countryName}<br> ${countryValue}  - Mt CO<sub>2</sub>e/yr</div>`;
       }
+      tooltipDiv
+        .html(html)
+        .style("left", d3.event.pageX + "px")
+        .style("top", d3.event.pageY - 28 + "px");
     }
     // on country mouse out
     function countryOut(evt) {
@@ -496,11 +489,7 @@ $(document).ready(function () {
 
         $(".nwa-country-value-wrapper").html(html);
 
-        // // handle showing the number metric for Australia
-        if (
-          app.countryValues[app.countrySelected].value > 0 &&
-          app.countrySelected != "AUS"
-        ) {
+        if (app.countryValues[app.countrySelected].value > 0) {
           $(".nwa-country-value").show();
         } else {
           $(".nwa-country-value").hide();
@@ -511,14 +500,6 @@ $(document).ready(function () {
     }
     // when a country is selecetd
     function countrySelected(country) {
-      // handle if click on australia
-      if (country === "AUS") {
-        $(".nwa-australia-text-wrapper").show();
-      } else if (country === "") {
-        $(".nwa-australia-text-wrapper").hide();
-      } else {
-        $(".nwa-australia-text-wrapper").hide();
-      }
       app.countrySelected = country;
       // update the country selected metric
       updateCountrySelectedMetric();

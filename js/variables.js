@@ -36,6 +36,7 @@ app.globalIndicatorFields = {
     // area_proportion_total_cost_effective: 45,
     bio_index: 50,
     protected_area: 51,
+    flii_index: 60,
   },
   carbon: {
     national: 55,
@@ -59,6 +60,7 @@ app.globalIndicatorValues = {
   },
   ecological: {
     bio_index: ["High", "Upper Middle", "Lower Middle", "Low"],
+    flii_index: ["High", "Upper Middle", "Lower Middle", "Low"],
     protected_area: ["0-1%", "1-5%", "5-10%", "10-20%", ">20%"],
   },
   carbon: [],

@@ -381,6 +381,9 @@ $(document).ready(function () {
                 } else if (v.value === "protected_area") {
                   col = app.globalIndicatorFields.ecological.protected_area;
                   val = app.globalIndicatorValues.ecological.protected_area;
+                } else if (v.value === "flii_index") {
+                  col = app.globalIndicatorFields.ecological.flii_index;
+                  val = app.globalIndicatorValues.ecological.flii_index;
                 }
               }
             });
@@ -699,6 +702,8 @@ $(document).ready(function () {
                   buildBioOptionsArray();
                 } else if (v.value === "protected_area") {
                   buildProtectedAreaOptionsArray();
+                } else if (v.value === "flii_index") {
+                  buildFliiIndexOptionsArray();
                 }
               }
             });
@@ -726,6 +731,8 @@ $(document).ready(function () {
         buildBioOptionsArray();
       } else if (evt.currentTarget.value === "protected_area") {
         buildProtectedAreaOptionsArray();
+      } else if (evt.currentTarget.value === "flii_index") {
+        buildFliiIndexOptionsArray();
       }
     }
     // socio options click
@@ -815,6 +822,18 @@ $(document).ready(function () {
       $.each($(".nwa-bio-sub-options input"), (i, v) => {
         if (v.checked) {
           app.globalIndicatorValues.ecological.bio_index.push(v.value);
+        }
+      });
+      // rebuild the map when these cb's are checked
+      createArrayOfFieldsFromCBs();
+    }
+    // build array of options
+    function buildFliiIndexOptionsArray() {
+      app.globalIndicatorValues.ecological.flii_index = [];
+      // loop through the cbs
+      $.each($(".nwa-flii-sub-options input"), (i, v) => {
+        if (v.checked) {
+          app.globalIndicatorValues.ecological.flii_index.push(v.value);
         }
       });
       // rebuild the map when these cb's are checked
@@ -950,6 +969,9 @@ $(document).ready(function () {
     });
     $(".nwa-bio-sub-options input").on("click", (evt) => {
       buildBioOptionsArray();
+    });
+    $(".nwa-flii-sub-options input").on("click", (evt) => {
+      buildFliiIndexOptionsArray();
     });
     $(".nwa-carbon-sub-options input").on("click", (evt) => {
       buildCarbonOptionsArray();

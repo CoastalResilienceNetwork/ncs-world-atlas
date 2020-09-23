@@ -219,7 +219,7 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Argentina_factsheet.pdf",
     country_name: "Argentina",
-    iso_code: "AGO",
+    iso_code: "ARG",
   },
   {
     link:
@@ -303,7 +303,7 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Botswana_factsheet.pdf",
     country_name: "Botswana",
-    iso_code: "BIH",
+    iso_code: "BWA",
   },
   {
     link:
@@ -327,7 +327,7 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Burkina%20Faso_factsheet.pdf",
     country_name: "Burkina Faso",
-    iso_code: "BGR",
+    iso_code: "BFA",
   },
   {
     link:
@@ -339,19 +339,19 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Cambodia_factsheet.pdf",
     country_name: "Cambodia",
-    iso_code: "BDI",
+    iso_code: "KHM",
   },
   {
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Cameroon_factsheet.pdf",
     country_name: "Cameroon",
-    iso_code: "BDI",
+    iso_code: "CMR",
   },
   {
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Canada_factsheet.pdf",
     country_name: "Canada",
-    iso_code: "BDI",
+    iso_code: "CAN",
   },
   {
     link:
@@ -573,7 +573,7 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Ghana_factsheet.pdf",
     country_name: "Ghana",
-    iso_code: "DEU",
+    iso_code: "GHA",
   },
   {
     link:
@@ -615,7 +615,7 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Guyana_factsheet.pdf",
     country_name: "Guyana",
-    iso_code: "GNB",
+    iso_code: "GUY",
   },
   {
     link:
@@ -873,25 +873,25 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Namibia_factsheet.pdf",
     country_name: "Namibia",
-    iso_code: "MMR",
+    iso_code: "NAM",
   },
   {
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Nepal_factsheet.pdf",
     country_name: "Nepal",
-    iso_code: "MMR",
+    iso_code: "NPL",
   },
   {
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Netherlands_factsheet.pdf",
     country_name: "Netherlands",
-    iso_code: "MMR",
+    iso_code: "NLD",
   },
   {
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/New%20Caledonia_factsheet.pdf",
     country_name: "New Caledonia",
-    iso_code: "MMR",
+    iso_code: "NCL",
   },
   {
     link:
@@ -939,7 +939,7 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Panama_factsheet.pdf",
     country_name: "Panama",
-    iso_code: "PAK",
+    iso_code: "PAN",
   },
   {
     link:
@@ -1251,7 +1251,7 @@ app.countryReportLinks = [
     link:
       "http://nature4climate.s3.amazonaws.com/ctry-factsheets/Vietnam_factsheet.pdf",
     country_name: "Vietnam",
-    iso_code: "VEN",
+    iso_code: "VNM",
   },
   {
     link:

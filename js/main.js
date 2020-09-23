@@ -438,9 +438,10 @@ $(document).ready(function () {
       selectMenu.append(
         `<option disabled selected hidden value='Global'>Global (all countries)</option>`
       );
+      console.log(countryValues);
       $.each(countryValues, (i, v) => {
         // remove taiwan from the dropdown menu
-        if (v.AlphaISO !== "TWN") {
+        if (v.AlphaISO !== "TWN" && v.countryName) {
           selectMenu
             .append(`<option value='${v.AlphaISO}'>${v.countryName}</option>`)
             .trigger("chosen:updated");

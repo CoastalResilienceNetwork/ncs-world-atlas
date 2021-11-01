@@ -1038,9 +1038,6 @@ $(document).ready(function () {
         .duration(800)
         .call(zoom.transform, d3.zoomIdentity.translate(0, 0));
 
-      // $('#chosenSingle').val('');
-      // $('#chosenSingle').trigger('chosen:updated').change();
-      // $('#chosenSingle').trigger('chosen:updated');
       $('#chosenSingle')
         .find('option:first-child')
         .prop('selected', true)

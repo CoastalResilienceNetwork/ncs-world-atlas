@@ -504,6 +504,8 @@ $(document).ready(function () {
       const policy_wrapper = document.querySelector('.nwa-policy-wrapper');
       const policy_body = document.querySelector('.nwa-policy-body');
       const filter_wrapper = document.querySelector('.nwa-filter-wrapper');
+      const ncs_policy_header = document.querySelector('.ncs-policy-header');
+
       if (country) {
         filter_wrapper.style.display = 'none';
         policy_wrapper.style.display = 'block';
@@ -511,6 +513,9 @@ $(document).ready(function () {
         let countryData = app.countryData.filter(
           (data) => data.AlphaISO === country
         );
+        let countryName = countryData[0].Country;
+        let title = `National policies related to Nature-based Solutions – ${countryName}  (Beta)`;
+        ncs_policy_header.innerHTML = title;
         let nbs_policies = countryData[0]['nbs policy'];
         if (nbs_policies.length > 0) {
           nbs_policies = nbs_policies.substring(1);
@@ -523,6 +528,8 @@ $(document).ready(function () {
             policy_body.innerHTML += `<li style="margin-left:2px; margin-bottom:5px;"><a  target="_blank" href="${policy_url}">${policy_name}</a></li>`;
           });
         } else {
+          let title = 'National policies related to Nature-based Solutions';
+          ncs_policy_header.innerHTML = title;
           // show no policies for this country message
           policy_body.innerHTML += `
           <div style="margin-left:2px; margin-bottom:5px;">

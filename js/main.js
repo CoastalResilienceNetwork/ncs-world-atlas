@@ -1049,7 +1049,10 @@ $(document).ready(function () {
 
       document.querySelector('.nwa-country-value').style.display = 'none';
       highlightCountry('');
-      // countrySelected('', 'select');
+      const policy_wrapper = document.querySelector('.nwa-policy-wrapper');
+      const filter_wrapper = document.querySelector('.nwa-filter-wrapper');
+      policy_wrapper.style.display = 'none';
+      filter_wrapper.style.display = 'block';
     });
     //For Chosen options visit https://harvesthq.github.io/chosen/
     //Single deselect only works if the first option in the select tag is blank

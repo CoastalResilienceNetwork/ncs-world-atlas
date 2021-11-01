@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 13px;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   color: #3c464c;
 }
 hr {
@@ -321,12 +321,23 @@ h3 {
   width: 200px;
 }
 /* styles for global indicators */
+.nwa-policy-wrapper {
+  display: none;
+}
+.nwa-filter-wrapper {
+}
+.nwa-policy-body {
+  margin-top: 0px;
+  max-height: 85px;
+  overflow-y: auto;
+}
 
 .nwa-global-indicators-wrapper {
   width: 700px;
-  height: 112px;
+  height: 113px;
+  max-height: 113px;
   margin-left: 305px;
-  margin-top: -123px;
+  margin-top: -126px;
   position: relative;
   padding: 5px;
   border: 1pt solid #bbb;
@@ -504,17 +515,17 @@ div.tooltip {
   font-size: 12px;
 }
 
-.form-component input[type="checkbox"]:checked,
-.form-component input[type="radio"]:checked {
+.form-component input[type='checkbox']:checked,
+.form-component input[type='radio']:checked {
   display: none;
 }
 
-.form-component input[type="checkbox"],
-.form-component input[type="radio"] {
+.form-component input[type='checkbox'],
+.form-component input[type='radio'] {
   display: none;
 }
-.form-component input[type="checkbox"]:checked ~ .check,
-.form-component input[type="radio"]:checked ~ .check {
+.form-component input[type='checkbox']:checked ~ .check,
+.form-component input[type='radio']:checked ~ .check {
   background: #00cc99;
   background: linear-gradient(
         180deg,
@@ -527,8 +538,8 @@ div.tooltip {
     rgba(16, 22, 26, 0.3);
 }
 
-.form-component input[type="checkbox"] ~ .check,
-.form-component input[type="radio"] ~ .check {
+.form-component input[type='checkbox'] ~ .check,
+.form-component input[type='radio'] ~ .check {
   border-radius: 3px;
   width: 12px;
   height: 12px;
@@ -547,10 +558,10 @@ div.tooltip {
 .form-component .form-text {
   cursor: pointer;
 }
-.form-component input[type="radio"] ~ .check {
+.form-component input[type='radio'] ~ .check {
   border-radius: 100%;
 }
-.form-component input[type="radio"]:checked ~ .check:after {
+.form-component input[type='radio']:checked ~ .check:after {
   border-width: 0;
   background-color: #fff;
   border-radius: 100%;
@@ -571,27 +582,27 @@ div.tooltip {
 :before {
   box-sizing: inherit;
 }
-.form-component input[type="checkbox"]:checked ~ .check:after {
+.form-component input[type='checkbox']:checked ~ .check:after {
   display: inline-block;
   width: 4px;
   height: 8px;
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-  content: "";
+  content: '';
   position: absolute;
   left: 3px;
   top: 0px;
 }
 /* .form-component input[type="checkbox"]:checked ~ .check:after, */
-.form-component input[type="radio"]:checked ~ .check:after {
+.form-component input[type='radio']:checked ~ .check:after {
   display: inline-block;
   width: 4px;
   height: 4px;
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-  content: "";
+  content: '';
   position: absolute;
   left: 3px;
   top: 3px;

@@ -533,7 +533,7 @@ $(document).ready(function () {
           // show no policies for this country message
           policy_body.innerHTML += `
           <div style="margin-left:2px; margin-bottom:5px;">
-            There are no NCS policies for this country.
+          No data available.
           </div>`;
         }
       } else {
